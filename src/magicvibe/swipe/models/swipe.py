@@ -27,7 +27,7 @@ class Swipe(CreatedAtMixin, Base):
         UniqueConstraint(from_user_id, to_user_id, name="uq_swipe_pair"),
         CheckConstraint(from_user_id != to_user_id, name="not_self"),
         CheckConstraint(
-            or_(is_super == False, action == SwipeAction.LIKE),
+            or_(is_super.is_(False), action == SwipeAction.LIKE),
             name="super_only_on_like",
         ),
         CheckConstraint(
