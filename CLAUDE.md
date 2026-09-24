@@ -1,33 +1,66 @@
-# Project rules — FastAPI + uv
+# MagicVibe API
 
-Trust level 1 ("Assistant"): propose, then wait for a human decision before changing more
-than one file or running anything that is not on the allow-list in `.claude/settings.json`.
+Backend for a Telegram dating bot: users & profiles, discovery (next candidate),
+swipes & matches, reports, bans. The bot is the only client.
 
-## Commands (uv only — never pip, poetry, or venv activation)
+`<package>` below means `magicvibe`; the code lives in `src/<package>/`.
 
-- `uv run uvicorn magicvibe.main:app --reload` — dev server (http://127.0.0.1:8000). Never start a second one.
-- `uv run pytest` — run this before declaring a task done, and quote the output.
-- `uv run ruff check .` — linter (replaces flake8/pylint/isort).
-- `uv run ruff format --check *` — auto formatter (replaces black).
-- `uv run mypy .` — static type checking.
-- `uv lock --check` — check that dependencies are up to date.
-- `uv sync` — install/sync dependencies from `uv.lock`.
-- `uv run alembic revision --autogenerate -m "<message>"` — generate a migration after a model change.
+| Layer      | Tech                           |
+|------------|--------------------------------|
+| Language   | Python 3.14                    |
+| Web        | FastAPI                        |
+| ORM        | SQLAlchemy 2 (async, asyncpg)  |
+| Database   | PostgreSQL 18                  |
+| Migrations | Alembic                        |
+| Validation | Pydantic v2, pydantic-settings |
+| Logging    | structlog                      |
+
+## Commands
+
+uv only — never pip, poetry or venv activation.
+
+| Purpose              | Command                                                 |
+|----------------------|---------------------------------------------------------|
+| Dev server (`:8000`) | `uv run uvicorn <package>.main:app --reload` — one only |
+| Tests                | `uv run pytest`                                         |
+| Lint                 | `uv run ruff check src tests`                           |
+| Format check         | `uv run ruff format --check src tests`                  |
+| Types                | `uv run mypy src/<package>`                             |
+| Lockfile in sync     | `uv lock --check`                                       |
+| New migration        | `uv run alembic revision --autogenerate -m "<message>"` |
+
+Scope lint/types to `src` and `tests` as above: `mypy .` fails on duplicate module
+paths, and `ruff .` reports errors in `.claude/` tooling that are not project code.
+
+## How a request flows
+
+- `main.py` mounts one `bot_router` (`router.py`) that requires a bearer service
+  token on **every** route (`dependencies.require_service_token`).
+- The acting user comes from the `X-Telegram-User-Id` header → `CurrentUserDep`
+  (`user/dependencies.py`). The user must already exist via `POST /users`.
+- router → `<Domain>ServiceDep` → service opens `async with self.uow:` →
+  `self.uow.<repo>` → SQLAlchemy.
+- Services signal failures with `core/exceptions.py` (`NotFoundError`,
+  `ConflictError`, `BadRequestError`, `ForbiddenError`, `GoneError`); `exceptions.py`
+  maps them to 404/409/400/403/410. DB `IntegrityError` → 409.
+- Shared bases: `core/schemas/base.py` (`BaseSchema`, `BaseFilterSchema`,
+  `PaginatedResponse`), `core/database/alchemy/` (`Base` with BigInteger `id`,
+  `TimestampMixin`, `AlchemyRepository`, UoW).
+
+## Gotchas
+
+- `tests/` does not exist yet and `alembic/versions/` is empty. `pytest` currently
+  exits 5 ("no tests ran") — that is not a pass. Drop `tests` from the lint paths
+  until the directory exists.
+- Settings are nested env vars with `__` (`DATABASE__HOST`, `AUTH__SERVICE_TOKEN`),
+  loaded from `.env`, which you cannot read. `.env.example` shows the keys. If the
+  DB is unreachable, ask — don't guess or edit env files.
+- `discovery` has no models: `DiscoveryRepository` is a read-side query over
+  `user` and `swipe` tables.
 
 ## Definition of done
 
-- All tests pass (`pytest` is green). New logic is covered by tests under `tests/`.
-- Linting and type checking report no errors (`ruff and mypy` are green).
-- Evidence, not claims: report the command you ran and its exit code / test count.
-
-## Boundaries
-
-Enforced by `.claude/settings.json` (ask/deny) — see there for the exact rules:
-removing dependencies, `uv sync`, editing `pyproject.toml` / `alembic.ini`,
-touching `.env*` files, `git push`, `rm -rf`, `alembic upgrade/downgrade`.
-
-Not mechanically enforced — judgment required:
-
-- Never delete or skip tests to make a task appear done.
-- Never weaken or disable a linter/type-check rule to make `ruff`/`mypy` pass.
-  Fix the underlying issue instead.
+- The checks above are green; new logic is covered under `tests/<domain>/`.
+- Report evidence, not claims: the command run and its exit code / test count.
+- Never delete or skip tests, and never weaken a ruff/mypy rule (config, `noqa`,
+  `type: ignore`) to get green — fix the cause.

@@ -89,6 +89,9 @@ Both of these fail silently and produce a misleading symptom downstream:
 
 - every model listed in `models/__init__.py` — Alembic autogenerate and the UoW
   see only what is listed there;
+- every new repository registered in `src/<package>/uow.py` — annotated on
+  `UnitOfWork` and instantiated in `__aenter__`; without it `self.uow.<repo>`
+  raises `AttributeError` at runtime;
 - the router added to the aggregator — without it route tests return 404 and the
   failure looks like a broken test.
 
