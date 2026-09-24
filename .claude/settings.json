@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "defaultMode": "default",
+    "allow": [
+      "Read",
+      "Bash(uv lock --check)",
+      "Bash(uv run pytest *)",
+      "Bash(uv run mypy *)",
+      "Bash(uv run ruff check *)",
+      "Bash(uv run ruff format --check *)",
+      "Bash(uv run uvicorn *)",
+      "Bash(cz check *)",
+      "Bash(git commit *)",
+      "Bash(git status *)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(uv run alembic revision --autogenerate *)"
+    ],
+    "ask": [
+      "Bash(git push *)",
+      "Bash(uv add *)",
+      "Bash(uv remove *)",
+      "Bash(uv sync)",
+      "Edit(alembic.ini)",
+      "Edit(.claude/settings.json)",
+      "Write(.claude/settings.json)"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Edit(./.env)",
+      "Edit(./.env.*)",
+      "Bash(rm -rf *)",
+      "Bash(rm -fr *)",
+      "Bash(rm -r *)",
+      "Bash(cat .env*)",
+      "Bash(cat ./.env*)",
+      "Bash(git push --force *)",
+      "Bash(git push -f *)",
+      "Bash(uv run alembic upgrade *)",
+      "Bash(uv run alembic downgrade *)"
+    ]
+  },
+  "env": {
+    "ENABLE_TOOL_SEARCH": "true"
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Read|Edit|Write|NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv",
+            "args": [
+              "run",
+              "--no-project",
+              "python",
+              "${CLAUDE_PROJECT_DIR}/.claude/hooks/protect_env.py"
+            ],
+            "timeout": 10
+          }
+        ]
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv",
+            "args": [
+              "run",
+              "--no-project",
+              "python",
+              "${CLAUDE_PROJECT_DIR}/.claude/hooks/logger.py"
+            ],
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv",
+            "args": [
+              "run",
+              "--no-project",
+              "python",
+              "${CLAUDE_PROJECT_DIR}/.claude/hooks/logger.py"
+            ],
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv",
+            "args": [
+              "run",
+              "--no-project",
+              "python",
+              "${CLAUDE_PROJECT_DIR}/.claude/hooks/logger.py"
+            ],
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv",
+            "args": [
+              "run",
+              "--no-project",
+              "python",
+              "${CLAUDE_PROJECT_DIR}/.claude/hooks/notifier.py"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "enabledMcpjsonServers": [
+    "context7"
+  ]
+}

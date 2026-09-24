@@ -1,0 +1,89 @@
+[project]
+name = "magicvibe"
+version = "0.0.0"
+requires-python = ">=3.14"
+dependencies = [
+    "alembic>=1.19.2",
+    "asyncpg>=0.31.0",
+    "fastapi>=0.141.1",
+    "pydantic>=2.13.5",
+    "pydantic-settings>=2.15.0",
+    "sqlalchemy[asyncio]>=2.0.52",
+    "structlog>=26.1.0",
+    "uvicorn[standard]>=0.52.4",
+]
+
+[build-system]
+requires = ["uv_build>=0.12.11,<0.13"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    { include-group = "lint" },
+    { include-group = "test" }
+]
+lint = [
+    "commitizen>=4.18.0",
+    "mypy>=2.3.1",
+    "pre-commit>=4.6.2",
+    "ruff>=0.16.6",
+]
+release = [
+    "python-semantic-release>=10.6.2",
+]
+test = [
+    "httpx>=0.28.1",
+    "pytest>=9.1.1",
+    "pytest-asyncio>=1.4.0",
+]
+
+[tool.ruff]
+exclude = ["alembic/"]
+
+[tool.ruff.lint]
+select = [
+    "B",
+    "E",
+    "F",
+    "G",
+    "I",
+    "UP",
+    "TC",
+    "C4",
+    "PT",
+    "DTZ",
+    "RUF",
+    "PIE",
+    "SIM",
+    "RET",
+    "ERA",
+    "RSE",
+    "SLF",
+    "FAST",
+    "ASYNC"
+]
+extend-ignore = ["TC001", "TC002"]
+
+[tool.ruff.lint.flake8-type-checking]
+runtime-evaluated-base-classes = ["capstone.core.database.alchemy.models.Base"]
+
+[tool.mypy]
+python_version = "3.14"
+plugins = ["pydantic.mypy"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+
+[tool.semantic_release]
+version_toml = ["pyproject.toml:project.version"]
+allow_zero_version = true
+major_on_zero = false
+commit_message = "chore(release): {version}"
+build_command = """
+    uv lock --upgrade-package "$PACKAGE_NAME"
+    git add uv.lock
+"""
+
+[tool.commitizen]
+name = "cz_conventional_commits"

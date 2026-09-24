@@ -1,0 +1,16 @@
+from fastapi import APIRouter, Depends
+
+from .ban.router import router as ban_router
+from .dependencies import require_service_token
+from .discovery.router import router as discovery_router
+from .report.router import router as report_router
+from .swipe.router import router as swipe_router
+from .user.router import router as user_router
+
+bot_router = APIRouter(dependencies=[Depends(require_service_token)])
+
+bot_router.include_router(user_router)
+bot_router.include_router(swipe_router)
+bot_router.include_router(discovery_router)
+bot_router.include_router(report_router)
+bot_router.include_router(ban_router)
