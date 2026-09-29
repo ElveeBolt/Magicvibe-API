@@ -2,6 +2,19 @@
 
 <!-- version list -->
 
+## v0.0.4 (2026-09-29)
+
+### Bug Fixes
+
+- **user**: Delete accounts for good and keep banned users' data
+  ([`75d88ce`](https://github.com/ElveeBolt/Magicvibe-API/commit/75d88ce86d42cde6f574523e48aa115ac6fc86f7))
+
+### Documentation
+
+- **user**: Propose align-accounts
+  ([`0689c01`](https://github.com/ElveeBolt/Magicvibe-API/commit/0689c01c42b796e9162d9f15424d608880ad9fef))
+
+
 ## v0.0.3 (2026-09-29)
 
 ### Bug Fixes

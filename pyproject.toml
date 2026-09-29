@@ -1,6 +1,6 @@
 [project]
 name = "magicvibe"
-version = "0.0.3"
+version = "0.0.4"
 requires-python = ">=3.14"
 dependencies = [
     "alembic>=1.19.2",
