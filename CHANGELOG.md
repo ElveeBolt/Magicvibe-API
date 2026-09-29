@@ -2,6 +2,19 @@
 
 <!-- version list -->
 
+## v0.0.5 (2026-09-29)
+
+### Bug Fixes
+
+- Keep one open report per user and bans without an end date
+  ([`4b216dd`](https://github.com/ElveeBolt/Magicvibe-API/commit/4b216dde99e61a072f898486d0807d341e5e756d))
+
+### Documentation
+
+- Propose align-reports-and-bans
+  ([`9e713c3`](https://github.com/ElveeBolt/Magicvibe-API/commit/9e713c3cd5a763f6361a8c57b096cae256304426))
+
+
 ## v0.0.4 (2026-09-29)
 
 ### Bug Fixes
