@@ -76,7 +76,9 @@ A request that does not pass the schema returns 400 with `VALIDATION_ERROR` and 
 }
 ```
 
-- `field` is the path to the value, dot-separated for nested fields (`preference.min_age`).
+- `field` is the path to the value inside its request part, dot-separated for nested fields (`preference.min_age`).
+  The part itself (`body`, `query`, `path`, `header`) is not included. It is empty when the problem concerns the
+  whole object (for example `min_age` greater than `max_age`).
 - `type` is the Pydantic error type (`string_too_long`, `greater_than_equal`, `extra_forbidden`, …). The bot branches
   on it, not on `message`.
 

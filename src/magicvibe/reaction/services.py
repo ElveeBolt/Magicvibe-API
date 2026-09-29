@@ -1,6 +1,11 @@
 from typing import TYPE_CHECKING
 
-from ..core.exceptions import BadRequestError, ConflictError, NotFoundError
+from ..core.exceptions import (
+    BadRequestError,
+    ConflictError,
+    ErrorCode,
+    NotFoundError,
+)
 from ..core.schemas.base import PaginatedResponse
 from .enums import ReactionAction
 from .schemas.reaction import (
@@ -26,7 +31,9 @@ class ReactionService:
     ) -> ReactionResultReadSchema:
         """Record a reaction by `user_id` (already authenticated) and detect a match."""
         if user_id == data.to_user_id:
-            raise BadRequestError("A user cannot reaction themselves")
+            raise BadRequestError(
+                "A user cannot react to themselves", code=ErrorCode.SELF_ACTION
+            )
 
         async with self.uow:
             target_user = await self.uow.user.get(id_=data.to_user_id)
@@ -37,7 +44,10 @@ class ReactionService:
                 {**data.model_dump(), "from_user_id": user_id}
             )
             if reaction is None:
-                raise ConflictError("User already reactiond this profile")
+                raise ConflictError(
+                    "User already reacted to this profile",
+                    code=ErrorCode.ALREADY_REACTED,
+                )
 
             is_match = data.action == ReactionAction.LIKE and await self._liked_back(
                 from_user_id=user_id, to_user_id=data.to_user_id

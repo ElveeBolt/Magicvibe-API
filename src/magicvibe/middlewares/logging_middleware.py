@@ -31,6 +31,8 @@ class LoggingMiddleware:
         structlog.contextvars.bind_contextvars(
             request_id=request_id, method=method, path=path
         )
+        # The 500 handler runs outside this middleware and reads it from here.
+        scope.setdefault("state", {})["request_id"] = request_id
 
         started_at = time.perf_counter()
         status_code = 500
