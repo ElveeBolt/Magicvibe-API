@@ -2,6 +2,19 @@
 
 <!-- version list -->
 
+## v0.2.1 (2026-09-29)
+
+### Bug Fixes
+
+- **discovery**: Match both ways on all preferences in random order
+  ([`fb4b272`](https://github.com/ElveeBolt/Magicvibe-API/commit/fb4b2721ddd275fbcc21494f18828df5840b791a))
+
+### Documentation
+
+- **discovery**: Propose align-discovery
+  ([`44096f9`](https://github.com/ElveeBolt/Magicvibe-API/commit/44096f9ee853af6a45d81239f35da97ca71020dc))
+
+
 ## v0.2.0 (2026-09-29)
 
 ### Documentation
