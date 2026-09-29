@@ -38,7 +38,7 @@ class BanService(
             if user is None:
                 raise NotFoundError("User not found")
 
-            if await self.repository.has_unlifted(data.user_id):
+            if await self.repository.get_active(data.user_id) is not None:
                 raise ConflictError(
                     "User already has an active ban; update it instead",
                     code=ErrorCode.BAN_ALREADY_ACTIVE,

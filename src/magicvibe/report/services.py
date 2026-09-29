@@ -32,7 +32,9 @@ class ReportService(
 
     async def create_by_reporter_id(
         self, reporter_id: int, data: ReportCreateSchema
-    ) -> ReportReadSchema:
+    ) -> tuple[ReportReadSchema, bool]:
+        """Files a report; while the reporter's earlier report against the
+        same target is open, returns that one instead of a second."""
         if reporter_id == data.target_id:
             raise BadRequestError(
                 "A user cannot report themselves", code=ErrorCode.SELF_ACTION
@@ -42,7 +44,17 @@ class ReportService(
             if not await self.uow.user.exists(id_=data.target_id):
                 raise NotFoundError("Target user not found")
 
-            report = await self.repository.create(
-                {**data.model_dump(), "reporter_id": reporter_id}
-            )
-            return self._to_schema(report)
+            values = {**data.model_dump(), "reporter_id": reporter_id}
+
+            # The open report that blocked the insert may be closed before it
+            # is read; then the insert is simply tried again.
+            while True:
+                report = await self.repository.create_if_no_open(values)
+
+                if report is not None:
+                    return self._to_schema(report), True
+
+                existing = await self.repository.get_open(reporter_id, data.target_id)
+
+                if existing is not None:
+                    return self._to_schema(existing), False

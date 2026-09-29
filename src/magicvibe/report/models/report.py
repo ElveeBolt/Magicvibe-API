@@ -29,5 +29,13 @@ class Report(TimestampMixin, Base):
 
     __table_args__ = (
         CheckConstraint(reporter_id != target_id, name="not_self"),
+        # One open report per reporter and target.
+        Index(
+            None,
+            reporter_id,
+            target_id,
+            unique=True,
+            postgresql_where=status == ReportStatus.OPEN,
+        ),
         Index(None, status, "created_at"),
     )

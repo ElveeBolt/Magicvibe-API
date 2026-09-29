@@ -18,7 +18,6 @@ class Ban(TimestampMixin, Base):
         enum_type(BanReason, name="ban_reason_enum")
     )
     comment: Mapped[str | None] = mapped_column(String(MAX_COMMENT_LENGTH))
-    expires_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     lifted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     lift_comment: Mapped[str | None] = mapped_column(String(MAX_COMMENT_LENGTH))
 
