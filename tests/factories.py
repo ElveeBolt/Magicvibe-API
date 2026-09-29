@@ -14,7 +14,7 @@ from magicvibe.region.enums import RegionCodeType
 from magicvibe.region.models import Region, RegionCity
 from magicvibe.report.enums import ReportReason, ReportStatus
 from magicvibe.report.models import Report
-from magicvibe.user.enums import UserProfileGender, UserStatus
+from magicvibe.user.enums import DatingGoal, UserProfileGender, UserStatus
 from magicvibe.user.models import User, UserPreference, UserProfile, UserTelegram
 
 if TYPE_CHECKING:
@@ -52,14 +52,21 @@ async def create_profile(
     name: str = "Test",
     birth_date: date = date(2000, 1, 1),
     gender: UserProfileGender = UserProfileGender.FEMALE,
-    bio: str = "Bio",
+    city: RegionCity | None = None,
+    dating_goal: DatingGoal = DatingGoal.RELATIONSHIP,
+    bio: str | None = "Bio",
     is_visible: bool = True,
 ) -> UserProfile:
+    """A complete profile; a made-up city is created when none is given."""
+    if city is None:
+        city = await create_city(session, await create_region(session))
     profile = UserProfile(
         user_id=user.id,
         name=name,
         birth_date=birth_date,
         gender=gender,
+        city_id=city.id,
+        dating_goal=dating_goal,
         bio=bio,
         is_visible=is_visible,
     )
@@ -75,9 +82,17 @@ async def create_preference(
     min_age: int = 18,
     max_age: int = 100,
     gender: UserProfileGender | None = None,
+    city: RegionCity | None = None,
+    dating_goal: DatingGoal | None = None,
 ) -> UserPreference:
+    """Preferences; every criterion left out means "any"."""
     preference = UserPreference(
-        user_id=user.id, min_age=min_age, max_age=max_age, gender=gender
+        user_id=user.id,
+        min_age=min_age,
+        max_age=max_age,
+        gender=gender,
+        city_id=city.id if city is not None else None,
+        dating_goal=dating_goal,
     )
     session.add(preference)
     await session.commit()
