@@ -26,8 +26,12 @@ class ReportCreateSchema(BaseSchema):
     comment: Comment | None = None
 
 
+# Reviewing closes a report; it is never set back to open.
+type ReviewStatus = Literal[ReportStatus.RESOLVED, ReportStatus.DISMISSED]
+
+
 class ReportUpdateSchema(BaseUpdateSchema):
-    status: Annotated[ReportStatus | None, NonNullable] = None
+    status: Annotated[ReviewStatus | None, NonNullable] = None
 
 
 class ReportFilterSchema(BaseFilterSchema):

@@ -1,6 +1,6 @@
 from typing import Annotated
 
-from fastapi import APIRouter, Query, status
+from fastapi import APIRouter, Query, Response, status
 
 from ..core.schemas.base import PaginatedResponse
 from ..user.dependencies import CurrentUserDep
@@ -27,11 +27,30 @@ async def get_report(service: ReportServiceDep, report_id: int):
     return await service.get(id_=report_id)
 
 
-@router.post("", response_model=ReportReadSchema, status_code=status.HTTP_201_CREATED)
+@router.post(
+    "",
+    response_model=ReportReadSchema,
+    responses={
+        status.HTTP_200_OK: {
+            "description": "The reporter's open report already exists"
+        },
+        status.HTTP_201_CREATED: {
+            "model": ReportReadSchema,
+            "description": "Report filed",
+        },
+    },
+)
 async def create_report(
-    service: ReportServiceDep, current_user: CurrentUserDep, data: ReportCreateSchema
+    service: ReportServiceDep,
+    current_user: CurrentUserDep,
+    data: ReportCreateSchema,
+    response: Response,
 ):
-    return await service.create_by_reporter_id(reporter_id=current_user.id, data=data)
+    report, is_created = await service.create_by_reporter_id(
+        reporter_id=current_user.id, data=data
+    )
+    response.status_code = status.HTTP_201_CREATED if is_created else status.HTTP_200_OK
+    return report
 
 
 @router.patch("/{report_id}", response_model=ReportReadSchema)
