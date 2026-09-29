@@ -2,6 +2,19 @@
 
 <!-- version list -->
 
+## v0.1.0 (2026-09-29)
+
+### Documentation
+
+- **region**: Propose add-regions
+  ([`9d4815a`](https://github.com/ElveeBolt/Magicvibe-API/commit/9d4815afe67b0c15e72d0fd32795af6d8d439e29))
+
+### Features
+
+- **region**: Add regions and cities from KATOTTH
+  ([`9de9bc8`](https://github.com/ElveeBolt/Magicvibe-API/commit/9de9bc83ef1d29ce3b2732225bfc0b3ca2c4289c))
+
+
 ## v0.0.5 (2026-09-29)
 
 ### Bug Fixes
