@@ -187,6 +187,8 @@ rejected with an error.
   images are not required.
 - **Two-way fit:** the other person must match the user's discovery preferences, **and** the user must match the other
   person's discovery preferences.
+- A user who has not set discovery preferences yet is not shown to others: the fit in their direction cannot be
+  checked. They appear as soon as they set preferences.
 - A profile the user has already reacted to is not shown again while the reaction exists. Reactions are deleted when
   either account is deleted (see 6.1).
 - To browse, the user needs a profile with all required fields filled in and discovery preferences. Hidden users can

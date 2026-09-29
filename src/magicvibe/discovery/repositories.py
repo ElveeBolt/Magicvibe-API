@@ -1,10 +1,9 @@
 from typing import Any
 
-from sqlalchemy import ColumnElement, and_, exists, func, or_, select
+from sqlalchemy import ColumnElement, and_, func, or_, select
 from sqlalchemy.orm import contains_eager
 
 from ..core.database.alchemy.repository import AlchemyRepository
-from ..reaction.enums import ReactionAction
 from ..reaction.models import Reaction
 from ..user.enums import UserStatus
 from ..user.models import User, UserPreference, UserProfile
@@ -16,16 +15,20 @@ class DiscoveryRepository(AlchemyRepository[User, int]):
     async def get_next_candidate(
         self, user_id: int, filters: dict[str, Any]
     ) -> User | None:
+        """A random candidate for `user_id`, or `None`. The inner joins leave
+        out users without a profile or without preferences: the fit in their
+        direction cannot be checked."""
         stmt = (
             select(User)
             .join(User.profile)
-            .options(contains_eager(User.profile))
+            .join(User.preference)
+            .options(contains_eager(User.profile), contains_eager(User.preference))
             .where(
                 self._eligible(user_id),
                 self._wanted(filters),
                 self._accepted_by(filters),
             )
-            .order_by(*self._ranking(user_id))
+            .order_by(func.random())
             .limit(1)
         )
         result = await self._session.execute(stmt)
@@ -34,7 +37,7 @@ class DiscoveryRepository(AlchemyRepository[User, int]):
     @staticmethod
     def _eligible(user_id: int) -> ColumnElement[bool]:
         """Whom the platform may show at all: an active, visible profile that is
-        neither the viewer nor someone they already reacted."""
+        neither the viewer nor someone they already reacted to."""
         reacted = select(Reaction.to_user_id).where(Reaction.from_user_id == user_id)
         return and_(
             User.status == UserStatus.ACTIVE,
@@ -45,45 +48,35 @@ class DiscoveryRepository(AlchemyRepository[User, int]):
 
     @staticmethod
     def _wanted(filters: dict[str, Any]) -> ColumnElement[bool]:
-        """Narrowing the viewer asked for: the age window always applies, gender
-        only when they picked one."""
+        """The viewer's preferences applied to the candidate; a criterion the
+        viewer left as "any" (`None`) does not narrow anything."""
         conditions = [
             UserProfile.birth_date > filters["earliest_birth_date"],
             UserProfile.birth_date <= filters["latest_birth_date"],
         ]
-
-        if (gender := filters.get("gender")) is not None:
-            conditions.append(UserProfile.gender == gender)
+        for column, key in (
+            (UserProfile.gender, "gender"),
+            (UserProfile.city_id, "city_id"),
+            (UserProfile.dating_goal, "dating_goal"),
+        ):
+            if (value := filters[key]) is not None:
+                conditions.append(column == value)
 
         return and_(*conditions)
 
     @staticmethod
     def _accepted_by(filters: dict[str, Any]) -> ColumnElement[bool]:
-        """Candidates whose own criteria do not rule the viewer out.
-
-        Phrased as "no preference of theirs rejects me" rather than "their
-        preference accepts me", so a candidate who never set any criteria passes
-        without a special case, exactly like an unrestricted one.
-        """
-        return ~exists().where(
-            UserPreference.user_id == User.id,
-            or_(
-                UserPreference.min_age > filters["viewer_age"],
-                UserPreference.max_age < filters["viewer_age"],
-                and_(
-                    UserPreference.gender.isnot(None),
-                    UserPreference.gender != filters["viewer_gender"],
-                ),
+        """The candidate's preferences applied to the viewer; `NULL` in a
+        candidate's criterion means "any"."""
+        return and_(
+            UserPreference.min_age <= filters["viewer_age"],
+            UserPreference.max_age >= filters["viewer_age"],
+            *(
+                or_(column.is_(None), column == filters[key])
+                for column, key in (
+                    (UserPreference.gender, "viewer_gender"),
+                    (UserPreference.city_id, "viewer_city_id"),
+                    (UserPreference.dating_goal, "viewer_dating_goal"),
+                )
             ),
         )
-
-    @staticmethod
-    def _ranking(user_id: int) -> list[ColumnElement[Any]]:
-        """Order within the eligible set."""
-        superliked_me = exists().where(
-            Reaction.from_user_id == User.id,
-            Reaction.to_user_id == user_id,
-            Reaction.action == ReactionAction.LIKE,
-            Reaction.is_super,
-        )
-        return [superliked_me.desc(), func.random()]

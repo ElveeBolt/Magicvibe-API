@@ -19,9 +19,11 @@ class UserReadSchema(BaseSchema):
 
 
 class UserPublicSchema(BaseSchema):
-    """What one user is allowed to see about another (discovery, matches)."""
+    """What one user is allowed to see about another (discovery, matches):
+    never Telegram data."""
 
     id: int
+    last_seen_at: datetime
     profile: UserProfileReadSchema | None
 
 
