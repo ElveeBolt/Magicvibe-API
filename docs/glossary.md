@@ -45,7 +45,7 @@ Rules behind the terms: [PRD](./prd.md).
 |--------------|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------|-----------------------------|
 | Discovery    | Перегляд анкет        | Showing profiles one at a time in random order.                                                                                         | "feed", "search", "swiping" |
 | Discoverable | —                     | A user who can be shown to others: status active (not banned), profile not hidden, profile complete.                    | "visible" alone             |
-| Candidate    | —                     | A discoverable profile that fits the acting user in both directions and was not reacted to yet.                                         | —                           |
+| Candidate    | —                     | A discoverable profile whose owner has set preferences, fits the acting user in both directions and was not reacted to yet.             | —                           |
 | Reaction     | Реакція               | A user's decision on another profile: like, superlike or dislike. One per pair, cannot be changed.                                      | "swipe", "vote"             |
 | Like         | Лайк                  | A positive reaction. May carry a message.                                                                                               | —                           |
 | Superlike    | Суперлайк             | A like marked as special. Has its own daily limit (see [Plans](./plans.md)).                                                            | —                           |
