@@ -48,8 +48,7 @@ describe procedure; the facts come from here:
 
 - If the code disagrees with the docs, change the code. If the rule itself must
   change, update the doc first. Never resolve a conflict silently.
-- Known drift — the code must be brought to the docs: soft delete
-  (`UserStatus.DELETED`) instead of hard delete; no `DatingGoal` or
+- Known drift — the code must be brought to the docs: no `DatingGoal` or
   `MAX_PROFILE_IMAGES`.
 
 ## How a request flows

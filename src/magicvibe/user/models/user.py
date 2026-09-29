@@ -20,7 +20,6 @@ class User(TimestampMixin, Base):
         default=UserStatus.ACTIVE,
         server_default=UserStatus.ACTIVE.value,
     )
-    deleted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     last_seen_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now()
     )

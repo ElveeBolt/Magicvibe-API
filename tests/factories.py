@@ -3,7 +3,7 @@ only releases a savepoint of the rolled-back test transaction (or really
 commits in a concurrency test's own session)."""
 
 import itertools
-from datetime import date
+from datetime import UTC, date, datetime
 from typing import TYPE_CHECKING
 
 from magicvibe.ban.enums import BanReason
@@ -130,10 +130,18 @@ async def create_ban(
     *,
     reason: BanReason = BanReason.SPAM,
     comment: str | None = None,
+    lifted: bool = False,
 ) -> Ban:
-    """An active ban; like the `ban` domain, it also sets the user's status."""
-    ban = Ban(user_id=user.id, reason=reason, comment=comment)
-    user.status = UserStatus.BANNED
+    """An active ban, or a lifted one with `lifted=True`. Like the `ban`
+    domain, an active ban also sets the user's status."""
+    ban = Ban(
+        user_id=user.id,
+        reason=reason,
+        comment=comment,
+        lifted_at=datetime.now(UTC) if lifted else None,
+    )
+    if not lifted:
+        user.status = UserStatus.BANNED
     session.add(ban)
     await session.commit()
     return ban

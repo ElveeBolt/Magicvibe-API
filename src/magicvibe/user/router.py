@@ -8,7 +8,6 @@ from .schemas.user import (
     UserCreateSchema,
     UserFilterSchema,
     UserReadSchema,
-    UserUpdateSchema,
 )
 from .schemas.user_preference import (
     UserPreferenceCreateSchema,
@@ -56,19 +55,9 @@ async def upsert_user(
     return user
 
 
-@router.patch("/{user_id}", response_model=UserReadSchema)
-async def update_user(service: UserServiceDep, user_id: int, data: UserUpdateSchema):
-    return await service.update(id_=user_id, data=data)
-
-
 @router.delete("/{user_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_user(service: UserServiceDep, user_id: int):
-    return await service.soft_delete(id_=user_id)
-
-
-@router.post("/{user_id}/restore", response_model=UserReadSchema)
-async def restore_user(service: UserServiceDep, user_id: int):
-    return await service.restore(user_id=user_id)
+    return await service.delete(id_=user_id)
 
 
 @router.get("/{user_id}/profile", response_model=UserProfileReadSchema)

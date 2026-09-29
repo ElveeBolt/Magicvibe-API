@@ -31,7 +31,9 @@ class BanService(
 
     async def create(self, data: BanCreateSchema) -> BanReadSchema:
         async with self.uow:
-            user = await self.uow.user.get(id_=data.user_id)
+            # Locked like in account deletion, so a ban and a deletion of the
+            # same user cannot interleave.
+            user = await self.uow.user.get_for_update(data.user_id)
 
             if user is None:
                 raise NotFoundError("User not found")
