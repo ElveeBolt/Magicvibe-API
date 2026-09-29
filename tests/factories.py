@@ -3,8 +3,10 @@ only releases a savepoint of the rolled-back test transaction (or really
 commits in a concurrency test's own session)."""
 
 import itertools
-from datetime import UTC, date, datetime
+from datetime import UTC, date, datetime, timedelta
 from typing import TYPE_CHECKING
+
+from sqlalchemy import func
 
 from magicvibe.ban.enums import BanReason
 from magicvibe.ban.models import Ban
@@ -14,6 +16,8 @@ from magicvibe.region.enums import RegionCodeType
 from magicvibe.region.models import Region, RegionCity
 from magicvibe.report.enums import ReportReason, ReportStatus
 from magicvibe.report.models import Report
+from magicvibe.subscription.enums import PlanCode
+from magicvibe.subscription.models import Subscription
 from magicvibe.user.enums import DatingGoal, UserProfileGender, UserStatus
 from magicvibe.user.models import User, UserPreference, UserProfile, UserTelegram
 
@@ -214,3 +218,26 @@ async def create_city(
     session.add(city)
     await session.commit()
     return city
+
+
+async def create_subscription(
+    session: AsyncSession,
+    user: User,
+    *,
+    started: timedelta = timedelta(days=1),
+    expires_in: timedelta = timedelta(days=6),
+    comment: str | None = None,
+) -> Subscription:
+    """Premium that started `started` ago and ends `expires_in` from now, both
+    relative to the database's `now()` (fixed for the whole test)."""
+    subscription = Subscription(
+        user_id=user.id,
+        plan=PlanCode.PREMIUM,
+        starts_at=func.now() - started,
+        expires_at=func.now() + expires_in,
+        comment=comment,
+    )
+    session.add(subscription)
+    await session.commit()
+    await session.refresh(subscription)
+    return subscription

@@ -29,6 +29,12 @@ says `starts_at` is set only by the database default.
 (`TARGET_USER_BANNED`), checks `SubscriptionRepository.get_current(user_id)` (`PREMIUM_ALREADY_ACTIVE`), then inserts.
 Two grants for one user serialize on the row lock, as `conventions.md` requires for rules that depend on other rows.
 
+The check after the lock is "has a subscription that has not ended" (`expires_at > now()`), not the full "current"
+rule. Found by the concurrency test: `now()` is the start of the transaction, so a grant that waited for the lock has
+a `now()` earlier than the `starts_at` of the subscription committed meanwhile, and `starts_at <= now()` hid it — both
+grants succeeded in about one run in three. Since `starts_at` is always the database's `now()` at insert, a
+subscription starting after this transaction's `now()` can only be such a concurrent grant.
+
 ### Effective plan in the service
 
 `SubscriptionService.get_effective_plan(user_id) -> (Plan, Subscription | None)` is the single place that turns the

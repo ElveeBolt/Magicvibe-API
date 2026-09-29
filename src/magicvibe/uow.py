@@ -4,6 +4,7 @@ from .discovery.repositories import DiscoveryRepository
 from .reaction.repositories import MatchRepository, ReactionRepository
 from .region.repositories import RegionCityRepository, RegionRepository
 from .report.repositories import ReportRepository
+from .subscription.repositories import SubscriptionRepository
 from .user.repositories import UserRepository
 
 
@@ -15,6 +16,7 @@ class UnitOfWork(AlchemyUnitOfWork):
     region_city: RegionCityRepository
     discovery: DiscoveryRepository
     report: ReportRepository
+    subscription: SubscriptionRepository
     ban: BanRepository
 
     async def __aenter__(self):
@@ -27,6 +29,7 @@ class UnitOfWork(AlchemyUnitOfWork):
         self.region_city = RegionCityRepository(self._session)
         self.discovery = DiscoveryRepository(self._session)
         self.report = ReportRepository(self._session)
+        self.subscription = SubscriptionRepository(self._session)
         self.ban = BanRepository(self._session)
 
         return self
