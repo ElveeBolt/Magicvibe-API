@@ -15,7 +15,9 @@ class BaseSchema(BaseModel):
     model_config = ConfigDict(from_attributes=True, extra="forbid")
 
 
-class BaseUpdateSchema(BaseModel):
+class BaseUpdateSchema(BaseSchema):
+    """Base of every PATCH body: unknown fields are rejected like everywhere else."""
+
     @model_validator(mode="after")
     def validate_at_least_one_field(self) -> Self:
         if not self.model_fields_set:
