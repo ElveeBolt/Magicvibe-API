@@ -1,7 +1,7 @@
 from typing import TYPE_CHECKING
 
 from ..core.database.alchemy.service import AlchemyService
-from ..core.exceptions import ConflictError, NotFoundError
+from ..core.exceptions import ConflictError, ErrorCode, NotFoundError
 from ..user.enums import UserStatus
 from .schemas.ban import (
     BanCreateSchema,
@@ -37,7 +37,10 @@ class BanService(
                 raise NotFoundError("User not found")
 
             if await self.repository.has_unlifted(data.user_id):
-                raise ConflictError("User already has an active ban; update it instead")
+                raise ConflictError(
+                    "User already has an active ban; update it instead",
+                    code=ErrorCode.BAN_ALREADY_ACTIVE,
+                )
 
             ban = await self.repository.create(data.model_dump())
             user.status = UserStatus.BANNED

@@ -50,9 +50,7 @@ describe procedure; the facts come from here:
   change, update the doc first. Never resolve a conflict silently.
 - Known drift — the code must be brought to the docs: soft delete
   (`UserStatus.DELETED`) instead of hard delete; no `DatingGoal` or
-  `MAX_PROFILE_IMAGES`; no `ErrorCode` or `code` in error bodies, and validation
-  returns 422 instead of 400; the pytest config and testcontainers are not set up
-  yet.
+  `MAX_PROFILE_IMAGES`; the pytest config and testcontainers are not set up yet.
 
 ## How a request flows
 

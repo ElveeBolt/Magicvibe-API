@@ -1,12 +1,11 @@
 from typing import TYPE_CHECKING
 
-from ..ban.schemas.ban import BanReadSchema
 from ..core.database.alchemy.service import AlchemyService
 from ..core.exceptions import (
     BadRequestError,
     ConflictError,
+    ErrorCode,
     ForbiddenError,
-    GoneError,
     NotFoundError,
 )
 from .enums import UserStatus
@@ -30,9 +29,20 @@ from .schemas.user_telegram import UserTelegramReadSchema, UserTelegramUpdateSch
 from .schemas.validators import validate_age_bounds
 
 if TYPE_CHECKING:
+    from ..ban.models import Ban
     from ..uow import UnitOfWork
     from .models import User, UserPreference, UserProfile, UserTelegram
     from .repositories import UserRepository
+
+
+def user_banned_error(ban: Ban) -> ForbiddenError:
+    """`USER_BANNED` tells the bot why, and only why: the reason and the
+    administrator's comment, no other ban fields."""
+    return ForbiddenError(
+        "Account is banned",
+        code=ErrorCode.USER_BANNED,
+        extra={"ban": {"reason": ban.reason, "comment": ban.comment}},
+    )
 
 
 class UserService(
@@ -71,26 +81,14 @@ class UserService(
         async with self.uow:
             user = await self.repository.get_by_telegram_id(telegram_id)
 
-            if user is None:
-                raise NotFoundError("User not found")
-
-            if user.status is UserStatus.DELETED:
-                raise GoneError("Account is deleted")
+            if user is None or user.status is UserStatus.DELETED:
+                raise NotFoundError("User not found", code=ErrorCode.USER_NOT_FOUND)
 
             if user.status is UserStatus.BANNED:
                 ban = await self.uow.ban.get_active(user.id)
 
-                if ban is None:
-                    user.status = UserStatus.ACTIVE
-                else:
-                    raise ForbiddenError(
-                        "Account is banned",
-                        details={
-                            "ban": BanReadSchema.model_validate(ban).model_dump(
-                                mode="json"
-                            )
-                        },
-                    )
+                if ban is not None:
+                    raise user_banned_error(ban)
 
             return self._to_schema(user)
 
@@ -101,8 +99,8 @@ class UserService(
             if user.status is UserStatus.DELETED:
                 raise ConflictError("Account is already deleted")
 
-            if await self.uow.ban.get_active(user.id) is not None:
-                raise ForbiddenError("A banned account cannot be deleted")
+            if (ban := await self.uow.ban.get_active(user.id)) is not None:
+                raise user_banned_error(ban)
 
             await self.repository.soft_delete(user)
 
@@ -174,7 +172,15 @@ class UserService(
                     update_data.get("max_age", user_preference.max_age),
                 )
             except ValueError as exc:
-                raise BadRequestError(str(exc)) from exc
+                raise BadRequestError(
+                    "Request validation failed",
+                    code=ErrorCode.VALIDATION_ERROR,
+                    extra={
+                        "errors": [
+                            {"field": "", "type": "value_error", "message": str(exc)}
+                        ]
+                    },
+                ) from exc
 
             user_preference = await self.repository.update_preference(
                 user_preference, update_data

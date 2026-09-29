@@ -1,10 +1,11 @@
 import secrets
 from typing import Annotated
 
-from fastapi import Depends, HTTPException, status
+from fastapi import Depends
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
 from .core.database.alchemy.setup import async_session_factory
+from .core.exceptions import UnauthorizedError
 from .settings import settings
 from .uow import UnitOfWork
 
@@ -18,11 +19,7 @@ async def require_service_token(
     provided = auth.credentials.encode() if auth else b""
 
     if not secrets.compare_digest(provided, expected):
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid or missing service token",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
+        raise UnauthorizedError(headers={"WWW-Authenticate": "Bearer"})
 
 
 def get_uow() -> UnitOfWork:
