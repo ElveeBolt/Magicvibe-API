@@ -103,6 +103,9 @@ tests/
 ├── __init__.py
 ├── conftest.py            # engine, rolled-back transaction, app, HTTP client and auth fixtures
 ├── factories.py           # helpers that create users, profiles, reactions, bans … in the database
+├── core/                  # shared code from src/<package>/core/
+│   ├── __init__.py
+│   └── test_schemas.py    # shared schemas (filters, pagination), no database
 └── <domain>/              # same names as src/<package>/<domain>/
     ├── __init__.py
     ├── conftest.py        # fixtures used only by this domain (its services, ready-made objects)
@@ -112,6 +115,8 @@ tests/
 ```
 
 - One folder per domain, with the same name as the domain package (`user`, `reaction`, `report`, …).
+- Shared code from `core` is tested in `tests/core/`. Tests there that need no database (schemas, pure functions) use
+  no database fixtures.
 - Fixtures needed by every domain live in `tests/conftest.py`; a domain `conftest.py` holds only what that domain
   needs. pytest makes fixtures from both files available to the tests in the domain folder.
 - Fixtures that replace a FastAPI dependency do it through `app.dependency_overrides`; the `app` fixture clears the
