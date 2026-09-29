@@ -1,4 +1,4 @@
-from sqlalchemy import CheckConstraint, ForeignKey, String, UniqueConstraint, or_
+from sqlalchemy import CheckConstraint, ForeignKey, Index, String, UniqueConstraint, or_
 from sqlalchemy.orm import Mapped, mapped_column
 
 from ...core.database.alchemy.mixins import CreatedAtMixin
@@ -12,7 +12,7 @@ class Reaction(CreatedAtMixin, Base):
     __tablename__ = "reactions"
 
     from_user_id: Mapped[int] = mapped_column(
-        ForeignKey("users.id", ondelete="CASCADE"), index=True
+        ForeignKey("users.id", ondelete="CASCADE")
     )
     to_user_id: Mapped[int] = mapped_column(
         ForeignKey("users.id", ondelete="CASCADE"), index=True
@@ -34,4 +34,10 @@ class Reaction(CreatedAtMixin, Base):
             or_(message.is_(None), action == ReactionAction.LIKE),
             name="message_only_on_like",
         ),
+        # A missing message is null, never an empty string.
+        CheckConstraint(
+            or_(message.is_(None), message != ""), name="message_not_empty"
+        ),
+        # Daily limit counting.
+        Index(None, from_user_id, action, is_super, "created_at"),
     )
