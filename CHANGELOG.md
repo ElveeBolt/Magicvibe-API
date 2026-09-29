@@ -2,6 +2,19 @@
 
 <!-- version list -->
 
+## v0.0.3 (2026-09-29)
+
+### Bug Fixes
+
+- Add first migration and PostgreSQL test database
+  ([`bf32e41`](https://github.com/ElveeBolt/Magicvibe-API/commit/bf32e4131f6001bb89a9fa9f6b9e1b825cf63ea6))
+
+### Documentation
+
+- Propose add-test-database
+  ([`cd13b8e`](https://github.com/ElveeBolt/Magicvibe-API/commit/cd13b8e9e788fee2e19e3b825df20572220642e2))
+
+
 ## v0.0.2 (2026-09-29)
 
 ### Bug Fixes
