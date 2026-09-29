@@ -139,3 +139,20 @@ async def test_old_ban_still_blocks_the_user(
 
     assert response.status_code == 403
     assert response.json()["ban"] == {"reason": "spam", "comment": "Spam links"}
+
+
+async def test_ban_update_has_no_end_date(
+    client: httpx.AsyncClient, session: AsyncSession
+) -> None:
+    ban = await create_ban(session, await create_user(session), comment="Spam")
+
+    response = await client.patch(
+        f"/bans/{ban.id}",
+        json={"comment": "Changed", "expires_at": "2099-01-01T00:00:00Z"},
+    )
+
+    assert response.status_code == 400
+    assert [(e["field"], e["type"]) for e in response.json()["errors"]] == [
+        ("expires_at", "extra_forbidden")
+    ]
+    assert (await client.get(f"/bans/{ban.id}")).json()["comment"] == "Spam"

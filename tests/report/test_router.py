@@ -200,3 +200,21 @@ async def test_review_unknown_report(client: httpx.AsyncClient) -> None:
 
     assert response.status_code == 404
     assert response.json()["code"] == "NOT_FOUND"
+
+
+async def test_review_with_an_unknown_field(
+    client: httpx.AsyncClient, session: AsyncSession
+) -> None:
+    report = await create_report(
+        session, await create_user(session), await create_user(session)
+    )
+
+    response = await client.patch(
+        f"/reports/{report.id}", json={"status": "resolved", "note": "x"}
+    )
+
+    assert response.status_code == 400
+    assert [(e["field"], e["type"]) for e in response.json()["errors"]] == [
+        ("note", "extra_forbidden")
+    ]
+    assert (await client.get(f"/reports/{report.id}")).json()["status"] == "open"

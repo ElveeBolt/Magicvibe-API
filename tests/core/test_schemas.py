@@ -1,7 +1,11 @@
 import pytest
 from pydantic import ValidationError
 
-from magicvibe.core.schemas.base import BaseFilterSchema, PaginatedResponse
+from magicvibe.core.schemas.base import (
+    BaseFilterSchema,
+    BaseUpdateSchema,
+    PaginatedResponse,
+)
 from magicvibe.core.schemas.constants import DEFAULT_PAGE_SIZE, MAX_PAGE_SIZE
 
 
@@ -26,3 +30,21 @@ def test_page_size_defaults_when_omitted() -> None:
     filters = BaseFilterSchema.model_validate({})
 
     assert filters.page_size == DEFAULT_PAGE_SIZE == 10
+
+
+class _NameUpdateSchema(BaseUpdateSchema):
+    name: str | None = None
+
+
+def test_update_schema_rejects_unknown_fields() -> None:
+    with pytest.raises(ValidationError) as error:
+        _NameUpdateSchema.model_validate({"name": "Ann", "nickname": "A"})
+
+    assert [(item["loc"], item["type"]) for item in error.value.errors()] == [
+        (("nickname",), "extra_forbidden")
+    ]
+
+
+def test_update_schema_still_needs_a_field() -> None:
+    with pytest.raises(ValidationError):
+        _NameUpdateSchema.model_validate({})
