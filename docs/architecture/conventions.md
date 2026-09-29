@@ -37,7 +37,6 @@ src/<package>/
 - `core/` holds no business logic and never imports from domains.
 - The app version is never hard-coded; `metadata.py` reads it from package metadata (see
   [Versioning](../process/versioning.md)).
-- Do not add new files or folders to the package root without asking.
 
 ## Domain structure
 
@@ -88,10 +87,10 @@ it instead of writing new helpers.
 - Every `CheckConstraint` has a name.
 - Every data rule is enforced twice, with the same constant from `constants.py`: in the Pydantic schema (so the bot gets
   a clear 400) and in the database (`varchar(N)`, named `CHECK`, unique, foreign key). Two exceptions:
-  - a rule that depends on the current time (age): schema only;
-  - a rule that depends on other rows (photo limit, one current subscription, a match for mutual likes): checked in
-    the service, in the same transaction, after locking the parent rows with `SELECT … FOR UPDATE` (several rows in
-    ascending `id` order), so concurrent requests cannot both pass or both miss the check.
+    - a rule that depends on the current time (age): schema only;
+    - a rule that depends on other rows (photo limit, one current subscription, a match for mutual likes): checked in
+      the service, in the same transaction, after locking the parent rows with `SELECT … FOR UPDATE` (several rows in
+      ascending `id` order), so concurrent requests cannot both pass or both miss the check.
 - Database defaults via `server_default`.
 - Timestamps from `TimestampMixin` (`created_at`, `updated_at`) or `CreatedAtMixin` (`created_at`).
 - All foreign keys to `users.id` and `user_profiles.id` use `ON DELETE CASCADE`.
@@ -102,8 +101,7 @@ it instead of writing new helpers.
 - Pydantic v2.
 - Naming: `*CreateSchema`, `*UpdateSchema` (all fields optional, for PATCH), `*ReadSchema`.
 - Reusable constrained types (`Name`, `Bio`, `Message`, …) live in `schemas/types.py` as `Annotated` types.
-- Schemas forbid unknown fields: `extra="forbid"`, inherited from `BaseSchema` (shown as `additionalProperties: false`
-  in OpenAPI).
+- Schemas forbid unknown fields: `extra="forbid"`, inherited from `BaseSchema`.
 
 ## API style
 
@@ -123,7 +121,13 @@ List endpoints take query parameters `page` (from 1, default 1), `page_size` (fr
 `order` (`asc` or `desc`, default `desc`). They return:
 
 ```json
-{"items": [], "total": 0, "page": 1, "pages": 1, "page_size": 10}
+{
+  "items": [],
+  "total": 0,
+  "page": 1,
+  "pages": 1,
+  "page_size": 10
+}
 ```
 
 `pages` is at least 1, even when there are no items.
@@ -144,9 +148,6 @@ A `page_size` above 100 is rejected with `VALIDATION_ERROR` ([Errors](./errors.m
 - Migrations change the schema only. They never load data and never call scripts.
 - Regions and cities are loaded by `data/regions/load.py` from `data/regions/katotth_<YYYY-MM-DD>.json`, which a
   developer runs manually (see [Regions data](./region_data.md)).
-- Plans are not stored in the database; they are constants in `subscription/constants.py` (see
-  [Plan constants](./plan_constants.md)).
-- `data/` is in the repository root. The date in a data file name shows how current the data is.
 - Migrations never import ORM models or services.
 - A merged migration is never edited; fix mistakes with a new migration.
 
