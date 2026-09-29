@@ -1,7 +1,7 @@
 from typing import TYPE_CHECKING
 
 from ..core.database.alchemy.service import AlchemyService
-from ..core.exceptions import BadRequestError, NotFoundError
+from ..core.exceptions import BadRequestError, ErrorCode, NotFoundError
 from .schemas.report import (
     ReportCreateSchema,
     ReportFilterSchema,
@@ -34,7 +34,9 @@ class ReportService(
         self, reporter_id: int, data: ReportCreateSchema
     ) -> ReportReadSchema:
         if reporter_id == data.target_id:
-            raise BadRequestError("A user cannot report themselves")
+            raise BadRequestError(
+                "A user cannot report themselves", code=ErrorCode.SELF_ACTION
+            )
 
         async with self.uow:
             if not await self.uow.user.exists(id_=data.target_id):

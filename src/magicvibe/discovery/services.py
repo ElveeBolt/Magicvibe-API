@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING, Any
 
-from ..core.exceptions import BadRequestError
+from ..core.exceptions import ConflictError, ErrorCode
 from ..user.constants import MAX_PROFILE_AGE, MIN_PROFILE_AGE
 from ..user.schemas.user import UserPublicSchema
 from ..user.utils import birth_date_bounds
@@ -22,7 +22,10 @@ class DiscoveryService:
         a gender and an age there is nothing to offer the other side.
         """
         if viewer.profile is None:
-            raise BadRequestError("Complete your profile to start browsing")
+            raise ConflictError(
+                "Complete your profile to start browsing",
+                code=ErrorCode.PROFILE_REQUIRED,
+            )
 
         filters = self._to_filters(viewer)
 
