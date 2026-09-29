@@ -2,6 +2,19 @@
 
 <!-- version list -->
 
+## v0.5.0 (2026-09-29)
+
+### Documentation
+
+- **reaction**: Propose add-daily-limits
+  ([`c14c10d`](https://github.com/ElveeBolt/Magicvibe-API/commit/c14c10ddf9b0e24dffa6c767a7eeb10a78c7165f))
+
+### Features
+
+- **reaction**: Enforce daily limits and add who liked me
+  ([`fde2b28`](https://github.com/ElveeBolt/Magicvibe-API/commit/fde2b28a9a8cc9a16e1e97d80491260bf69b8cd8))
+
+
 ## v0.4.0 (2026-09-29)
 
 ### Documentation
