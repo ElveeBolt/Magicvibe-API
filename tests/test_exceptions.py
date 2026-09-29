@@ -8,23 +8,9 @@ from sqlalchemy.exc import IntegrityError
 from magicvibe.core.exceptions import ErrorCode, ForbiddenError
 from magicvibe.exceptions import register_exception_handlers
 from magicvibe.middlewares import LoggingMiddleware
-from tests.conftest import SERVICE_TOKEN
 
 if TYPE_CHECKING:
     from collections.abc import AsyncIterator
-
-AUTH = {"Authorization": f"Bearer {SERVICE_TOKEN}"}
-
-
-@pytest.fixture
-async def client() -> AsyncIterator[httpx.AsyncClient]:
-    """The real application; only requests that fail before any service
-    touches the database are sent through it."""
-    from magicvibe.main import app
-
-    transport = httpx.ASGITransport(app=app)
-    async with httpx.AsyncClient(transport=transport, base_url="http://test") as c:
-        yield c
 
 
 class FakeDriverError(Exception):
@@ -78,6 +64,8 @@ def fields(body: dict[str, Any]) -> list[tuple[str, str]]:
 
 
 async def test_missing_token(client: httpx.AsyncClient) -> None:
+    del client.headers["Authorization"]
+
     response = await client.get("/users")
 
     assert response.status_code == 401
@@ -93,6 +81,8 @@ async def test_wrong_token(client: httpx.AsyncClient) -> None:
 
 
 async def test_token_is_checked_before_the_body(client: httpx.AsyncClient) -> None:
+    del client.headers["Authorization"]
+
     response = await client.post("/users", json={"unknown": 1})
 
     assert response.status_code == 401
@@ -103,14 +93,14 @@ async def test_token_is_checked_before_the_body(client: httpx.AsyncClient) -> No
 
 
 async def test_unknown_path(client: httpx.AsyncClient) -> None:
-    response = await client.get("/no-such-path", headers=AUTH)
+    response = await client.get("/no-such-path")
 
     assert response.status_code == 404
     assert response.json()["code"] == "NOT_FOUND"
 
 
 async def test_wrong_method(client: httpx.AsyncClient) -> None:
-    response = await client.put("/users", headers=AUTH)
+    response = await client.put("/users")
 
     assert response.status_code == 405
     assert response.json()["code"] == "METHOD_NOT_ALLOWED"
@@ -122,7 +112,7 @@ async def test_wrong_method(client: httpx.AsyncClient) -> None:
 async def test_field_too_long(client: httpx.AsyncClient) -> None:
     body = {"telegram": {"telegram_id": 1, "first_name": "x" * 65}}
 
-    response = await client.post("/users", json=body, headers=AUTH)
+    response = await client.post("/users", json=body)
 
     assert response.status_code == 400
     assert response.json()["code"] == "VALIDATION_ERROR"
@@ -132,7 +122,7 @@ async def test_field_too_long(client: httpx.AsyncClient) -> None:
 async def test_unknown_field(client: httpx.AsyncClient) -> None:
     body = {"telegram": {"telegram_id": 1, "first_name": "Ann"}, "extra": 1}
 
-    response = await client.post("/users", json=body, headers=AUTH)
+    response = await client.post("/users", json=body)
 
     assert response.status_code == 400
     assert fields(response.json()) == [("extra", "extra_forbidden")]
@@ -141,14 +131,14 @@ async def test_unknown_field(client: httpx.AsyncClient) -> None:
 async def test_nested_field(client: httpx.AsyncClient) -> None:
     body = {"telegram": {"telegram_id": "not-a-number", "first_name": "Ann"}}
 
-    response = await client.post("/users", json=body, headers=AUTH)
+    response = await client.post("/users", json=body)
 
     assert response.status_code == 400
     assert fields(response.json()) == [("telegram.telegram_id", "int_parsing")]
 
 
 async def test_invalid_query_parameter(client: httpx.AsyncClient) -> None:
-    response = await client.get("/users", params={"page_size": 101}, headers=AUTH)
+    response = await client.get("/users", params={"page_size": 101})
 
     assert response.status_code == 400
     assert response.json()["code"] == "VALIDATION_ERROR"
@@ -156,7 +146,7 @@ async def test_invalid_query_parameter(client: httpx.AsyncClient) -> None:
 
 
 async def test_invalid_acting_user_header(client: httpx.AsyncClient) -> None:
-    headers = {**AUTH, "X-Telegram-User-Id": "abc"}
+    headers = {"X-Telegram-User-Id": "abc"}
 
     response = await client.get("/discovery/next", headers=headers)
 

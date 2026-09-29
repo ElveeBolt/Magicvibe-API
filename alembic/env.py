@@ -7,7 +7,7 @@ from sqlalchemy.ext.asyncio import async_engine_from_config
 
 from alembic import context
 
-from src.magicvibe.core.database.alchemy.setup import url
+from magicvibe.core.database.alchemy.setup import url
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -22,11 +22,11 @@ if config.config_file_name is not None:
 # add your model's MetaData object here
 # for 'autogenerate' support
 # from myapp import mymodel
-from src.magicvibe.ban.models import Ban  # noqa: F403
-from src.magicvibe.report.models import Report  # noqa: F403
-from src.magicvibe.reaction.models import Reaction  # noqa: F403
-from src.magicvibe.user.models import User, UserProfile, UserTelegram, UserPreference  # noqa: F403
-from src.magicvibe.core.database.alchemy.models import Base
+from magicvibe.ban.models import Ban  # noqa: F403
+from magicvibe.report.models import Report  # noqa: F403
+from magicvibe.reaction.models import Reaction  # noqa: F403
+from magicvibe.user.models import User, UserProfile, UserTelegram, UserPreference  # noqa: F403
+from magicvibe.core.database.alchemy.models import Base
 
 target_metadata = Base.metadata
 
@@ -54,7 +54,6 @@ def run_migrations_offline() -> None:
         target_metadata=target_metadata,
         literal_binds=True,
         dialect_opts={"paramstyle": "named"},
-        user_module_prefix="src.core.database.alchemy.migration_types.",
     )
 
     with context.begin_transaction():
@@ -62,7 +61,7 @@ def run_migrations_offline() -> None:
 
 
 def do_run_migrations(connection: Connection) -> None:
-    context.configure(connection=connection, target_metadata=target_metadata, user_module_prefix="src.core.database.alchemy.migration_types.",)
+    context.configure(connection=connection, target_metadata=target_metadata)
 
     with context.begin_transaction():
         context.run_migrations()
