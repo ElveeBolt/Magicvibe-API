@@ -2,6 +2,19 @@
 
 <!-- version list -->
 
+## v0.3.0 (2026-09-29)
+
+### Documentation
+
+- **reaction**: Propose add-matches
+  ([`2b7b890`](https://github.com/ElveeBolt/Magicvibe-API/commit/2b7b8904ee6bd62e6d549d7f00a4cea076294360))
+
+### Features
+
+- **reaction**: Store matches and create them under a lock
+  ([`2b22580`](https://github.com/ElveeBolt/Magicvibe-API/commit/2b22580bb605e5265b849db4c07c2fa24344b1b9))
+
+
 ## v0.2.1 (2026-09-29)
 
 ### Bug Fixes
