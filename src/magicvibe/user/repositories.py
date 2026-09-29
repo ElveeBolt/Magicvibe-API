@@ -6,6 +6,7 @@ from sqlalchemy import update as update_sql
 from ..core.database.alchemy.models import Base
 from ..core.database.alchemy.repository import AlchemyRepository
 from .constants import LAST_SEEN_UPDATE_INTERVAL
+from .enums import UserStatus
 from .models import User, UserPreference, UserProfile, UserTelegram
 
 
@@ -30,6 +31,19 @@ class UserRepository(AlchemyRepository[User, int]):
         stmt = self._get_base_stmt().where(User.id == id_).with_for_update(of=User)
         result = await self._session.execute(stmt)
         return result.scalar_one_or_none()
+
+    async def lock_many(self, ids: list[int]) -> dict[int, UserStatus]:
+        """Locks the rows of the given users until the transaction ends, in
+        ascending ID order so two transactions locking the same users cannot
+        deadlock. Returns the status of every user that exists."""
+        stmt = (
+            select(User.id, User.status)
+            .where(User.id.in_(ids))
+            .order_by(User.id)
+            .with_for_update()
+        )
+        result = await self._session.execute(stmt)
+        return {row.id: row.status for row in result}
 
     async def lock_telegram_id(self, telegram_id: int) -> None:
         """Serializes registrations of one Telegram account until the

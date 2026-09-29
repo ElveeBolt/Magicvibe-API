@@ -45,16 +45,23 @@ class ReactionCreateSchema(BaseSchema):
         return self
 
 
-class MatchedUserSchema(UserPublicSchema):
-    """Public profile plus the handle needed to start a conversation."""
+class MatchContactSchema(BaseSchema):
+    """The partner's Telegram contact; shown only in match data."""
 
+    telegram_id: int
+    first_name: str
+    last_name: str | None
     username: str | None
 
 
 class MatchReadSchema(BaseSchema):
-    """A mutual like as seen by one of its two members."""
+    """A match as seen by one of its two users. The only place with the
+    partner's Telegram contact and their like message."""
 
-    user: MatchedUserSchema
+    user: UserPublicSchema
+    contact: MatchContactSchema
+    message: str | None
+    is_super: bool
     matched_at: datetime
 
 

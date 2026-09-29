@@ -7,19 +7,24 @@ from ..core.exceptions import (
     NotFoundError,
 )
 from ..core.schemas.base import PaginatedResponse
+from ..user.enums import UserStatus
+from ..user.schemas.user import UserPublicSchema
 from .enums import ReactionAction
 from .schemas.reaction import (
-    MatchedUserSchema,
+    MatchContactSchema,
     MatchFilterSchema,
     MatchReadSchema,
     ReactionCreateSchema,
-    ReactionFilterSchema,
     ReactionReadSchema,
     ReactionResultReadSchema,
 )
 
 if TYPE_CHECKING:
+    from datetime import datetime
+
     from ..uow import UnitOfWork
+    from ..user.models import User
+    from .models import Reaction
 
 
 class ReactionService:
@@ -29,15 +34,20 @@ class ReactionService:
     async def create(
         self, user_id: int, data: ReactionCreateSchema
     ) -> ReactionResultReadSchema:
-        """Record a reaction by `user_id` (already authenticated) and detect a match."""
+        """Records a reaction of `user_id` (the acting user). A like that meets
+        a like in the opposite direction creates the match in the same
+        transaction; both users are locked first, so two opposite likes at the
+        same time create exactly one match."""
         if user_id == data.to_user_id:
             raise BadRequestError(
                 "A user cannot react to themselves", code=ErrorCode.SELF_ACTION
             )
 
         async with self.uow:
-            target_user = await self.uow.user.get(id_=data.to_user_id)
-            if target_user is None:
+            statuses = await self.uow.user.lock_many([user_id, data.to_user_id])
+
+            # Banned users are hidden from others, so they cannot be reacted to.
+            if statuses.get(data.to_user_id, UserStatus.BANNED) is UserStatus.BANNED:
                 raise NotFoundError("Target user not found")
 
             reaction = await self.uow.reaction.create_if_not_exists(
@@ -49,28 +59,26 @@ class ReactionService:
                     code=ErrorCode.ALREADY_REACTED,
                 )
 
-            is_match = data.action == ReactionAction.LIKE and await self._liked_back(
-                from_user_id=user_id, to_user_id=data.to_user_id
-            )
+            match = None
+            if data.action is ReactionAction.LIKE:
+                theirs = await self.uow.reaction.get_like(data.to_user_id, user_id)
+
+                if theirs is not None:
+                    created = await self.uow.match.create_pair(user_id, data.to_user_id)
+                    partner = await self.uow.user.get(id_=data.to_user_id)
+                    assert partner is not None  # locked above
+                    match = self._to_match(partner, theirs, created.created_at)
 
             return ReactionResultReadSchema(
-                reaction=ReactionReadSchema.model_validate(reaction),
-                match=(
-                    MatchReadSchema(
-                        user=MatchedUserSchema.model_validate(target_user),
-                        matched_at=reaction.created_at,
-                    )
-                    if is_match
-                    else None
-                ),
+                reaction=ReactionReadSchema.model_validate(reaction), match=match
             )
 
     async def get_matches(
         self, user_id: int, filters: MatchFilterSchema
     ) -> PaginatedResponse[MatchReadSchema]:
         async with self.uow:
-            total = await self.uow.reaction.count_matches(user_id)
-            rows = await self.uow.reaction.get_matches(
+            total = await self.uow.match.count_for_user(user_id)
+            rows = await self.uow.match.get_for_user(
                 user_id=user_id,
                 descending=filters.descending,
                 limit=filters.page_size,
@@ -78,20 +86,21 @@ class ReactionService:
             )
             return PaginatedResponse.build(
                 items=[
-                    MatchReadSchema(
-                        user=MatchedUserSchema.model_validate(user),
-                        matched_at=matched_at,
-                    )
-                    for user, matched_at in rows
+                    self._to_match(partner, theirs, match.created_at)
+                    for match, partner, theirs in rows
                 ],
                 total=total,
                 filters=filters,
             )
 
-    async def _liked_back(self, from_user_id: int, to_user_id: int) -> bool:
-        reverse_like = ReactionFilterSchema(
-            from_user_id=to_user_id,
-            to_user_id=from_user_id,
-            action=ReactionAction.LIKE,
+    @staticmethod
+    def _to_match(
+        partner: User, partners_like: Reaction, matched_at: datetime
+    ) -> MatchReadSchema:
+        return MatchReadSchema(
+            user=UserPublicSchema.model_validate(partner),
+            contact=MatchContactSchema.model_validate(partner.telegram),
+            message=partners_like.message,
+            is_super=partners_like.is_super,
+            matched_at=matched_at,
         )
-        return await self.uow.reaction.exists_by(reverse_like.to_filter_dict())

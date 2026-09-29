@@ -9,7 +9,7 @@ from typing import TYPE_CHECKING
 from magicvibe.ban.enums import BanReason
 from magicvibe.ban.models import Ban
 from magicvibe.reaction.enums import ReactionAction
-from magicvibe.reaction.models import Reaction
+from magicvibe.reaction.models import Match, Reaction
 from magicvibe.region.enums import RegionCodeType
 from magicvibe.region.models import Region, RegionCity
 from magicvibe.report.enums import ReportReason, ReportStatus
@@ -118,6 +118,16 @@ async def create_reaction(
     session.add(reaction)
     await session.commit()
     return reaction
+
+
+async def create_match(session: AsyncSession, first: User, second: User) -> Match:
+    """A match row for two users (their likes are created separately)."""
+    match = Match(
+        user_a_id=min(first.id, second.id), user_b_id=max(first.id, second.id)
+    )
+    session.add(match)
+    await session.commit()
+    return match
 
 
 async def create_report(

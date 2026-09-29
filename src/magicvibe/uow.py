@@ -1,7 +1,7 @@
 from .ban.repositories import BanRepository
 from .core.database.alchemy.uow import AlchemyUnitOfWork
 from .discovery.repositories import DiscoveryRepository
-from .reaction.repositories import ReactionRepository
+from .reaction.repositories import MatchRepository, ReactionRepository
 from .region.repositories import RegionCityRepository, RegionRepository
 from .report.repositories import ReportRepository
 from .user.repositories import UserRepository
@@ -10,6 +10,7 @@ from .user.repositories import UserRepository
 class UnitOfWork(AlchemyUnitOfWork):
     user: UserRepository
     reaction: ReactionRepository
+    match: MatchRepository
     region: RegionRepository
     region_city: RegionCityRepository
     discovery: DiscoveryRepository
@@ -21,6 +22,7 @@ class UnitOfWork(AlchemyUnitOfWork):
 
         self.user = UserRepository(self._session)
         self.reaction = ReactionRepository(self._session)
+        self.match = MatchRepository(self._session)
         self.region = RegionRepository(self._session)
         self.region_city = RegionCityRepository(self._session)
         self.discovery = DiscoveryRepository(self._session)
