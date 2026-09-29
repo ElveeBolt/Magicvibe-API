@@ -121,8 +121,8 @@ class UserService(
     ) -> UserProfileReadSchema:
         async with self.uow:
             user = await self._get_or_raise(user_id)
+            await self._check_city(data.city_id)
             user_profile = await self.repository.set_profile(user, data.model_dump())
-            await self.repository.get_or_create_preference(user)
             return UserProfileReadSchema.model_validate(user_profile)
 
     async def update_profile(
@@ -131,8 +131,10 @@ class UserService(
         async with self.uow:
             user = await self._get_or_raise(user_id)
             user_profile = self._profile_or_raise(user)
+            update_data = data.model_dump(exclude_unset=True)
+            await self._check_city(update_data.get("city_id"))
             user_profile = await self.repository.update_profile(
-                user_profile, data.model_dump(exclude_unset=True)
+                user_profile, update_data
             )
             return UserProfileReadSchema.model_validate(user_profile)
 
@@ -147,6 +149,7 @@ class UserService(
     ) -> UserPreferenceReadSchema:
         async with self.uow:
             user = await self._get_or_raise(user_id)
+            await self._check_city(data.city_id)
             user_preference = await self.repository.set_preference(
                 user, data.model_dump()
             )
@@ -159,6 +162,7 @@ class UserService(
             user = await self._get_or_raise(user_id)
             user_preference = self._preference_or_raise(user)
             update_data = data.model_dump(exclude_unset=True)
+            await self._check_city(update_data.get("city_id"))
 
             # One bound may be updated on its own, so the range is only whole
             # once the stored values are merged in.
@@ -206,6 +210,11 @@ class UserService(
             raise NotFoundError("User not found")
 
         return user
+
+    async def _check_city(self, city_id: int | None) -> None:
+        """An unknown city is a missing resource, like an unknown target user."""
+        if city_id is not None and not await self.uow.region_city.exists(id_=city_id):
+            raise NotFoundError("City not found")
 
     async def _raise_if_banned(self, user: User) -> None:
         if user.status is UserStatus.BANNED:

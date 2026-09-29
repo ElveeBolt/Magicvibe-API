@@ -73,14 +73,6 @@ class UserRepository(AlchemyRepository[User, int]):
     ) -> UserProfile:
         return await self._update(profile, data)
 
-    async def get_or_create_preference(self, user: User) -> UserPreference:
-        if user.preference is not None:
-            return user.preference
-
-        preference = UserPreference()
-        user.preference = preference
-        return await self._persist(preference)
-
     async def set_preference(self, user: User, data: dict[str, Any]) -> UserPreference:
         preference = user.preference
 
