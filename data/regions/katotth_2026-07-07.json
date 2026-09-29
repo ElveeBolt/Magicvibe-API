@@ -1,0 +1,2533 @@
+[
+  {
+    "katotth_code": "UA01000000000013043",
+    "name": "Автономна Республіка Крим",
+    "name_en": "Avtonomna Respublika Krym",
+    "code_type": "O",
+    "cities": [
+      {
+        "katotth_code": "UA01020050010045207",
+        "name": "Бахчисарай",
+        "name_en": "Bakhchysarai"
+      },
+      {
+        "katotth_code": "UA01020210010017308",
+        "name": "Інкерман",
+        "name_en": "Inkerman"
+      },
+      {
+        "katotth_code": "UA01040050010076142",
+        "name": "Білогірськ",
+        "name_en": "Bilohirsk"
+      },
+      {
+        "katotth_code": "UA01060050010078305",
+        "name": "Джанкой",
+        "name_en": "Dzhankoi"
+      },
+      {
+        "katotth_code": "UA01080150010090810",
+        "name": "Євпаторія",
+        "name_en": "Yevpatoriia"
+      },
+      {
+        "katotth_code": "UA01080650010078157",
+        "name": "Саки",
+        "name_en": "Saky"
+      },
+      {
+        "katotth_code": "UA01100210010057785",
+        "name": "Керч",
+        "name_en": "Kerch"
+      },
+      {
+        "katotth_code": "UA01100550010023633",
+        "name": "Щолкіне",
+        "name_en": "Shcholkine"
+      },
+      {
+        "katotth_code": "UA01140010010085478",
+        "name": "Армянськ",
+        "name_en": "Armiansk"
+      },
+      {
+        "katotth_code": "UA01140230010018772",
+        "name": "Яни Капу",
+        "name_en": "Yany Kapu"
+      },
+      {
+        "katotth_code": "UA01160330010074014",
+        "name": "Сімферополь",
+        "name_en": "Simferopol"
+      },
+      {
+        "katotth_code": "UA01180630010017505",
+        "name": "Старий Крим",
+        "name_en": "Staryi Krym"
+      },
+      {
+        "katotth_code": "UA01180650010079746",
+        "name": "Судак",
+        "name_en": "Sudak"
+      },
+      {
+        "katotth_code": "UA01180710010062019",
+        "name": "Феодосія",
+        "name_en": "Feodosiia"
+      },
+      {
+        "katotth_code": "UA01200010010092886",
+        "name": "Алупка",
+        "name_en": "Alupka"
+      },
+      {
+        "katotth_code": "UA01200030010082401",
+        "name": "Алушта",
+        "name_en": "Alushta"
+      },
+      {
+        "katotth_code": "UA01200310010053783",
+        "name": "Ялта",
+        "name_en": "Yalta"
+      }
+    ]
+  },
+  {
+    "katotth_code": "UA05000000000010236",
+    "name": "Вінницька",
+    "name_en": "Vinnytska",
+    "code_type": "O",
+    "cities": [
+      {
+        "katotth_code": "UA05020030010063857",
+        "name": "Вінниця",
+        "name_en": "Vinnytsia"
+      },
+      {
+        "katotth_code": "UA05020070010053570",
+        "name": "Гнівань",
+        "name_en": "Hnivan"
+      },
+      {
+        "katotth_code": "UA05020090010088788",
+        "name": "Іллінці",
+        "name_en": "Illintsi"
+      },
+      {
+        "katotth_code": "UA05020110010028819",
+        "name": "Липовець",
+        "name_en": "Lypovets"
+      },
+      {
+        "katotth_code": "UA05020170010087489",
+        "name": "Немирів",
+        "name_en": "Nemyriv"
+      },
+      {
+        "katotth_code": "UA05020210010023649",
+        "name": "Погребище",
+        "name_en": "Pohrebyshche"
+      },
+      {
+        "katotth_code": "UA05040010010024726",
+        "name": "Бершадь",
+        "name_en": "Bershad"
+      },
+      {
+        "katotth_code": "UA05040030010071792",
+        "name": "Гайсин",
+        "name_en": "Haisyn"
+      },
+      {
+        "katotth_code": "UA05040130010040578",
+        "name": "Ладижин",
+        "name_en": "Ladyzhyn"
+      },
+      {
+        "katotth_code": "UA05060010010059821",
+        "name": "Бар",
+        "name_en": "Bar"
+      },
+      {
+        "katotth_code": "UA05060050010030599",
+        "name": "Жмеринка",
+        "name_en": "Zhmerynka"
+      },
+      {
+        "katotth_code": "UA05060150010066273",
+        "name": "Шаргород",
+        "name_en": "Sharhorod"
+      },
+      {
+        "katotth_code": "UA05080050010069812",
+        "name": "Могилів-Подільський",
+        "name_en": "Mohyliv-Podilskyi"
+      },
+      {
+        "katotth_code": "UA05080110010069634",
+        "name": "Ямпіль",
+        "name_en": "Yampil"
+      },
+      {
+        "katotth_code": "UA05100150010035552",
+        "name": "Тульчин",
+        "name_en": "Tulchyn"
+      },
+      {
+        "katotth_code": "UA05120070010068103",
+        "name": "Калинівка",
+        "name_en": "Kalynivka"
+      },
+      {
+        "katotth_code": "UA05120090010077573",
+        "name": "Козятин",
+        "name_en": "Koziatyn"
+      },
+      {
+        "katotth_code": "UA05120170010081140",
+        "name": "Хмільник",
+        "name_en": "Khmilnyk"
+      }
+    ]
+  },
+  {
+    "katotth_code": "UA07000000000024379",
+    "name": "Волинська",
+    "name_en": "Volynska",
+    "code_type": "O",
+    "cities": [
+      {
+        "katotth_code": "UA07020010010041660",
+        "name": "Володимир",
+        "name_en": "Volodymyr"
+      },
+      {
+        "katotth_code": "UA07020130010041880",
+        "name": "Нововолинськ",
+        "name_en": "Novovolynsk"
+      },
+      {
+        "katotth_code": "UA07020210010031545",
+        "name": "Устилуг",
+        "name_en": "Ustyluh"
+      },
+      {
+        "katotth_code": "UA07040010010025318",
+        "name": "Камінь-Каширський",
+        "name_en": "Kamin-Kashyrskyi"
+      },
+      {
+        "katotth_code": "UA07060190010068509",
+        "name": "Ковель",
+        "name_en": "Kovel"
+      },
+      {
+        "katotth_code": "UA07060270010018151",
+        "name": "Любомль",
+        "name_en": "Liuboml"
+      },
+      {
+        "katotth_code": "UA07080010010043939",
+        "name": "Берестечко",
+        "name_en": "Berestechko"
+      },
+      {
+        "katotth_code": "UA07080070010026475",
+        "name": "Горохів",
+        "name_en": "Horokhiv"
+      },
+      {
+        "katotth_code": "UA07080110010029699",
+        "name": "Ківерці",
+        "name_en": "Kivertsi"
+      },
+      {
+        "katotth_code": "UA07080170010083384",
+        "name": "Луцьк",
+        "name_en": "Lutsk"
+      },
+      {
+        "katotth_code": "UA07080210010079720",
+        "name": "Олика",
+        "name_en": "Olyka"
+      },
+      {
+        "katotth_code": "UA07080250010017534",
+        "name": "Рожище",
+        "name_en": "Rozhyshche"
+      }
+    ]
+  },
+  {
+    "katotth_code": "UA12000000000090473",
+    "name": "Дніпропетровська",
+    "name_en": "Dnipropetrovska",
+    "code_type": "O",
+    "cities": [
+      {
+        "katotth_code": "UA12020010010037010",
+        "name": "Дніпро",
+        "name_en": "Dnipro"
+      },
+      {
+        "katotth_code": "UA12020210010051215",
+        "name": "Підгороднє",
+        "name_en": "Pidhorodnie"
+      },
+      {
+        "katotth_code": "UA12040030010058766",
+        "name": "Верхівцеве",
+        "name_en": "Verkhivtseve"
+      },
+      {
+        "katotth_code": "UA12040050010019298",
+        "name": "Верхньодніпровськ",
+        "name_en": "Verkhnodniprovsk"
+      },
+      {
+        "katotth_code": "UA12040090010047409",
+        "name": "Вільногірськ",
+        "name_en": "Vilnohirsk"
+      },
+      {
+        "katotth_code": "UA12040110010051141",
+        "name": "Жовті Води",
+        "name_en": "Zhovti Vody"
+      },
+      {
+        "katotth_code": "UA12040150010056523",
+        "name": "Кам’янське",
+        "name_en": "Kamianske"
+      },
+      {
+        "katotth_code": "UA12040210010024143",
+        "name": "П’ятихатки",
+        "name_en": "Piatykhatky"
+      },
+      {
+        "katotth_code": "UA12060010010033935",
+        "name": "Апостолове",
+        "name_en": "Apostolove"
+      },
+      {
+        "katotth_code": "UA12060130010067974",
+        "name": "Зеленодольськ",
+        "name_en": "Zelenodolsk"
+      },
+      {
+        "katotth_code": "UA12060170010065850",
+        "name": "Кривий Ріг",
+        "name_en": "Kryvyi Rih"
+      },
+      {
+        "katotth_code": "UA12080010010085669",
+        "name": "Марганець",
+        "name_en": "Marhanets"
+      },
+      {
+        "katotth_code": "UA12080050010010114",
+        "name": "Нікополь",
+        "name_en": "Nikopol"
+      },
+      {
+        "katotth_code": "UA12080090010010311",
+        "name": "Покров",
+        "name_en": "Pokrov"
+      },
+      {
+        "katotth_code": "UA12100070010038698",
+        "name": "Самар",
+        "name_en": "Samar"
+      },
+      {
+        "katotth_code": "UA12100090010016421",
+        "name": "Перещепине",
+        "name_en": "Pereshchepyne"
+      },
+      {
+        "katotth_code": "UA12120070010055676",
+        "name": "Павлоград",
+        "name_en": "Pavlohrad"
+      },
+      {
+        "katotth_code": "UA12120090010057273",
+        "name": "Тернівка",
+        "name_en": "Ternivka"
+      },
+      {
+        "katotth_code": "UA12140210010011011",
+        "name": "Шахтарське",
+        "name_en": "Shakhtarske"
+      },
+      {
+        "katotth_code": "UA12140310010049426",
+        "name": "Синельникове",
+        "name_en": "Synelnykove"
+      }
+    ]
+  },
+  {
+    "katotth_code": "UA14000000000091971",
+    "name": "Донецька",
+    "name_en": "Donetska",
+    "code_type": "O",
+    "cities": [
+      {
+        "katotth_code": "UA14020010010059145",
+        "name": "Бахмут",
+        "name_en": "Bakhmut"
+      },
+      {
+        "katotth_code": "UA14020050010014183",
+        "name": "Світлодарськ",
+        "name_en": "Svitlodarsk"
+      },
+      {
+        "katotth_code": "UA14020070010064896",
+        "name": "Сіверськ",
+        "name_en": "Siversk"
+      },
+      {
+        "katotth_code": "UA14020090010053316",
+        "name": "Соледар",
+        "name_en": "Soledar"
+      },
+      {
+        "katotth_code": "UA14020110010025394",
+        "name": "Торецьк",
+        "name_en": "Toretsk"
+      },
+      {
+        "katotth_code": "UA14020110020077205",
+        "name": "Залізне",
+        "name_en": "Zalizne"
+      },
+      {
+        "katotth_code": "UA14020130010015598",
+        "name": "Часів Яр",
+        "name_en": "Chasiv Yar"
+      },
+      {
+        "katotth_code": "UA14040030010074500",
+        "name": "Волноваха",
+        "name_en": "Volnovakha"
+      },
+      {
+        "katotth_code": "UA14040050010075856",
+        "name": "Вугледар",
+        "name_en": "Vuhledar"
+      },
+      {
+        "katotth_code": "UA14060010010063452",
+        "name": "Вуглегірськ",
+        "name_en": "Vuhlehirsk"
+      },
+      {
+        "katotth_code": "UA14060030010082815",
+        "name": "Горлівка",
+        "name_en": "Horlivka"
+      },
+      {
+        "katotth_code": "UA14060050010077630",
+        "name": "Дебальцеве",
+        "name_en": "Debaltseve"
+      },
+      {
+        "katotth_code": "UA14060070010013898",
+        "name": "Єнакієве",
+        "name_en": "Yenakiieve"
+      },
+      {
+        "katotth_code": "UA14060070020037960",
+        "name": "Бунге",
+        "name_en": "Bunhe"
+      },
+      {
+        "katotth_code": "UA14060090010040660",
+        "name": "Жданівка",
+        "name_en": "Zhdanivka"
+      },
+      {
+        "katotth_code": "UA14060110010087700",
+        "name": "Сніжне",
+        "name_en": "Snizhne"
+      },
+      {
+        "katotth_code": "UA14060130010053720",
+        "name": "Хрестівка",
+        "name_en": "Khrestivka"
+      },
+      {
+        "katotth_code": "UA14060150010042613",
+        "name": "Чистякове",
+        "name_en": "Chystiakove"
+      },
+      {
+        "katotth_code": "UA14060170010074240",
+        "name": "Шахтарськ",
+        "name_en": "Shakhtarsk"
+      },
+      {
+        "katotth_code": "UA14080010010080957",
+        "name": "Амвросіївка",
+        "name_en": "Amvrosiivka"
+      },
+      {
+        "katotth_code": "UA14080030010048113",
+        "name": "Донецьк",
+        "name_en": "Donetsk"
+      },
+      {
+        "katotth_code": "UA14080030020041048",
+        "name": "Моспине",
+        "name_en": "Mospyne"
+      },
+      {
+        "katotth_code": "UA14080050010038056",
+        "name": "Іловайськ",
+        "name_en": "Ilovaisk"
+      },
+      {
+        "katotth_code": "UA14080070010078220",
+        "name": "Макіївка",
+        "name_en": "Makiivka"
+      },
+      {
+        "katotth_code": "UA14080090010025582",
+        "name": "Харцизьк",
+        "name_en": "Khartsyzk"
+      },
+      {
+        "katotth_code": "UA14080090020041530",
+        "name": "Зугрес",
+        "name_en": "Zuhres"
+      },
+      {
+        "katotth_code": "UA14080110010033879",
+        "name": "Ясинувата",
+        "name_en": "Yasynuvata"
+      },
+      {
+        "katotth_code": "UA14100030010068644",
+        "name": "Докучаєвськ",
+        "name_en": "Dokuchaievsk"
+      },
+      {
+        "katotth_code": "UA14100050010067495",
+        "name": "Кальміуське",
+        "name_en": "Kalmiuske"
+      },
+      {
+        "katotth_code": "UA14100070010064864",
+        "name": "Новоазовськ",
+        "name_en": "Novoazovsk"
+      },
+      {
+        "katotth_code": "UA14120030010055241",
+        "name": "Дружківка",
+        "name_en": "Druzhkivka"
+      },
+      {
+        "katotth_code": "UA14120070010085843",
+        "name": "Костянтинівка",
+        "name_en": "Kostiantynivka"
+      },
+      {
+        "katotth_code": "UA14120090010038661",
+        "name": "Краматорськ",
+        "name_en": "Kramatorsk"
+      },
+      {
+        "katotth_code": "UA14120110010088407",
+        "name": "Лиман",
+        "name_en": "Lyman"
+      },
+      {
+        "katotth_code": "UA14120130010079249",
+        "name": "Миколаївка",
+        "name_en": "Mykolaivka"
+      },
+      {
+        "katotth_code": "UA14120190010047280",
+        "name": "Святогірськ",
+        "name_en": "Sviatohirsk"
+      },
+      {
+        "katotth_code": "UA14120210010032554",
+        "name": "Слов’янськ",
+        "name_en": "Sloviansk"
+      },
+      {
+        "katotth_code": "UA14140050010029262",
+        "name": "Маріуполь",
+        "name_en": "Mariupol"
+      },
+      {
+        "katotth_code": "UA14160010010073615",
+        "name": "Авдіївка",
+        "name_en": "Avdiivka"
+      },
+      {
+        "katotth_code": "UA14160030010032487",
+        "name": "Білозерське",
+        "name_en": "Bilozerske"
+      },
+      {
+        "katotth_code": "UA14160070010040544",
+        "name": "Добропілля",
+        "name_en": "Dobropillia"
+      },
+      {
+        "katotth_code": "UA14160070020099508",
+        "name": "Білицьке",
+        "name_en": "Bilytske"
+      },
+      {
+        "katotth_code": "UA14160110010020758",
+        "name": "Курахове",
+        "name_en": "Kurakhove"
+      },
+      {
+        "katotth_code": "UA14160110020099716",
+        "name": "Гірник",
+        "name_en": "Hirnyk"
+      },
+      {
+        "katotth_code": "UA14160130010089415",
+        "name": "Мар’їнка",
+        "name_en": "Marinka"
+      },
+      {
+        "katotth_code": "UA14160130020025938",
+        "name": "Красногорівка",
+        "name_en": "Krasnohorivka"
+      },
+      {
+        "katotth_code": "UA14160150010065527",
+        "name": "Мирноград",
+        "name_en": "Myrnohrad"
+      },
+      {
+        "katotth_code": "UA14160170010061687",
+        "name": "Новогродівка",
+        "name_en": "Novohrodivka"
+      },
+      {
+        "katotth_code": "UA14160210010099403",
+        "name": "Покровськ",
+        "name_en": "Pokrovsk"
+      },
+      {
+        "katotth_code": "UA14160210020079908",
+        "name": "Родинське",
+        "name_en": "Rodynske"
+      },
+      {
+        "katotth_code": "UA14160230010080205",
+        "name": "Селидове",
+        "name_en": "Selydove"
+      },
+      {
+        "katotth_code": "UA14160230020031369",
+        "name": "Українськ",
+        "name_en": "Ukrainsk"
+      }
+    ]
+  },
+  {
+    "katotth_code": "UA18000000000041385",
+    "name": "Житомирська",
+    "name_en": "Zhytomyrska",
+    "code_type": "O",
+    "cities": [
+      {
+        "katotth_code": "UA18020010010097402",
+        "name": "Андрушівка",
+        "name_en": "Andrushivka"
+      },
+      {
+        "katotth_code": "UA18020030010047029",
+        "name": "Бердичів",
+        "name_en": "Berdychiv"
+      },
+      {
+        "katotth_code": "UA18040190010057814",
+        "name": "Житомир",
+        "name_en": "Zhytomyr"
+      },
+      {
+        "katotth_code": "UA18040250010085012",
+        "name": "Коростишів",
+        "name_en": "Korostyshiv"
+      },
+      {
+        "katotth_code": "UA18040450010049683",
+        "name": "Радомишль",
+        "name_en": "Radomyshl"
+      },
+      {
+        "katotth_code": "UA18040610010066897",
+        "name": "Чуднів",
+        "name_en": "Chudniv"
+      },
+      {
+        "katotth_code": "UA18060090010074365",
+        "name": "Коростень",
+        "name_en": "Korosten"
+      },
+      {
+        "katotth_code": "UA18060130010010134",
+        "name": "Малин",
+        "name_en": "Malyn"
+      },
+      {
+        "katotth_code": "UA18060170010010060",
+        "name": "Овруч",
+        "name_en": "Ovruch"
+      },
+      {
+        "katotth_code": "UA18060190010064821",
+        "name": "Олевськ",
+        "name_en": "Olevsk"
+      },
+      {
+        "katotth_code": "UA18080010010059187",
+        "name": "Баранівка",
+        "name_en": "Baranivka"
+      },
+      {
+        "katotth_code": "UA18080150010017476",
+        "name": "Звягель",
+        "name_en": "Zviahel"
+      }
+    ]
+  },
+  {
+    "katotth_code": "UA21000000000011690",
+    "name": "Закарпатська",
+    "name_en": "Zakarpatska",
+    "code_type": "O",
+    "cities": [
+      {
+        "katotth_code": "UA21020030010083215",
+        "name": "Берегове",
+        "name_en": "Berehove"
+      },
+      {
+        "katotth_code": "UA21020110010043238",
+        "name": "Виноградів",
+        "name_en": "Vynohradiv"
+      },
+      {
+        "katotth_code": "UA21040150010056148",
+        "name": "Мукачево",
+        "name_en": "Mukachevo"
+      },
+      {
+        "katotth_code": "UA21040230010045142",
+        "name": "Свалява",
+        "name_en": "Svaliava"
+      },
+      {
+        "katotth_code": "UA21060050010040895",
+        "name": "Рахів",
+        "name_en": "Rakhiv"
+      },
+      {
+        "katotth_code": "UA21080150010051267",
+        "name": "Тячів",
+        "name_en": "Tiachiv"
+      },
+      {
+        "katotth_code": "UA21100130010027304",
+        "name": "Перечин",
+        "name_en": "Perechyn"
+      },
+      {
+        "katotth_code": "UA21100230010016545",
+        "name": "Ужгород",
+        "name_en": "Uzhhorod"
+      },
+      {
+        "katotth_code": "UA21100270010071297",
+        "name": "Чоп",
+        "name_en": "Chop"
+      },
+      {
+        "katotth_code": "UA21120130010065349",
+        "name": "Іршава",
+        "name_en": "Irshava"
+      },
+      {
+        "katotth_code": "UA21120250010053148",
+        "name": "Хуст",
+        "name_en": "Khust"
+      }
+    ]
+  },
+  {
+    "katotth_code": "UA23000000000064947",
+    "name": "Запорізька",
+    "name_en": "Zaporizka",
+    "code_type": "O",
+    "cities": [
+      {
+        "katotth_code": "UA23020050010019935",
+        "name": "Бердянськ",
+        "name_en": "Berdiansk"
+      },
+      {
+        "katotth_code": "UA23020130010076068",
+        "name": "Приморськ",
+        "name_en": "Prymorsk"
+      },
+      {
+        "katotth_code": "UA23040030010016724",
+        "name": "Василівка",
+        "name_en": "Vasylivka"
+      },
+      {
+        "katotth_code": "UA23040090010050034",
+        "name": "Дніпрорудне",
+        "name_en": "Dniprorudne"
+      },
+      {
+        "katotth_code": "UA23040110010044100",
+        "name": "Енергодар",
+        "name_en": "Enerhodar"
+      },
+      {
+        "katotth_code": "UA23040130010014334",
+        "name": "Кам’янка-Дніпровська",
+        "name_en": "Kamianka-Dniprovska"
+      },
+      {
+        "katotth_code": "UA23060030010056906",
+        "name": "Вільнянськ",
+        "name_en": "Vilniansk"
+      },
+      {
+        "katotth_code": "UA23060070010069526",
+        "name": "Запоріжжя",
+        "name_en": "Zaporizhzhia"
+      },
+      {
+        "katotth_code": "UA23080070010092407",
+        "name": "Мелітополь",
+        "name_en": "Melitopol"
+      },
+      {
+        "katotth_code": "UA23100070010036682",
+        "name": "Гуляйполе",
+        "name_en": "Huliaipole"
+      },
+      {
+        "katotth_code": "UA23100150010091297",
+        "name": "Молочанськ",
+        "name_en": "Molochansk"
+      },
+      {
+        "katotth_code": "UA23100170010023304",
+        "name": "Оріхів",
+        "name_en": "Orikhiv"
+      },
+      {
+        "katotth_code": "UA23100190010032690",
+        "name": "Пологи",
+        "name_en": "Polohy"
+      },
+      {
+        "katotth_code": "UA23100270010029314",
+        "name": "Токмак",
+        "name_en": "Tokmak"
+      }
+    ]
+  },
+  {
+    "katotth_code": "UA26000000000069363",
+    "name": "Івано-Франківська",
+    "name_en": "Ivano-Frankivska",
+    "code_type": "O",
+    "cities": [
+      {
+        "katotth_code": "UA26040070010092973",
+        "name": "Бурштин",
+        "name_en": "Burshtyn"
+      },
+      {
+        "katotth_code": "UA26040090010078723",
+        "name": "Галич",
+        "name_en": "Halych"
+      },
+      {
+        "katotth_code": "UA26040190010045761",
+        "name": "Івано-Франківськ",
+        "name_en": "Ivano-Frankivsk"
+      },
+      {
+        "katotth_code": "UA26040270010067876",
+        "name": "Рогатин",
+        "name_en": "Rohatyn"
+      },
+      {
+        "katotth_code": "UA26040330010091232",
+        "name": "Тисмениця",
+        "name_en": "Tysmenytsia"
+      },
+      {
+        "katotth_code": "UA26040350010070754",
+        "name": "Тлумач",
+        "name_en": "Tlumach"
+      },
+      {
+        "katotth_code": "UA26060010010092713",
+        "name": "Болехів",
+        "name_en": "Bolekhiv"
+      },
+      {
+        "katotth_code": "UA26060130010099427",
+        "name": "Долина",
+        "name_en": "Dolyna"
+      },
+      {
+        "katotth_code": "UA26060170010082672",
+        "name": "Калуш",
+        "name_en": "Kalush"
+      },
+      {
+        "katotth_code": "UA26080030010035324",
+        "name": "Городенка",
+        "name_en": "Horodenka"
+      },
+      {
+        "katotth_code": "UA26080070010075786",
+        "name": "Коломия",
+        "name_en": "Kolomyia"
+      },
+      {
+        "katotth_code": "UA26080230010020173",
+        "name": "Снятин",
+        "name_en": "Sniatyn"
+      },
+      {
+        "katotth_code": "UA26100010010026473",
+        "name": "Косів",
+        "name_en": "Kosiv"
+      },
+      {
+        "katotth_code": "UA26120070010010041",
+        "name": "Надвірна",
+        "name_en": "Nadvirna"
+      },
+      {
+        "katotth_code": "UA26120150010047425",
+        "name": "Яремче",
+        "name_en": "Yaremche"
+      }
+    ]
+  },
+  {
+    "katotth_code": "UA32000000000030281",
+    "name": "Київська",
+    "name_en": "Kyivska",
+    "code_type": "O",
+    "cities": [
+      {
+        "katotth_code": "UA32000000010085013",
+        "name": "Прип’ять",
+        "name_en": "Prypiat"
+      },
+      {
+        "katotth_code": "UA32000000020050699",
+        "name": "Чорнобиль",
+        "name_en": "Chornobyl"
+      },
+      {
+        "katotth_code": "UA32020010010081183",
+        "name": "Біла Церква",
+        "name_en": "Bila Tserkva"
+      },
+      {
+        "katotth_code": "UA32020150010094707",
+        "name": "Сквира",
+        "name_en": "Skvyra"
+      },
+      {
+        "katotth_code": "UA32020190010060417",
+        "name": "Тараща",
+        "name_en": "Tarashcha"
+      },
+      {
+        "katotth_code": "UA32020210010016577",
+        "name": "Тетіїв",
+        "name_en": "Tetiiv"
+      },
+      {
+        "katotth_code": "UA32020230010055093",
+        "name": "Узин",
+        "name_en": "Uzyn"
+      },
+      {
+        "katotth_code": "UA32040010010093209",
+        "name": "Бориспіль",
+        "name_en": "Boryspil"
+      },
+      {
+        "katotth_code": "UA32040110010043320",
+        "name": "Переяслав",
+        "name_en": "Pereiaslav"
+      },
+      {
+        "katotth_code": "UA32040210010094429",
+        "name": "Яготин",
+        "name_en": "Yahotyn"
+      },
+      {
+        "katotth_code": "UA32060030010087257",
+        "name": "Березань",
+        "name_en": "Berezan"
+      },
+      {
+        "katotth_code": "UA32060050010081797",
+        "name": "Бровари",
+        "name_en": "Brovary"
+      },
+      {
+        "katotth_code": "UA32080070010087821",
+        "name": "Буча",
+        "name_en": "Bucha"
+      },
+      {
+        "katotth_code": "UA32080090010037585",
+        "name": "Вишневе",
+        "name_en": "Vyshneve"
+      },
+      {
+        "katotth_code": "UA32080150010049888",
+        "name": "Ірпінь",
+        "name_en": "Irpin"
+      },
+      {
+        "katotth_code": "UA32100010010059200",
+        "name": "Вишгород",
+        "name_en": "Vyshhorod"
+      },
+      {
+        "katotth_code": "UA32100130010084793",
+        "name": "Славутич",
+        "name_en": "Slavutych"
+      },
+      {
+        "katotth_code": "UA32120010010027554",
+        "name": "Богуслав",
+        "name_en": "Bohuslav"
+      },
+      {
+        "katotth_code": "UA32120030010069648",
+        "name": "Васильків",
+        "name_en": "Vasylkiv"
+      },
+      {
+        "katotth_code": "UA32120050010091788",
+        "name": "Кагарлик",
+        "name_en": "Kaharlyk"
+      },
+      {
+        "katotth_code": "UA32120090010020161",
+        "name": "Миронівка",
+        "name_en": "Myronivka"
+      },
+      {
+        "katotth_code": "UA32120110010071582",
+        "name": "Обухів",
+        "name_en": "Obukhiv"
+      },
+      {
+        "katotth_code": "UA32120130010035405",
+        "name": "Ржищів",
+        "name_en": "Rzhyshchiv"
+      },
+      {
+        "katotth_code": "UA32120150010043175",
+        "name": "Українка",
+        "name_en": "Ukrainka"
+      },
+      {
+        "katotth_code": "UA32140030010045925",
+        "name": "Боярка",
+        "name_en": "Boiarka"
+      },
+      {
+        "katotth_code": "UA32140150010091295",
+        "name": "Фастів",
+        "name_en": "Fastiv"
+      }
+    ]
+  },
+  {
+    "katotth_code": "UA35000000000016081",
+    "name": "Кіровоградська",
+    "name_en": "Kirovohradska",
+    "code_type": "O",
+    "cities": [
+      {
+        "katotth_code": "UA35020010010060566",
+        "name": "Благовіщенське",
+        "name_en": "Blahovishchenske"
+      },
+      {
+        "katotth_code": "UA35020050010071459",
+        "name": "Гайворон",
+        "name_en": "Haivoron"
+      },
+      {
+        "katotth_code": "UA35040030010012943",
+        "name": "Бобринець",
+        "name_en": "Bobrynets"
+      },
+      {
+        "katotth_code": "UA35040110010034377",
+        "name": "Долинська",
+        "name_en": "Dolynska"
+      },
+      {
+        "katotth_code": "UA35040130010097956",
+        "name": "Знам’янка",
+        "name_en": "Znamianka"
+      },
+      {
+        "katotth_code": "UA35040210010019355",
+        "name": "Кропивницький",
+        "name_en": "Kropyvnytskyi"
+      },
+      {
+        "katotth_code": "UA35060090010061989",
+        "name": "Мала Виска",
+        "name_en": "Mala Vyska"
+      },
+      {
+        "katotth_code": "UA35060130010042714",
+        "name": "Новомиргород",
+        "name_en": "Novomyrhorod"
+      },
+      {
+        "katotth_code": "UA35060150010035817",
+        "name": "Новоукраїнка",
+        "name_en": "Novoukrainka"
+      },
+      {
+        "katotth_code": "UA35060190010082095",
+        "name": "Помічна",
+        "name_en": "Pomichna"
+      },
+      {
+        "katotth_code": "UA35080050010051027",
+        "name": "Олександрія",
+        "name_en": "Oleksandriia"
+      },
+      {
+        "katotth_code": "UA35080170010073614",
+        "name": "Світловодськ",
+        "name_en": "Svitlovodsk"
+      }
+    ]
+  },
+  {
+    "katotth_code": "UA44000000000018893",
+    "name": "Луганська",
+    "name_en": "Luhanska",
+    "code_type": "O",
+    "cities": [
+      {
+        "katotth_code": "UA44020010010037242",
+        "name": "Алчевськ",
+        "name_en": "Alchevsk"
+      },
+      {
+        "katotth_code": "UA44020010020065957",
+        "name": "Зоринськ",
+        "name_en": "Zorynsk"
+      },
+      {
+        "katotth_code": "UA44020010030038674",
+        "name": "Кипуче",
+        "name_en": "Kypuche"
+      },
+      {
+        "katotth_code": "UA44020010040016131",
+        "name": "Перевальськ",
+        "name_en": "Perevalsk"
+      },
+      {
+        "katotth_code": "UA44020030010028948",
+        "name": "Зимогір’я",
+        "name_en": "Zymohiria"
+      },
+      {
+        "katotth_code": "UA44020050010070086",
+        "name": "Кадіївка",
+        "name_en": "Kadiivka"
+      },
+      {
+        "katotth_code": "UA44020050020022649",
+        "name": "Алмазна",
+        "name_en": "Almazna"
+      },
+      {
+        "katotth_code": "UA44020050030024674",
+        "name": "Брянка",
+        "name_en": "Brianka"
+      },
+      {
+        "katotth_code": "UA44020050040095366",
+        "name": "Голубівка",
+        "name_en": "Holubivka"
+      },
+      {
+        "katotth_code": "UA44020050050032380",
+        "name": "Ірміно",
+        "name_en": "Irmino"
+      },
+      {
+        "katotth_code": "UA44020050060040462",
+        "name": "Сокологірськ",
+        "name_en": "Sokolohirsk"
+      },
+      {
+        "katotth_code": "UA44040010010080356",
+        "name": "Довжанськ",
+        "name_en": "Dovzhansk"
+      },
+      {
+        "katotth_code": "UA44040010020028814",
+        "name": "Вознесенівка",
+        "name_en": "Voznesenivka"
+      },
+      {
+        "katotth_code": "UA44040030010012509",
+        "name": "Сорокине",
+        "name_en": "Sorokyne"
+      },
+      {
+        "katotth_code": "UA44040030020035651",
+        "name": "Суходільськ",
+        "name_en": "Sukhodilsk"
+      },
+      {
+        "katotth_code": "UA44060010010012753",
+        "name": "Луганськ",
+        "name_en": "Luhansk"
+      },
+      {
+        "katotth_code": "UA44060010020043276",
+        "name": "Олександрівськ",
+        "name_en": "Oleksandrivsk"
+      },
+      {
+        "katotth_code": "UA44060030010090701",
+        "name": "Лутугине",
+        "name_en": "Lutuhyne"
+      },
+      {
+        "katotth_code": "UA44060050010032095",
+        "name": "Отаманівка",
+        "name_en": "Otamanivka"
+      },
+      {
+        "katotth_code": "UA44080010010047352",
+        "name": "Антрацит",
+        "name_en": "Antratsyt"
+      },
+      {
+        "katotth_code": "UA44080030010061353",
+        "name": "Ровеньки",
+        "name_en": "Rovenky"
+      },
+      {
+        "katotth_code": "UA44080050010029178",
+        "name": "Хрустальний",
+        "name_en": "Khrustalnyi"
+      },
+      {
+        "katotth_code": "UA44080050020089007",
+        "name": "Боково-Хрустальне",
+        "name_en": "Bokovo-Khrustalne"
+      },
+      {
+        "katotth_code": "UA44080050030035556",
+        "name": "Міусинськ",
+        "name_en": "Miusynsk"
+      },
+      {
+        "katotth_code": "UA44080050040050712",
+        "name": "Петрово-Красносілля",
+        "name_en": "Petrovo-Krasnosillia"
+      },
+      {
+        "katotth_code": "UA44100110010094316",
+        "name": "Сватове",
+        "name_en": "Svatove"
+      },
+      {
+        "katotth_code": "UA44120010010055038",
+        "name": "Гірське",
+        "name_en": "Hirske"
+      },
+      {
+        "katotth_code": "UA44120010020096222",
+        "name": "Золоте",
+        "name_en": "Zolote"
+      },
+      {
+        "katotth_code": "UA44120030010038707",
+        "name": "Кремінна",
+        "name_en": "Kreminna"
+      },
+      {
+        "katotth_code": "UA44120050010021900",
+        "name": "Лисичанськ",
+        "name_en": "Lysychansk"
+      },
+      {
+        "katotth_code": "UA44120050020047657",
+        "name": "Новодружеськ",
+        "name_en": "Novodruzhesk"
+      },
+      {
+        "katotth_code": "UA44120050030024381",
+        "name": "Привілля",
+        "name_en": "Pryvillia"
+      },
+      {
+        "katotth_code": "UA44120070010080343",
+        "name": "Попасна",
+        "name_en": "Popasna"
+      },
+      {
+        "katotth_code": "UA44120090010096548",
+        "name": "Рубіжне",
+        "name_en": "Rubizhne"
+      },
+      {
+        "katotth_code": "UA44120110010072887",
+        "name": "Сіверськодонецьк",
+        "name_en": "Siverskodonetsk"
+      },
+      {
+        "katotth_code": "UA44140110010014704",
+        "name": "Старобільськ",
+        "name_en": "Starobilsk"
+      },
+      {
+        "katotth_code": "UA44160090010046671",
+        "name": "Щастя",
+        "name_en": "Shchastia"
+      }
+    ]
+  },
+  {
+    "katotth_code": "UA46000000000026241",
+    "name": "Львівська",
+    "name_en": "Lvivska",
+    "code_type": "O",
+    "cities": [
+      {
+        "katotth_code": "UA46020010010087534",
+        "name": "Борислав",
+        "name_en": "Boryslav"
+      },
+      {
+        "katotth_code": "UA46020030010069501",
+        "name": "Дрогобич",
+        "name_en": "Drohobych"
+      },
+      {
+        "katotth_code": "UA46020030020056516",
+        "name": "Стебник",
+        "name_en": "Stebnyk"
+      },
+      {
+        "katotth_code": "UA46020090010062870",
+        "name": "Трускавець",
+        "name_en": "Truskavets"
+      },
+      {
+        "katotth_code": "UA46040010010077682",
+        "name": "Броди",
+        "name_en": "Brody"
+      },
+      {
+        "katotth_code": "UA46040030010088253",
+        "name": "Буськ",
+        "name_en": "Busk"
+      },
+      {
+        "katotth_code": "UA46040070010068975",
+        "name": "Золочів",
+        "name_en": "Zolochiv"
+      },
+      {
+        "katotth_code": "UA46060010010065439",
+        "name": "Бібрка",
+        "name_en": "Bibrka"
+      },
+      {
+        "katotth_code": "UA46060050010098239",
+        "name": "Глиняни",
+        "name_en": "Hlyniany"
+      },
+      {
+        "katotth_code": "UA46060070010047335",
+        "name": "Городок",
+        "name_en": "Horodok"
+      },
+      {
+        "katotth_code": "UA46060130010043364",
+        "name": "Жовква",
+        "name_en": "Zhovkva"
+      },
+      {
+        "katotth_code": "UA46060190010052224",
+        "name": "Кам’янка-Бузька",
+        "name_en": "Kamianka-Buzka"
+      },
+      {
+        "katotth_code": "UA46060210010034733",
+        "name": "Комарно",
+        "name_en": "Komarno"
+      },
+      {
+        "katotth_code": "UA46060250010015970",
+        "name": "Львів",
+        "name_en": "Lviv"
+      },
+      {
+        "katotth_code": "UA46060250020038547",
+        "name": "Винники",
+        "name_en": "Vynnyky"
+      },
+      {
+        "katotth_code": "UA46060250030012851",
+        "name": "Дубляни",
+        "name_en": "Dubliany"
+      },
+      {
+        "katotth_code": "UA46060330010045641",
+        "name": "Перемишляни",
+        "name_en": "Peremyshliany"
+      },
+      {
+        "katotth_code": "UA46060370010036941",
+        "name": "Пустомити",
+        "name_en": "Pustomyty"
+      },
+      {
+        "katotth_code": "UA46060390010035472",
+        "name": "Рава-Руська",
+        "name_en": "Rava-Ruska"
+      },
+      {
+        "katotth_code": "UA46080050010034058",
+        "name": "Добромиль",
+        "name_en": "Dobromyl"
+      },
+      {
+        "katotth_code": "UA46080070010059040",
+        "name": "Новий Калинів",
+        "name_en": "Novyi Kalyniv"
+      },
+      {
+        "katotth_code": "UA46080110010064338",
+        "name": "Рудки",
+        "name_en": "Rudky"
+      },
+      {
+        "katotth_code": "UA46080130010066889",
+        "name": "Самбір",
+        "name_en": "Sambir"
+      },
+      {
+        "katotth_code": "UA46080150010090008",
+        "name": "Старий Самбір",
+        "name_en": "Staryi Sambir"
+      },
+      {
+        "katotth_code": "UA46080190010014284",
+        "name": "Турка",
+        "name_en": "Turka"
+      },
+      {
+        "katotth_code": "UA46080210010061725",
+        "name": "Хирів",
+        "name_en": "Khyriv"
+      },
+      {
+        "katotth_code": "UA46100050010010600",
+        "name": "Жидачів",
+        "name_en": "Zhydachiv"
+      },
+      {
+        "katotth_code": "UA46100110010094231",
+        "name": "Миколаїв",
+        "name_en": "Mykolaiv"
+      },
+      {
+        "katotth_code": "UA46100130010043013",
+        "name": "Моршин",
+        "name_en": "Morshyn"
+      },
+      {
+        "katotth_code": "UA46100150010069811",
+        "name": "Новий Розділ",
+        "name_en": "Novyi Rozdil"
+      },
+      {
+        "katotth_code": "UA46100190010093837",
+        "name": "Сколе",
+        "name_en": "Skole"
+      },
+      {
+        "katotth_code": "UA46100230010074173",
+        "name": "Стрий",
+        "name_en": "Stryi"
+      },
+      {
+        "katotth_code": "UA46100270010046817",
+        "name": "Ходорів",
+        "name_en": "Khodoriv"
+      },
+      {
+        "katotth_code": "UA46120010010057892",
+        "name": "Белз",
+        "name_en": "Belz"
+      },
+      {
+        "katotth_code": "UA46120010020094201",
+        "name": "Угнів",
+        "name_en": "Uhniv"
+      },
+      {
+        "katotth_code": "UA46120030010063566",
+        "name": "Великі Мости",
+        "name_en": "Velyki Mosty"
+      },
+      {
+        "katotth_code": "UA46120090010078401",
+        "name": "Радехів",
+        "name_en": "Radekhiv"
+      },
+      {
+        "katotth_code": "UA46120110010087965",
+        "name": "Сокаль",
+        "name_en": "Sokal"
+      },
+      {
+        "katotth_code": "UA46120130010071117",
+        "name": "Шептицький",
+        "name_en": "Sheptytskyi"
+      },
+      {
+        "katotth_code": "UA46120130020045105",
+        "name": "Соснівка",
+        "name_en": "Sosnivka"
+      },
+      {
+        "katotth_code": "UA46140030010062678",
+        "name": "Мостиська",
+        "name_en": "Mostyska"
+      },
+      {
+        "katotth_code": "UA46140050010045115",
+        "name": "Новояворівськ",
+        "name_en": "Novoiavorivsk"
+      },
+      {
+        "katotth_code": "UA46140070010067363",
+        "name": "Судова Вишня",
+        "name_en": "Sudova Vyshnia"
+      },
+      {
+        "katotth_code": "UA46140110010091191",
+        "name": "Яворів",
+        "name_en": "Yavoriv"
+      }
+    ]
+  },
+  {
+    "katotth_code": "UA48000000000039575",
+    "name": "Миколаївська",
+    "name_en": "Mykolaivska",
+    "code_type": "O",
+    "cities": [
+      {
+        "katotth_code": "UA48020010010072548",
+        "name": "Баштанка",
+        "name_en": "Bashtanka"
+      },
+      {
+        "katotth_code": "UA48020150010063715",
+        "name": "Новий Буг",
+        "name_en": "Novyi Buh"
+      },
+      {
+        "katotth_code": "UA48020190010089719",
+        "name": "Снігурівка",
+        "name_en": "Snihurivka"
+      },
+      {
+        "katotth_code": "UA48040070010053688",
+        "name": "Вознесенськ",
+        "name_en": "Voznesensk"
+      },
+      {
+        "katotth_code": "UA48040250010045068",
+        "name": "Південноукраїнськ",
+        "name_en": "Pivdennoukrainsk"
+      },
+      {
+        "katotth_code": "UA48060150010035747",
+        "name": "Миколаїв",
+        "name_en": "Mykolaiv"
+      },
+      {
+        "katotth_code": "UA48060210010099689",
+        "name": "Нова Одеса",
+        "name_en": "Nova Odesa"
+      },
+      {
+        "katotth_code": "UA48060250010045389",
+        "name": "Очаків",
+        "name_en": "Ochakiv"
+      },
+      {
+        "katotth_code": "UA48080130010068596",
+        "name": "Первомайськ",
+        "name_en": "Pervomaisk"
+      }
+    ]
+  },
+  {
+    "katotth_code": "UA51000000000030770",
+    "name": "Одеська",
+    "name_en": "Odeska",
+    "code_type": "O",
+    "cities": [
+      {
+        "katotth_code": "UA51020030010083756",
+        "name": "Березівка",
+        "name_en": "Berezivka"
+      },
+      {
+        "katotth_code": "UA51040010010048834",
+        "name": "Білгород-Дністровський",
+        "name_en": "Bilhorod-Dnistrovskyi"
+      },
+      {
+        "katotth_code": "UA51040250010015619",
+        "name": "Татарбунари",
+        "name_en": "Tatarbunary"
+      },
+      {
+        "katotth_code": "UA51060010010032913",
+        "name": "Арциз",
+        "name_en": "Artsyz"
+      },
+      {
+        "katotth_code": "UA51060030010048411",
+        "name": "Болград",
+        "name_en": "Bolhrad"
+      },
+      {
+        "katotth_code": "UA51080010010086017",
+        "name": "Вилкове",
+        "name_en": "Vylkove"
+      },
+      {
+        "katotth_code": "UA51080030010072039",
+        "name": "Ізмаїл",
+        "name_en": "Izmail"
+      },
+      {
+        "katotth_code": "UA51080050010036449",
+        "name": "Кілія",
+        "name_en": "Kiliia"
+      },
+      {
+        "katotth_code": "UA51080070010065897",
+        "name": "Рені",
+        "name_en": "Reni"
+      },
+      {
+        "katotth_code": "UA51100030010096432",
+        "name": "Біляївка",
+        "name_en": "Biliaivka"
+      },
+      {
+        "katotth_code": "UA51100270010076757",
+        "name": "Одеса",
+        "name_en": "Odesa"
+      },
+      {
+        "katotth_code": "UA51100310010094687",
+        "name": "Теплодар",
+        "name_en": "Teplodar"
+      },
+      {
+        "katotth_code": "UA51100370010020298",
+        "name": "Чорноморськ",
+        "name_en": "Chornomorsk"
+      },
+      {
+        "katotth_code": "UA51100410010044384",
+        "name": "Південне",
+        "name_en": "Pivdenne"
+      },
+      {
+        "katotth_code": "UA51120010010049617",
+        "name": "Ананьїв",
+        "name_en": "Ananiv"
+      },
+      {
+        "katotth_code": "UA51120030010033524",
+        "name": "Балта",
+        "name_en": "Balta"
+      },
+      {
+        "katotth_code": "UA51120090010012317",
+        "name": "Кодима",
+        "name_en": "Kodyma"
+      },
+      {
+        "katotth_code": "UA51120190010049331",
+        "name": "Подільськ",
+        "name_en": "Podilsk"
+      },
+      {
+        "katotth_code": "UA51140130010040641",
+        "name": "Роздільна",
+        "name_en": "Rozdilna"
+      }
+    ]
+  },
+  {
+    "katotth_code": "UA53000000000028050",
+    "name": "Полтавська",
+    "name_en": "Poltavska",
+    "code_type": "O",
+    "cities": [
+      {
+        "katotth_code": "UA53020010010016768",
+        "name": "Глобине",
+        "name_en": "Hlobyne"
+      },
+      {
+        "katotth_code": "UA53020030010087471",
+        "name": "Горішні Плавні",
+        "name_en": "Horishni Plavni"
+      },
+      {
+        "katotth_code": "UA53020110010031694",
+        "name": "Кременчук",
+        "name_en": "Kremenchuk"
+      },
+      {
+        "katotth_code": "UA53040010010092378",
+        "name": "Гребінка",
+        "name_en": "Hrebinka"
+      },
+      {
+        "katotth_code": "UA53040030010081016",
+        "name": "Лубни",
+        "name_en": "Lubny"
+      },
+      {
+        "katotth_code": "UA53040090010096696",
+        "name": "Пирятин",
+        "name_en": "Pyriatyn"
+      },
+      {
+        "katotth_code": "UA53040110010080324",
+        "name": "Хорол",
+        "name_en": "Khorol"
+      },
+      {
+        "katotth_code": "UA53060090010040802",
+        "name": "Гадяч",
+        "name_en": "Hadiach"
+      },
+      {
+        "katotth_code": "UA53060130010028447",
+        "name": "Заводське",
+        "name_en": "Zavodske"
+      },
+      {
+        "katotth_code": "UA53060190010016735",
+        "name": "Лохвиця",
+        "name_en": "Lokhvytsia"
+      },
+      {
+        "katotth_code": "UA53060230010027681",
+        "name": "Миргород",
+        "name_en": "Myrhorod"
+      },
+      {
+        "katotth_code": "UA53080090010093569",
+        "name": "Зіньків",
+        "name_en": "Zinkiv"
+      },
+      {
+        "katotth_code": "UA53080110010062221",
+        "name": "Карлівка",
+        "name_en": "Karlivka"
+      },
+      {
+        "katotth_code": "UA53080130010037756",
+        "name": "Кобеляки",
+        "name_en": "Kobeliaky"
+      },
+      {
+        "katotth_code": "UA53080370010073240",
+        "name": "Полтава",
+        "name_en": "Poltava"
+      },
+      {
+        "katotth_code": "UA53080390010041197",
+        "name": "Решетилівка",
+        "name_en": "Reshetylivka"
+      }
+    ]
+  },
+  {
+    "katotth_code": "UA56000000000066151",
+    "name": "Рівненська",
+    "name_en": "Rivnenska",
+    "code_type": "O",
+    "cities": [
+      {
+        "katotth_code": "UA56020030010034121",
+        "name": "Вараш",
+        "name_en": "Varash"
+      },
+      {
+        "katotth_code": "UA56040110010080334",
+        "name": "Дубно",
+        "name_en": "Dubno"
+      },
+      {
+        "katotth_code": "UA56040290010062068",
+        "name": "Радивилів",
+        "name_en": "Radyvyliv"
+      },
+      {
+        "katotth_code": "UA56060030010049126",
+        "name": "Березне",
+        "name_en": "Berezne"
+      },
+      {
+        "katotth_code": "UA56060250010051586",
+        "name": "Здолбунів",
+        "name_en": "Zdolbuniv"
+      },
+      {
+        "katotth_code": "UA56060310010035947",
+        "name": "Корець",
+        "name_en": "Korets"
+      },
+      {
+        "katotth_code": "UA56060350010063070",
+        "name": "Костопіль",
+        "name_en": "Kostopil"
+      },
+      {
+        "katotth_code": "UA56060450010014169",
+        "name": "Острог",
+        "name_en": "Ostroh"
+      },
+      {
+        "katotth_code": "UA56060470010041018",
+        "name": "Рівне",
+        "name_en": "Rivne"
+      },
+      {
+        "katotth_code": "UA56080070010011646",
+        "name": "Дубровиця",
+        "name_en": "Dubrovytsia"
+      },
+      {
+        "katotth_code": "UA56080170010061049",
+        "name": "Сарни",
+        "name_en": "Sarny"
+      }
+    ]
+  },
+  {
+    "katotth_code": "UA59000000000057109",
+    "name": "Сумська",
+    "name_en": "Sumska",
+    "code_type": "O",
+    "cities": [
+      {
+        "katotth_code": "UA59020030010075600",
+        "name": "Буринь",
+        "name_en": "Buryn"
+      },
+      {
+        "katotth_code": "UA59020070010054283",
+        "name": "Конотоп",
+        "name_en": "Konotop"
+      },
+      {
+        "katotth_code": "UA59020090010081204",
+        "name": "Кролевець",
+        "name_en": "Krolevets"
+      },
+      {
+        "katotth_code": "UA59020150010023159",
+        "name": "Путивль",
+        "name_en": "Putyvl"
+      },
+      {
+        "katotth_code": "UA59040110010017443",
+        "name": "Охтирка",
+        "name_en": "Okhtyrka"
+      },
+      {
+        "katotth_code": "UA59040130010060037",
+        "name": "Тростянець",
+        "name_en": "Trostianets"
+      },
+      {
+        "katotth_code": "UA59060110010062596",
+        "name": "Ромни",
+        "name_en": "Romny"
+      },
+      {
+        "katotth_code": "UA59080030010079123",
+        "name": "Білопілля",
+        "name_en": "Bilopillia"
+      },
+      {
+        "katotth_code": "UA59080070010055315",
+        "name": "Ворожба",
+        "name_en": "Vorozhba"
+      },
+      {
+        "katotth_code": "UA59080110010031484",
+        "name": "Лебедин",
+        "name_en": "Lebedyn"
+      },
+      {
+        "katotth_code": "UA59080270010036634",
+        "name": "Суми",
+        "name_en": "Sumy"
+      },
+      {
+        "katotth_code": "UA59100030010033445",
+        "name": "Глухів",
+        "name_en": "Hlukhiv"
+      },
+      {
+        "katotth_code": "UA59100050010097062",
+        "name": "Хутір-Михайлівський",
+        "name_en": "Khutir-Mykhailivskyi"
+      },
+      {
+        "katotth_code": "UA59100130010040668",
+        "name": "Середина-Буда",
+        "name_en": "Seredyna-Buda"
+      },
+      {
+        "katotth_code": "UA59100170010017917",
+        "name": "Шостка",
+        "name_en": "Shostka"
+      }
+    ]
+  },
+  {
+    "katotth_code": "UA61000000000060328",
+    "name": "Тернопільська",
+    "name_en": "Ternopilska",
+    "code_type": "O",
+    "cities": [
+      {
+        "katotth_code": "UA61020070010067494",
+        "name": "Кременець",
+        "name_en": "Kremenets"
+      },
+      {
+        "katotth_code": "UA61020090010092599",
+        "name": "Ланівці",
+        "name_en": "Lanivtsi"
+      },
+      {
+        "katotth_code": "UA61020130010032621",
+        "name": "Почаїв",
+        "name_en": "Pochaiv"
+      },
+      {
+        "katotth_code": "UA61020150010042611",
+        "name": "Шумськ",
+        "name_en": "Shumsk"
+      },
+      {
+        "katotth_code": "UA61040030010016917",
+        "name": "Бережани",
+        "name_en": "Berezhany"
+      },
+      {
+        "katotth_code": "UA61040150010018110",
+        "name": "Збараж",
+        "name_en": "Zbarazh"
+      },
+      {
+        "katotth_code": "UA61040170010060494",
+        "name": "Зборів",
+        "name_en": "Zboriv"
+      },
+      {
+        "katotth_code": "UA61040370010042063",
+        "name": "Підгайці",
+        "name_en": "Pidhaitsi"
+      },
+      {
+        "katotth_code": "UA61040430010057663",
+        "name": "Скалат",
+        "name_en": "Skalat"
+      },
+      {
+        "katotth_code": "UA61040470010037126",
+        "name": "Теребовля",
+        "name_en": "Terebovlia"
+      },
+      {
+        "katotth_code": "UA61040490010069060",
+        "name": "Тернопіль",
+        "name_en": "Ternopil"
+      },
+      {
+        "katotth_code": "UA61060050010030430",
+        "name": "Борщів",
+        "name_en": "Borshchiv"
+      },
+      {
+        "katotth_code": "UA61060070010075450",
+        "name": "Бучач",
+        "name_en": "Buchach"
+      },
+      {
+        "katotth_code": "UA61060170010057218",
+        "name": "Заліщики",
+        "name_en": "Zalishchyky"
+      },
+      {
+        "katotth_code": "UA61060250010085416",
+        "name": "Копичинці",
+        "name_en": "Kopychyntsi"
+      },
+      {
+        "katotth_code": "UA61060310010085741",
+        "name": "Монастириська",
+        "name_en": "Monastyryska"
+      },
+      {
+        "katotth_code": "UA61060410010063308",
+        "name": "Хоростків",
+        "name_en": "Khorostkiv"
+      },
+      {
+        "katotth_code": "UA61060430010047348",
+        "name": "Чортків",
+        "name_en": "Chortkiv"
+      }
+    ]
+  },
+  {
+    "katotth_code": "UA63000000000041885",
+    "name": "Харківська",
+    "name_en": "Kharkivska",
+    "code_type": "O",
+    "cities": [
+      {
+        "katotth_code": "UA63020010010049442",
+        "name": "Богодухів",
+        "name_en": "Bohodukhiv"
+      },
+      {
+        "katotth_code": "UA63020030010038669",
+        "name": "Валки",
+        "name_en": "Valky"
+      },
+      {
+        "katotth_code": "UA63040010010039074",
+        "name": "Балаклія",
+        "name_en": "Balakliia"
+      },
+      {
+        "katotth_code": "UA63040030010027594",
+        "name": "Барвінкове",
+        "name_en": "Barvinkove"
+      },
+      {
+        "katotth_code": "UA63040090010029555",
+        "name": "Ізюм",
+        "name_en": "Izium"
+      },
+      {
+        "katotth_code": "UA63060050010042407",
+        "name": "Берестин",
+        "name_en": "Berestyn"
+      },
+      {
+        "katotth_code": "UA63080090010026457",
+        "name": "Куп’янськ",
+        "name_en": "Kupiansk"
+      },
+      {
+        "katotth_code": "UA63100050010081626",
+        "name": "Лозова",
+        "name_en": "Lozova"
+      },
+      {
+        "katotth_code": "UA63100090010068250",
+        "name": "Златопіль",
+        "name_en": "Zlatopil"
+      },
+      {
+        "katotth_code": "UA63120070010085847",
+        "name": "Дергачі",
+        "name_en": "Derhachi"
+      },
+      {
+        "katotth_code": "UA63120110010087291",
+        "name": "Люботин",
+        "name_en": "Liubotyn"
+      },
+      {
+        "katotth_code": "UA63120150010020962",
+        "name": "Мерефа",
+        "name_en": "Merefa"
+      },
+      {
+        "katotth_code": "UA63120190010022795",
+        "name": "Південне",
+        "name_en": "Pivdenne"
+      },
+      {
+        "katotth_code": "UA63120270010096107",
+        "name": "Харків",
+        "name_en": "Kharkiv"
+      },
+      {
+        "katotth_code": "UA63140010010035757",
+        "name": "Вовчанськ",
+        "name_en": "Vovchansk"
+      },
+      {
+        "katotth_code": "UA63140030010017037",
+        "name": "Зміїв",
+        "name_en": "Zmiiv"
+      },
+      {
+        "katotth_code": "UA63140110010076882",
+        "name": "Слобожанське",
+        "name_en": "Slobozhanske"
+      },
+      {
+        "katotth_code": "UA63140170010036104",
+        "name": "Чугуїв",
+        "name_en": "Chuhuiv"
+      }
+    ]
+  },
+  {
+    "katotth_code": "UA65000000000030969",
+    "name": "Херсонська",
+    "name_en": "Khersonska",
+    "code_type": "O",
+    "cities": [
+      {
+        "katotth_code": "UA65020010010095508",
+        "name": "Берислав",
+        "name_en": "Beryslav"
+      },
+      {
+        "katotth_code": "UA65040010010040633",
+        "name": "Генічеськ",
+        "name_en": "Henichesk"
+      },
+      {
+        "katotth_code": "UA65060110010021041",
+        "name": "Каховка",
+        "name_en": "Kakhovka"
+      },
+      {
+        "katotth_code": "UA65060170010075325",
+        "name": "Нова Каховка",
+        "name_en": "Nova Kakhovka"
+      },
+      {
+        "katotth_code": "UA65060250010044738",
+        "name": "Таврійськ",
+        "name_en": "Tavriisk"
+      },
+      {
+        "katotth_code": "UA65080030010035864",
+        "name": "Гола Пристань",
+        "name_en": "Hola Prystan"
+      },
+      {
+        "katotth_code": "UA65080150010023642",
+        "name": "Скадовськ",
+        "name_en": "Skadovsk"
+      },
+      {
+        "katotth_code": "UA65100110010019482",
+        "name": "Олешки",
+        "name_en": "Oleshky"
+      },
+      {
+        "katotth_code": "UA65100150010064384",
+        "name": "Херсон",
+        "name_en": "Kherson"
+      }
+    ]
+  },
+  {
+    "katotth_code": "UA68000000000099709",
+    "name": "Хмельницька",
+    "name_en": "Khmelnytska",
+    "code_type": "O",
+    "cities": [
+      {
+        "katotth_code": "UA68020050010075833",
+        "name": "Дунаївці",
+        "name_en": "Dunaivtsi"
+      },
+      {
+        "katotth_code": "UA68020110010097898",
+        "name": "Кам’янець-Подільський",
+        "name_en": "Kamianets-Podilskyi"
+      },
+      {
+        "katotth_code": "UA68040090010095929",
+        "name": "Волочиськ",
+        "name_en": "Volochysk"
+      },
+      {
+        "katotth_code": "UA68040130010039416",
+        "name": "Городок",
+        "name_en": "Horodok"
+      },
+      {
+        "katotth_code": "UA68040150010024820",
+        "name": "Деражня",
+        "name_en": "Derazhnia"
+      },
+      {
+        "katotth_code": "UA68040210010032567",
+        "name": "Красилів",
+        "name_en": "Krasyliv"
+      },
+      {
+        "katotth_code": "UA68040390010084208",
+        "name": "Старокостянтинів",
+        "name_en": "Starokostiantyniv"
+      },
+      {
+        "katotth_code": "UA68040470010096613",
+        "name": "Хмельницький",
+        "name_en": "Khmelnytskyi"
+      },
+      {
+        "katotth_code": "UA68060090010061527",
+        "name": "Ізяслав",
+        "name_en": "Iziaslav"
+      },
+      {
+        "katotth_code": "UA68060170010043609",
+        "name": "Нетішин",
+        "name_en": "Netishyn"
+      },
+      {
+        "katotth_code": "UA68060210010068447",
+        "name": "Полонне",
+        "name_en": "Polonne"
+      },
+      {
+        "katotth_code": "UA68060270010040268",
+        "name": "Славута",
+        "name_en": "Slavuta"
+      },
+      {
+        "katotth_code": "UA68060330010023704",
+        "name": "Шепетівка",
+        "name_en": "Shepetivka"
+      }
+    ]
+  },
+  {
+    "katotth_code": "UA71000000000010357",
+    "name": "Черкаська",
+    "name_en": "Cherkaska",
+    "code_type": "O",
+    "cities": [
+      {
+        "katotth_code": "UA71020030010075692",
+        "name": "Багачеве",
+        "name_en": "Bahacheve"
+      },
+      {
+        "katotth_code": "UA71020130010081908",
+        "name": "Звенигородка",
+        "name_en": "Zvenyhorodka"
+      },
+      {
+        "katotth_code": "UA71020290010051536",
+        "name": "Тальне",
+        "name_en": "Talne"
+      },
+      {
+        "katotth_code": "UA71020330010098440",
+        "name": "Шпола",
+        "name_en": "Shpola"
+      },
+      {
+        "katotth_code": "UA71040090010057400",
+        "name": "Золотоноша",
+        "name_en": "Zolotonosha"
+      },
+      {
+        "katotth_code": "UA71060090010092249",
+        "name": "Жашків",
+        "name_en": "Zhashkiv"
+      },
+      {
+        "katotth_code": "UA71060170010084282",
+        "name": "Монастирище",
+        "name_en": "Monastyryshche"
+      },
+      {
+        "katotth_code": "UA71060210010010251",
+        "name": "Умань",
+        "name_en": "Uman"
+      },
+      {
+        "katotth_code": "UA71060230010046648",
+        "name": "Христинівка",
+        "name_en": "Khrystynivka"
+      },
+      {
+        "katotth_code": "UA71080110010037357",
+        "name": "Городище",
+        "name_en": "Horodyshche"
+      },
+      {
+        "katotth_code": "UA71080130010022318",
+        "name": "Кам’янка",
+        "name_en": "Kamianka"
+      },
+      {
+        "katotth_code": "UA71080150010077910",
+        "name": "Канів",
+        "name_en": "Kaniv"
+      },
+      {
+        "katotth_code": "UA71080170010098381",
+        "name": "Корсунь-Шевченківський",
+        "name_en": "Korsun-Shevchenkivskyi"
+      },
+      {
+        "katotth_code": "UA71080390010069946",
+        "name": "Сміла",
+        "name_en": "Smila"
+      },
+      {
+        "katotth_code": "UA71080490010015879",
+        "name": "Черкаси",
+        "name_en": "Cherkasy"
+      },
+      {
+        "katotth_code": "UA71080510010036826",
+        "name": "Чигирин",
+        "name_en": "Chyhyryn"
+      }
+    ]
+  },
+  {
+    "katotth_code": "UA73000000000044923",
+    "name": "Чернівецька",
+    "name_en": "Chernivetska",
+    "code_type": "O",
+    "cities": [
+      {
+        "katotth_code": "UA73020070010063977",
+        "name": "Вашківці",
+        "name_en": "Vashkivtsi"
+      },
+      {
+        "katotth_code": "UA73020090010033414",
+        "name": "Вижниця",
+        "name_en": "Vyzhnytsia"
+      },
+      {
+        "katotth_code": "UA73040130010085979",
+        "name": "Новодністровськ",
+        "name_en": "Novodnistrovsk"
+      },
+      {
+        "katotth_code": "UA73040170010044151",
+        "name": "Сокиряни",
+        "name_en": "Sokyriany"
+      },
+      {
+        "katotth_code": "UA73040190010054219",
+        "name": "Хотин",
+        "name_en": "Khotyn"
+      },
+      {
+        "katotth_code": "UA73060130010067568",
+        "name": "Герца",
+        "name_en": "Hertsa"
+      },
+      {
+        "katotth_code": "UA73060190010067621",
+        "name": "Заставна",
+        "name_en": "Zastavna"
+      },
+      {
+        "katotth_code": "UA73060290010095467",
+        "name": "Кіцмань",
+        "name_en": "Kitsman"
+      },
+      {
+        "katotth_code": "UA73060410010023503",
+        "name": "Новоселиця",
+        "name_en": "Novoselytsia"
+      },
+      {
+        "katotth_code": "UA73060490010033552",
+        "name": "Сторожинець",
+        "name_en": "Storozhynets"
+      },
+      {
+        "katotth_code": "UA73060610010033137",
+        "name": "Чернівці",
+        "name_en": "Chernivtsi"
+      }
+    ]
+  },
+  {
+    "katotth_code": "UA74000000000025378",
+    "name": "Чернігівська",
+    "name_en": "Chernihivska",
+    "code_type": "O",
+    "cities": [
+      {
+        "katotth_code": "UA74020010010096225",
+        "name": "Корюківка",
+        "name_en": "Koriukivka"
+      },
+      {
+        "katotth_code": "UA74020030010065172",
+        "name": "Мена",
+        "name_en": "Mena"
+      },
+      {
+        "katotth_code": "UA74020050010092446",
+        "name": "Сновськ",
+        "name_en": "Snovsk"
+      },
+      {
+        "katotth_code": "UA74040010010021393",
+        "name": "Батурин",
+        "name_en": "Baturyn"
+      },
+      {
+        "katotth_code": "UA74040030010089994",
+        "name": "Бахмач",
+        "name_en": "Bakhmach"
+      },
+      {
+        "katotth_code": "UA74040050010084586",
+        "name": "Бобровиця",
+        "name_en": "Bobrovytsia"
+      },
+      {
+        "katotth_code": "UA74040070010013105",
+        "name": "Борзна",
+        "name_en": "Borzna"
+      },
+      {
+        "katotth_code": "UA74040250010023991",
+        "name": "Ніжин",
+        "name_en": "Nizhyn"
+      },
+      {
+        "katotth_code": "UA74040290010030247",
+        "name": "Носівка",
+        "name_en": "Nosivka"
+      },
+      {
+        "katotth_code": "UA74060030010060039",
+        "name": "Новгород-Сіверський",
+        "name_en": "Novhorod-Siverskyi"
+      },
+      {
+        "katotth_code": "UA74060070010010511",
+        "name": "Семенівка",
+        "name_en": "Semenivka"
+      },
+      {
+        "katotth_code": "UA74080030010061043",
+        "name": "Ічня",
+        "name_en": "Ichnia"
+      },
+      {
+        "katotth_code": "UA74080130010045104",
+        "name": "Прилуки",
+        "name_en": "Pryluky"
+      },
+      {
+        "katotth_code": "UA74100050010035827",
+        "name": "Городня",
+        "name_en": "Horodnia"
+      },
+      {
+        "katotth_code": "UA74100310010010586",
+        "name": "Остер",
+        "name_en": "Oster"
+      },
+      {
+        "katotth_code": "UA74100390010054825",
+        "name": "Чернігів",
+        "name_en": "Chernihiv"
+      }
+    ]
+  },
+  {
+    "katotth_code": "UA80000000000093317",
+    "name": "Київ",
+    "name_en": "Kyiv",
+    "code_type": "K",
+    "cities": [
+      {
+        "katotth_code": "UA80000000000093317",
+        "name": "Київ",
+        "name_en": "Kyiv"
+      }
+    ]
+  },
+  {
+    "katotth_code": "UA85000000000065278",
+    "name": "Севастополь",
+    "name_en": "Sevastopol",
+    "code_type": "K",
+    "cities": [
+      {
+        "katotth_code": "UA85000000000065278",
+        "name": "Севастополь",
+        "name_en": "Sevastopol"
+      }
+    ]
+  }
+]

@@ -1,0 +1,3 @@
+# `UA` followed by 17 digits.
+KATOTTH_CODE_LENGTH = 19
+MAX_REGION_NAME_LENGTH = 100
