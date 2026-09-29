@@ -1,6 +1,6 @@
 # Versioning and releases
 
-How the MagicVibe API is versioned, how compatibility with the bot works and how releases happen. Versioning visible in
+How the product API is versioned, how compatibility with the bot works and how releases happen. Versioning visible in
 the API itself (no version in URLs, `info.version` in OpenAPI) is part of the API contract.
 
 ## Version number
