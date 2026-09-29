@@ -18,7 +18,7 @@ class EntityService(
 
     @property
     def repository(self) -> EntityRepository:  # type: ignore[override]
-        return self.uow.message
+        return self.uow.entity
 ```
 
 How the UoW exposes its repositories comes from the reference domain — copy it

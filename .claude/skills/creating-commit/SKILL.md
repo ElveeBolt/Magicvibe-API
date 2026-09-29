@@ -1,5 +1,5 @@
 ---
-name: creating-commits
+name: creating-commit
 description: Creates Conventional Commits from the current git changes. Stages one logical change, picks the type from
   the diff and the scope from the project's domain folders or the changed paths, validates the message, and commits. Use
   when the user asks to commit, write or fix a commit message, or save changes to git.

@@ -3,7 +3,7 @@
 `router.py` — the handler parses, calls the service, returns a schema:
 
 ```python
-router = APIRouter(prefix="/messages", tags=["message"])
+router = APIRouter(prefix="/entities", tags=["entity"])
 
 
 @router.post("/", response_model=EntityReadSchema, status_code=status.HTTP_201_CREATED)

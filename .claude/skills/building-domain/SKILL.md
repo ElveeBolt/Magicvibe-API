@@ -18,9 +18,16 @@ difference is only how many layers it touches.
 
 ## 1. Decide the scope
 
-Decide everything else yourself from the request and the existing code. Do not
-stop to ask — a skeleton is cheap to adjust and every decision here is
-recoverable. Report the choices at the end so they can be corrected.
+The facts come from the project's documentation (where it lives: `CLAUDE.md`):
+tables, fields, constraints and enums from its data model, business rules from
+its product docs, error codes from its errors document. If the docs do not
+cover what the change needs, update them first or ask — never invent a rule, a
+field or an error code.
+
+Technical decisions — package and file names, how the code splits across
+layers — decide yourself from the request and the existing code. Do not stop to
+ask about those: a skeleton is cheap to adjust. Report the choices at the end
+so they can be corrected.
 
 Answer only the questions your change raises:
 
@@ -38,8 +45,8 @@ Answer only the questions your change raises:
 - **New endpoint?** The logic goes in `services.py` first. If the behaviour does
   not exist as a service method, the service is what is missing — not the route.
 
-Give the entity only the fields the request implies. Inventing columns costs a
-migration to remove.
+Give the entity exactly the fields its data model document lists. Inventing
+columns costs a migration to remove.
 
 ## 2. Naming
 
@@ -60,11 +67,14 @@ touch. The order matters: each layer is written against something that already
 exists. Read the reference before writing the layer.
 
 A domain always has `__init__.py`, `router.py`, `services.py` and
-`tests/<domain>/__init__.py`; everything else exists only because a line above
+`tests/<domain>/__init__.py` (with `tests/__init__.py` above it); everything else exists only because a line above
 justified it.
 
 Data owned by another domain is reached through that domain's service, never
 through its models or repositories.
+
+Every data rule is enforced as the project's conventions document says: in the
+schema and in the database, with the same constant.
 
 **Model** — the domain owns new data → See [references/model.md](references/model.md)
 
@@ -106,8 +116,20 @@ from `models/__init__.py` — fix that and regenerate.
 ## 6. Tests
 
 Any change that adds a branch needs one. A rename or a docstring does not.
+Write them as the project's testing document describes.
 
-## 7. Verify
+## 7. Update the docs
+
+The docs are the source of truth, so a change that alters them updates them in
+the same change:
+
+- a changed business rule → the product docs;
+- a changed table, constraint or enum → the data model document;
+- a new error code → the errors document.
+
+Skip this step when the change only implements what the docs already say.
+
+## 8. Verify
 
 ```
 uv run ruff check src/<package>/<domain>/ tests/<domain>/
@@ -119,7 +141,7 @@ Fix what they report and rerun until clean; never report success over a red
 check. Then confirm no use of another domain's models, repositories or service
 internals.
 
-## 8. Report
+## 9. Report
 
 One pass, no follow-up questions:
 
@@ -127,6 +149,7 @@ One pass, no follow-up questions:
   have to be visible to be objected to;
 - files created or changed;
 - the migration revision, if one was generated;
+- the docs updated, if any;
 - what was deliberately left out (no models, so no migration; no fixed value
   sets, so no `enums.py`) — so it reads as a decision, not an omission.
 

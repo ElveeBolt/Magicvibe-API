@@ -10,6 +10,9 @@ Invariants for domain modules under `src/<package>/<domain>/`, where `<package>`
 project's top-level package (the single package directly under `src/`).
 `src/<package>/core/` is shared infrastructure, not a domain, so these rules do not apply there.
 
+The project's conventions document is the source of these rules (where it lives: `CLAUDE.md`). If this file and that
+document differ, the document wins.
+
 ## Layout
 
 ```
@@ -33,7 +36,7 @@ src/<package>/<domain>/
     └── <entity>_<sub>.py
 ```
 
-`__init__.py` and `router.py` always exist. Everything else exists only when the domain actually
+`__init__.py`, `router.py` and `services.py` always exist. Everything else exists only when the domain actually
 has that concern — a domain with no persistence has no models/, repositories.py, and no migration.
 Empty placeholder files are a violation, not a stub.
 
@@ -52,7 +55,7 @@ Extra files (utils.py, …) are allowed, but nothing that belongs in one of the 
   subclassing `AlchemyRepository[Model, PkType]` with `model = <Model>`.
   Instantiated only inside the UoW. Repositories hold no business rules.
 - **`constants.py`** — `UPPER_CASE` values hardcoded in the code that change
-  business behaviour (`MAX_QUOTES_PER_USER`, `DEFAULT_PAGE_SIZE`). Values that
+  business behaviour (`MAX_BIO_LENGTH`, `MAX_PROFILE_IMAGES`). Values that
   differ per environment belong in settings, and fixed sets of values belong in
   `enums.py`.
 - **`enums.py`** — enums shared between models and schemas, so neither side owns
@@ -69,13 +72,17 @@ Extra files (utils.py, …) are allowed, but nothing that belongs in one of the 
 ## Imports
 
 - Relative imports inside `<package>`: `from ..core.database.alchemy.repository
-  import AlchemyRepository`, `from .models import Quote`.
+  import AlchemyRepository`, `from .models import Reaction`.
 
 ## Behaviour
 
-- Endpoints touching an external API are `async def`.
+- Every endpoint and every I/O call (database, external services) is `async`.
 - A change under `models/` requires a generated migration (see the conventional
   migrations rule).
+- Every data rule is enforced as the project's conventions document says (in the schema and in the database, with
+  the same constant); a rule that depends on other rows is checked in the service after locking those rows.
+- Services report failures only with the shared exceptions from `core`, each carrying an error code from the project's
+  errors document. A new code is added to that document first. Routers never build error responses themselves.
 - New logic in a domain requires tests under `tests/<domain>/`:
   `test_router.py` for the HTTP contract, `test_services.py` for business rules,
   and `test_schemas.py` when `schemas/types.py` or `schemas/validators.py` exist,

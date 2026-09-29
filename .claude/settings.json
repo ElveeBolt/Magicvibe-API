@@ -15,7 +15,13 @@
       "Bash(git status *)",
       "Bash(git diff *)",
       "Bash(git log *)",
-      "Bash(uv run alembic revision --autogenerate *)"
+      "Bash(uv run alembic revision --autogenerate *)",
+      "Bash(openspec list *)",
+      "Bash(openspec status *)",
+      "Bash(openspec instructions *)",
+      "Bash(openspec context *)",
+      "Bash(openspec show *)",
+      "Bash(openspec validate *)"
     ],
     "ask": [
       "Bash(git push *)",
