@@ -28,6 +28,7 @@ from magicvibe.ban.models import Ban  # noqa: F403
 from magicvibe.report.models import Report  # noqa: F403
 from magicvibe.reaction.models import Match, Reaction  # noqa: F403
 from magicvibe.region.models import Region, RegionCity  # noqa: F403
+from magicvibe.subscription.models import Subscription  # noqa: F403
 from magicvibe.user.models import User, UserProfile, UserTelegram, UserPreference  # noqa: F403
 from magicvibe.core.database.alchemy.models import Base
 
