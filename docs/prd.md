@@ -244,7 +244,3 @@ Plans, daily limits and how premium is granted are defined only in [Plans](./pla
 
 - All administrative actions (reports, bans, premium) are done through the backend. There is no admin interface in the
   MVP.
-
-## 7. Assumptions and open questions
-
-- Assumptions are marked *(assumption)* in the text above. If one turns out wrong, change it here.
