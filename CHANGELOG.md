@@ -2,6 +2,19 @@
 
 <!-- version list -->
 
+## v0.1.1 (2026-09-29)
+
+### Bug Fixes
+
+- **core**: Reject unknown fields in partial updates
+  ([`9b3be91`](https://github.com/ElveeBolt/Magicvibe-API/commit/9b3be91e261acee922f020875a97b9970d3f2b52))
+
+### Documentation
+
+- **core**: Propose forbid-unknown-update-fields
+  ([`abb7c68`](https://github.com/ElveeBolt/Magicvibe-API/commit/abb7c6800962b52c14d677684566a3ddff72a5b7))
+
+
 ## v0.1.0 (2026-09-29)
 
 ### Documentation
