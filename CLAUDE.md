@@ -50,7 +50,7 @@ describe procedure; the facts come from here:
   change, update the doc first. Never resolve a conflict silently.
 - Known drift — the code must be brought to the docs: soft delete
   (`UserStatus.DELETED`) instead of hard delete; no `DatingGoal` or
-  `MAX_PROFILE_IMAGES`; the pytest config and testcontainers are not set up yet.
+  `MAX_PROFILE_IMAGES`.
 
 ## How a request flows
 
@@ -69,9 +69,9 @@ describe procedure; the facts come from here:
 
 ## Gotchas
 
-- `alembic/versions/` is empty, so there is no schema for database tests yet;
-  `tests/` so far holds only tests that need no database (`tests/core/`). `pytest`
-  exiting 5 ("no tests ran") is not a pass.
+- The test session applies every migration in `alembic/versions/` to its own
+  container, so a model change without a migration breaks the database tests.
+  `pytest` exiting 5 ("no tests ran") is not a pass.
 - Settings are nested env vars with `__` (`DATABASE__HOST`, `AUTH__SERVICE_TOKEN`),
   loaded from `.env`, which you cannot read. `.env.example` shows the keys. If the
   DB is unreachable, ask — don't guess or edit env files.

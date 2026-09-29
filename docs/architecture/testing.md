@@ -113,6 +113,7 @@ tests/
     ├── conftest.py        # fixtures used only by this domain (its services, ready-made objects)
     ├── test_router.py     # HTTP contract
     ├── test_services.py   # business rules
+    ├── test_models.py     # database constraints, one test per named constraint
     └── test_schemas.py    # accepted and rejected inputs, when schemas/types.py or validators.py exist
 ```
 
@@ -157,7 +158,8 @@ Every rule is enforced twice ([NFR-03](./nfr.md)), and both sides are tested:
 
 - the schema rejects the value with 400 `VALIDATION_ERROR`;
 - the database rejects the same value when it bypasses the schema (insert through the session, expect
-  `IntegrityError`). One test per named constraint in the [Data model](./models.md).
+  `IntegrityError`). One test per named constraint in the [Data model](./models.md), in the domain's
+  `test_models.py`; it also checks the constraint name the API maps to an error code.
 
 ### Rules that depend on other rows
 
