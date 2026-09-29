@@ -51,8 +51,8 @@ describe procedure; the facts come from here:
 - Known drift — the code must be brought to the docs: soft delete
   (`UserStatus.DELETED`) instead of hard delete; no `DatingGoal` or
   `MAX_PROFILE_IMAGES`; no `ErrorCode` or `code` in error bodies, and validation
-  returns 422 instead of 400; `page_size` has no maximum of 100; the pytest config
-  and testcontainers are not set up yet.
+  returns 422 instead of 400; the pytest config and testcontainers are not set up
+  yet.
 
 ## How a request flows
 
@@ -71,9 +71,9 @@ describe procedure; the facts come from here:
 
 ## Gotchas
 
-- `tests/` does not exist yet and `alembic/versions/` is empty. `pytest` currently
-  exits 5 ("no tests ran") — that is not a pass. Drop `tests` from the lint paths
-  until the directory exists.
+- `alembic/versions/` is empty, so there is no schema for database tests yet;
+  `tests/` so far holds only tests that need no database (`tests/core/`). `pytest`
+  exiting 5 ("no tests ran") is not a pass.
 - Settings are nested env vars with `__` (`DATABASE__HOST`, `AUTH__SERVICE_TOKEN`),
   loaded from `.env`, which you cannot read. `.env.example` shows the keys. If the
   DB is unreachable, ask — don't guess or edit env files.

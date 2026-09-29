@@ -3,6 +3,8 @@ from typing import Any, ClassVar, Self
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
+from .constants import DEFAULT_PAGE_SIZE, MAX_PAGE_SIZE
+
 
 class SortOrder(StrEnum):
     ASC = "asc"
@@ -24,7 +26,7 @@ class BaseUpdateSchema(BaseModel):
 class BaseFilterSchema(BaseModel):
     order_by: str | None = Field(default=None)
     order: SortOrder | None = Field(default=SortOrder.DESC)
-    page_size: int = Field(default=10, ge=1)
+    page_size: int = Field(default=DEFAULT_PAGE_SIZE, ge=1, le=MAX_PAGE_SIZE)
     page: int = Field(default=1, ge=1)
 
     _PAGINATION_FIELDS: ClassVar[frozenset[str]] = frozenset(
