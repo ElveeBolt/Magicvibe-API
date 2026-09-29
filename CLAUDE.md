@@ -1,9 +1,11 @@
 # MagicVibe API
 
 Backend for a Telegram dating bot: users & profiles, discovery (next candidate),
-swipes & matches, reports, bans. The bot is the only client.
+reactions & matches, reports, bans. The bot is the only client.
 
 `<package>` below means `magicvibe`; the code lives in `src/<package>/`.
+
+Product and architecture docs live in `docs/`; start with `docs/README.md`.
 
 | Layer      | Tech                           |
 |------------|--------------------------------|
@@ -56,7 +58,7 @@ paths, and `ruff .` reports errors in `.claude/` tooling that are not project co
   loaded from `.env`, which you cannot read. `.env.example` shows the keys. If the
   DB is unreachable, ask — don't guess or edit env files.
 - `discovery` has no models: `DiscoveryRepository` is a read-side query over
-  `user` and `swipe` tables.
+  `user` and `reaction` tables.
 
 ## Definition of done
 

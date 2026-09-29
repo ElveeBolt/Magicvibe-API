@@ -1,6 +1,6 @@
 from enum import StrEnum
 
 
-class SwipeAction(StrEnum):
+class ReactionAction(StrEnum):
     LIKE = "like"
     DISLIKE = "dislike"

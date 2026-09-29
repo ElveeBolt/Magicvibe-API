@@ -4,26 +4,28 @@ from fastapi import APIRouter, Query, status
 
 from ..core.schemas.base import PaginatedResponse
 from ..user.dependencies import CurrentUserDep
-from .dependencies import SwipeServiceDep
-from .schemas.swipe import (
+from .dependencies import ReactionServiceDep
+from .schemas.reaction import (
     MatchFilterSchema,
     MatchReadSchema,
-    SwipeCreateSchema,
-    SwipeResultReadSchema,
+    ReactionCreateSchema,
+    ReactionResultReadSchema,
 )
 
-# No prefix: the domain serves two resources, `/swipes` and `/matches`.
+# No prefix: the domain serves two resources, `/reactions` and `/matches`.
 router = APIRouter()
 
 
 @router.post(
-    "/swipes",
-    response_model=SwipeResultReadSchema,
+    "/reactions",
+    response_model=ReactionResultReadSchema,
     status_code=status.HTTP_201_CREATED,
-    tags=["swipes"],
+    tags=["reactions"],
 )
-async def create_swipe(
-    service: SwipeServiceDep, current_user: CurrentUserDep, data: SwipeCreateSchema
+async def create_reaction(
+    service: ReactionServiceDep,
+    current_user: CurrentUserDep,
+    data: ReactionCreateSchema,
 ):
     return await service.create(user_id=current_user.id, data=data)
 
@@ -32,7 +34,7 @@ async def create_swipe(
     "/matches", response_model=PaginatedResponse[MatchReadSchema], tags=["matches"]
 )
 async def get_matches(
-    service: SwipeServiceDep,
+    service: ReactionServiceDep,
     current_user: CurrentUserDep,
     filters: Annotated[MatchFilterSchema, Query()],
 ):

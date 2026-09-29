@@ -2,53 +2,53 @@ from typing import TYPE_CHECKING
 
 from ..core.exceptions import BadRequestError, ConflictError, NotFoundError
 from ..core.schemas.base import PaginatedResponse
-from .enums import SwipeAction
-from .schemas.swipe import (
+from .enums import ReactionAction
+from .schemas.reaction import (
     MatchedUserSchema,
     MatchFilterSchema,
     MatchReadSchema,
-    SwipeCreateSchema,
-    SwipeFilterSchema,
-    SwipeReadSchema,
-    SwipeResultReadSchema,
+    ReactionCreateSchema,
+    ReactionFilterSchema,
+    ReactionReadSchema,
+    ReactionResultReadSchema,
 )
 
 if TYPE_CHECKING:
     from ..uow import UnitOfWork
 
 
-class SwipeService:
+class ReactionService:
     def __init__(self, uow: UnitOfWork) -> None:
         self.uow = uow
 
     async def create(
-        self, user_id: int, data: SwipeCreateSchema
-    ) -> SwipeResultReadSchema:
-        """Record a swipe by `user_id` (already authenticated) and detect a match."""
+        self, user_id: int, data: ReactionCreateSchema
+    ) -> ReactionResultReadSchema:
+        """Record a reaction by `user_id` (already authenticated) and detect a match."""
         if user_id == data.to_user_id:
-            raise BadRequestError("A user cannot swipe themselves")
+            raise BadRequestError("A user cannot reaction themselves")
 
         async with self.uow:
             target_user = await self.uow.user.get(id_=data.to_user_id)
             if target_user is None:
                 raise NotFoundError("Target user not found")
 
-            swipe = await self.uow.swipe.create_if_not_exists(
+            reaction = await self.uow.reaction.create_if_not_exists(
                 {**data.model_dump(), "from_user_id": user_id}
             )
-            if swipe is None:
-                raise ConflictError("User already swiped this profile")
+            if reaction is None:
+                raise ConflictError("User already reactiond this profile")
 
-            is_match = data.action == SwipeAction.LIKE and await self._liked_back(
+            is_match = data.action == ReactionAction.LIKE and await self._liked_back(
                 from_user_id=user_id, to_user_id=data.to_user_id
             )
 
-            return SwipeResultReadSchema(
-                swipe=SwipeReadSchema.model_validate(swipe),
+            return ReactionResultReadSchema(
+                reaction=ReactionReadSchema.model_validate(reaction),
                 match=(
                     MatchReadSchema(
                         user=MatchedUserSchema.model_validate(target_user),
-                        matched_at=swipe.created_at,
+                        matched_at=reaction.created_at,
                     )
                     if is_match
                     else None
@@ -59,8 +59,8 @@ class SwipeService:
         self, user_id: int, filters: MatchFilterSchema
     ) -> PaginatedResponse[MatchReadSchema]:
         async with self.uow:
-            total = await self.uow.swipe.count_matches(user_id)
-            rows = await self.uow.swipe.get_matches(
+            total = await self.uow.reaction.count_matches(user_id)
+            rows = await self.uow.reaction.get_matches(
                 user_id=user_id,
                 descending=filters.descending,
                 limit=filters.page_size,
@@ -79,9 +79,9 @@ class SwipeService:
             )
 
     async def _liked_back(self, from_user_id: int, to_user_id: int) -> bool:
-        reverse_like = SwipeFilterSchema(
+        reverse_like = ReactionFilterSchema(
             from_user_id=to_user_id,
             to_user_id=from_user_id,
-            action=SwipeAction.LIKE,
+            action=ReactionAction.LIKE,
         )
-        return await self.uow.swipe.exists_by(reverse_like.to_filter_dict())
+        return await self.uow.reaction.exists_by(reverse_like.to_filter_dict())

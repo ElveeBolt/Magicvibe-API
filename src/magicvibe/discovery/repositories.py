@@ -4,8 +4,8 @@ from sqlalchemy import ColumnElement, and_, exists, func, or_, select
 from sqlalchemy.orm import contains_eager
 
 from ..core.database.alchemy.repository import AlchemyRepository
-from ..swipe.enums import SwipeAction
-from ..swipe.models import Swipe
+from ..reaction.enums import ReactionAction
+from ..reaction.models import Reaction
 from ..user.enums import UserStatus
 from ..user.models import User, UserPreference, UserProfile
 
@@ -34,13 +34,13 @@ class DiscoveryRepository(AlchemyRepository[User, int]):
     @staticmethod
     def _eligible(user_id: int) -> ColumnElement[bool]:
         """Whom the platform may show at all: an active, visible profile that is
-        neither the viewer nor someone they already swiped."""
-        swiped = select(Swipe.to_user_id).where(Swipe.from_user_id == user_id)
+        neither the viewer nor someone they already reacted."""
+        reacted = select(Reaction.to_user_id).where(Reaction.from_user_id == user_id)
         return and_(
             User.status == UserStatus.ACTIVE,
             UserProfile.is_visible,
             User.id != user_id,
-            User.id.not_in(swiped),
+            User.id.not_in(reacted),
         )
 
     @staticmethod
@@ -81,9 +81,9 @@ class DiscoveryRepository(AlchemyRepository[User, int]):
     def _ranking(user_id: int) -> list[ColumnElement[Any]]:
         """Order within the eligible set."""
         superliked_me = exists().where(
-            Swipe.from_user_id == User.id,
-            Swipe.to_user_id == user_id,
-            Swipe.action == SwipeAction.LIKE,
-            Swipe.is_super,
+            Reaction.from_user_id == User.id,
+            Reaction.to_user_id == user_id,
+            Reaction.action == ReactionAction.LIKE,
+            Reaction.is_super,
         )
         return [superliked_me.desc(), func.random()]

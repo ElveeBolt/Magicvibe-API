@@ -6,7 +6,7 @@ from pydantic import StringConstraints, model_validator
 from ...core.schemas.base import BaseFilterSchema, BaseSchema
 from ...user.schemas.user import UserPublicSchema
 from ..constants import MAX_MESSAGE_LENGTH
-from ..enums import SwipeAction
+from ..enums import ReactionAction
 
 type Message = Annotated[
     str,
@@ -16,27 +16,27 @@ type Message = Annotated[
 ]
 
 
-class SwipeReadSchema(BaseSchema):
+class ReactionReadSchema(BaseSchema):
     id: int
     from_user_id: int
     to_user_id: int
-    action: SwipeAction
+    action: ReactionAction
     is_super: bool
     message: str | None
     created_at: datetime
 
 
-class SwipeCreateSchema(BaseSchema):
-    """Swipe payload; the swiping user comes from the request context."""
+class ReactionCreateSchema(BaseSchema):
+    """Reaction payload; the swiping user comes from the request context."""
 
     to_user_id: int
-    action: SwipeAction
+    action: ReactionAction
     is_super: bool = False
     message: Message | None = None
 
     @model_validator(mode="after")
     def validate_like_only_fields(self) -> Self:
-        if self.action is SwipeAction.LIKE:
+        if self.action is ReactionAction.LIKE:
             return self
         if self.is_super:
             raise ValueError("Only a like can be super")
@@ -58,15 +58,15 @@ class MatchReadSchema(BaseSchema):
     matched_at: datetime
 
 
-class SwipeResultReadSchema(BaseSchema):
-    swipe: SwipeReadSchema
+class ReactionResultReadSchema(BaseSchema):
+    reaction: ReactionReadSchema
     match: MatchReadSchema | None
 
 
-class SwipeFilterSchema(BaseFilterSchema):
+class ReactionFilterSchema(BaseFilterSchema):
     from_user_id: int | None = None
     to_user_id: int | None = None
-    action: SwipeAction | None = None
+    action: ReactionAction | None = None
 
 
 class MatchFilterSchema(BaseFilterSchema):

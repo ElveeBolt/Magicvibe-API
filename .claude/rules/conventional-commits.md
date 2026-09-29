@@ -12,7 +12,7 @@ Use Conventional Commits. This project uses python-semantic-release — wrong co
 Version impact (python-semantic-release, conventional parser):
 
 - `feat` → minor
-- `fix` → patch
+- `fix`, `perf` → patch
 - `chore`, `docs`, `refactor`, `test`, `style`, `ci`, `build`, `revert`  → no release
 - Breaking change → major: `feat(domain)!: ...` or a `BREAKING CHANGE: <what broke>` footer.
   Never introduce one without being asked.

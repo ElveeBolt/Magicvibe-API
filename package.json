@@ -1,0 +1,14 @@
+{
+  "name": "magicvibe-api",
+  "version": "1.0.0",
+  "description": "REST API service for the MagicVibe project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "type": "commonjs",
+  "dependencies": {
+    "@fission-ai/openspec": "^1.13.2"
+  }
+}

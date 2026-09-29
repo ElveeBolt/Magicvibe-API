@@ -24,7 +24,7 @@ if config.config_file_name is not None:
 # from myapp import mymodel
 from src.magicvibe.ban.models import Ban  # noqa: F403
 from src.magicvibe.report.models import Report  # noqa: F403
-from src.magicvibe.swipe.models import Swipe  # noqa: F403
+from src.magicvibe.reaction.models import Reaction  # noqa: F403
 from src.magicvibe.user.models import User, UserProfile, UserTelegram, UserPreference  # noqa: F403
 from src.magicvibe.core.database.alchemy.models import Base
 
