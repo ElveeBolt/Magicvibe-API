@@ -3,18 +3,13 @@ from typing import TYPE_CHECKING
 from ..core.database.alchemy.service import AlchemyService
 from ..core.exceptions import (
     BadRequestError,
-    ConflictError,
     ErrorCode,
     ForbiddenError,
     NotFoundError,
 )
+from ..core.schemas.base import BaseUpdateSchema
 from .enums import UserStatus
-from .schemas.user import (
-    UserCreateSchema,
-    UserFilterSchema,
-    UserReadSchema,
-    UserUpdateSchema,
-)
+from .schemas.user import UserCreateSchema, UserFilterSchema, UserReadSchema
 from .schemas.user_preference import (
     UserPreferenceCreateSchema,
     UserPreferenceReadSchema,
@@ -35,19 +30,27 @@ if TYPE_CHECKING:
     from .repositories import UserRepository
 
 
-def user_banned_error(ban: Ban) -> ForbiddenError:
+def user_banned_error(ban: Ban | None) -> ForbiddenError:
     """`USER_BANNED` tells the bot why, and only why: the reason and the
     administrator's comment, no other ban fields."""
     return ForbiddenError(
         "Account is banned",
         code=ErrorCode.USER_BANNED,
-        extra={"ban": {"reason": ban.reason, "comment": ban.comment}},
+        extra={
+            "ban": (
+                {"reason": ban.reason, "comment": ban.comment}
+                if ban is not None
+                else None
+            )
+        },
     )
 
 
 class UserService(
     AlchemyService[
-        UserCreateSchema, UserUpdateSchema, UserReadSchema, UserFilterSchema, int
+        # Nothing on the account itself is updated through the API: its status
+        # belongs to the ban domain.
+        UserCreateSchema, BaseUpdateSchema, UserReadSchema, UserFilterSchema, int
     ]
 ):
     schema = UserReadSchema
@@ -67,52 +70,45 @@ class UserService(
             return self._to_schema(user)
 
     async def upsert(self, data: UserCreateSchema) -> tuple[UserReadSchema, bool]:
+        """Registers a Telegram account or refreshes its data on `/start`. A
+        banned user is told about the ban and their data is left as it is."""
+        telegram_data = data.telegram.model_dump()
+
         async with self.uow:
-            user, is_created = await self.repository.upsert_by_telegram_id(
-                data.telegram.model_dump()
-            )
+            await self.repository.lock_telegram_id(data.telegram.telegram_id)
+            user = await self.repository.get_by_telegram_id(data.telegram.telegram_id)
 
-            if user.status is UserStatus.DELETED:
-                user = await self.repository.restore(user)
+            if user is None:
+                user = await self.repository.create_with_telegram(telegram_data)
+                return self._to_schema(user), True
 
-            return self._to_schema(user), is_created
+            await self._raise_if_banned(user)
+            await self.repository.set_telegram(user, telegram_data)
+            return self._to_schema(user), False
 
     async def get_acting_user(self, telegram_id: int) -> UserReadSchema:
         async with self.uow:
             user = await self.repository.get_by_telegram_id(telegram_id)
 
-            if user is None or user.status is UserStatus.DELETED:
+            if user is None:
                 raise NotFoundError("User not found", code=ErrorCode.USER_NOT_FOUND)
 
-            if user.status is UserStatus.BANNED:
-                ban = await self.uow.ban.get_active(user.id)
-
-                if ban is not None:
-                    raise user_banned_error(ban)
+            await self._raise_if_banned(user)
+            await self.repository.touch_last_seen(user)
 
             return self._to_schema(user)
 
-    async def soft_delete(self, id_: int) -> None:
+    async def delete(self, id_: int) -> None:
+        """Deletes the account for good; the database cascade removes every
+        row that belongs to it. The row lock keeps a concurrent ban out."""
         async with self.uow:
-            user = await self._get_or_raise(id_)
+            user = await self.repository.get_for_update(id_)
 
-            if user.status is UserStatus.DELETED:
-                raise ConflictError("Account is already deleted")
+            if user is None:
+                raise NotFoundError("User not found")
 
-            if (ban := await self.uow.ban.get_active(user.id)) is not None:
-                raise user_banned_error(ban)
-
-            await self.repository.soft_delete(user)
-
-    async def restore(self, user_id: int) -> UserReadSchema:
-        async with self.uow:
-            user = await self._get_or_raise(user_id)
-
-            if user.status is not UserStatus.DELETED:
-                raise ConflictError("Account is not deleted")
-
-            user = await self.repository.restore(user)
-            return self._to_schema(user)
+            await self._raise_if_banned(user)
+            await self.repository.delete(id_=id_)
 
     async def get_profile(self, user_id: int) -> UserProfileReadSchema:
         async with self.uow:
@@ -210,6 +206,10 @@ class UserService(
             raise NotFoundError("User not found")
 
         return user
+
+    async def _raise_if_banned(self, user: User) -> None:
+        if user.status is UserStatus.BANNED:
+            raise user_banned_error(await self.uow.ban.get_active(user.id))
 
     @staticmethod
     def _profile_or_raise(user: User) -> UserProfile:

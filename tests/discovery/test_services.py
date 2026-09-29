@@ -14,7 +14,6 @@ async def test_browsing_without_a_profile_is_rejected() -> None:
         {
             "id": 1,
             "status": "active",
-            "deleted_at": None,
             "last_seen_at": now,
             "created_at": now,
             "updated_at": now,

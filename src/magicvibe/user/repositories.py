@@ -1,11 +1,11 @@
-from datetime import UTC, datetime
 from typing import Any
 
 from sqlalchemy import func, select
+from sqlalchemy import update as update_sql
 
 from ..core.database.alchemy.models import Base
 from ..core.database.alchemy.repository import AlchemyRepository
-from .enums import UserStatus
+from .constants import LAST_SEEN_UPDATE_INTERVAL
 from .models import User, UserPreference, UserProfile, UserTelegram
 
 
@@ -23,33 +23,40 @@ class UserRepository(AlchemyRepository[User, int]):
         result = await self._session.execute(stmt)
         return result.scalar_one_or_none()
 
-    async def upsert_by_telegram_id(self, data: dict[str, Any]) -> tuple[User, bool]:
-        telegram_id = data["telegram_id"]
+    async def get_for_update(self, id_: int) -> User | None:
+        """The user with their row locked until the transaction ends. Only
+        `users` is locked: the joined relationships are outer joins, which
+        PostgreSQL cannot lock."""
+        stmt = self._get_base_stmt().where(User.id == id_).with_for_update(of=User)
+        result = await self._session.execute(stmt)
+        return result.scalar_one_or_none()
+
+    async def lock_telegram_id(self, telegram_id: int) -> None:
+        """Serializes registrations of one Telegram account until the
+        transaction ends, also when no row exists yet to lock."""
         await self._session.execute(select(func.pg_advisory_xact_lock(telegram_id)))
 
-        user = await self.get_by_telegram_id(telegram_id)
-
-        if user is not None:
-            await self.set_telegram(user, data)
-            return user, False
-
+    async def create_with_telegram(self, data: dict[str, Any]) -> User:
         user = User(telegram=UserTelegram(**data))
         self._session.add(user)
-        await self._session.flush()
-        await self._session.refresh(user)
-
-        return user, True
-
-    async def soft_delete(self, user: User) -> User:
-        user.status = UserStatus.DELETED
-        user.deleted_at = datetime.now(UTC)
         return await self._persist(user)
 
-    async def restore(self, user: User) -> User:
-        user.status = UserStatus.ACTIVE
-        user.deleted_at = None
+    async def touch_last_seen(self, user: User) -> None:
+        """Sets `last_seen_at` to now when it is older than the interval."""
+        stmt = (
+            update_sql(User)
+            .where(
+                User.id == user.id,
+                User.last_seen_at < func.now() - LAST_SEEN_UPDATE_INTERVAL,
+            )
+            .values(last_seen_at=func.now())
+            .returning(User.id)
+            .execution_options(synchronize_session=False)
+        )
+        result = await self._session.execute(stmt)
 
-        return await self._persist(user)
+        if result.scalar_one_or_none() is not None:
+            await self._session.refresh(user, ["last_seen_at", "updated_at"])
 
     async def set_profile(self, user: User, data: dict[str, Any]) -> UserProfile:
         profile = user.profile
