@@ -10,6 +10,8 @@ from magicvibe.ban.enums import BanReason
 from magicvibe.ban.models import Ban
 from magicvibe.reaction.enums import ReactionAction
 from magicvibe.reaction.models import Reaction
+from magicvibe.region.enums import RegionCodeType
+from magicvibe.region.models import Region, RegionCity
 from magicvibe.report.enums import ReportReason, ReportStatus
 from magicvibe.report.models import Report
 from magicvibe.user.enums import UserProfileGender, UserStatus
@@ -145,3 +147,45 @@ async def create_ban(
     session.add(ban)
     await session.commit()
     return ban
+
+
+def _katotth_code(number: int) -> str:
+    """A made-up code in the KATOTTH format (`UA` + 17 digits); only the test
+    database may hold made-up regions and cities."""
+    return f"UA{number:017d}"
+
+
+async def create_region(
+    session: AsyncSession,
+    *,
+    name: str = "Тестова",
+    name_en: str = "Testova",
+    code_type: RegionCodeType = RegionCodeType.OBLAST,
+) -> Region:
+    region = Region(
+        katotth_code=_katotth_code(next(_sequence)),
+        name=name,
+        name_en=name_en,
+        code_type=code_type,
+    )
+    session.add(region)
+    await session.commit()
+    return region
+
+
+async def create_city(
+    session: AsyncSession,
+    region: Region,
+    *,
+    name: str = "Тестове",
+    name_en: str = "Testove",
+) -> RegionCity:
+    city = RegionCity(
+        region_id=region.id,
+        katotth_code=_katotth_code(next(_sequence)),
+        name=name,
+        name_en=name_en,
+    )
+    session.add(city)
+    await session.commit()
+    return city

@@ -143,8 +143,11 @@ Filled only by `data/regions/load.py` (repository root), which a developer runs 
 | `id`           | bigint                                   | false    | true   | —           | —       | primary key              |
 | `katotth_code` | string(19)                               | false    | true   | —           | —       | `UA` + 17 digits         |
 | `name`         | string(100)                              | false    | false  | —           | —       | Ukrainian, as in KATOTTH |
-| `name_en`      | string(100)                              | false    | false  | —           | —       | English, as in KATOTTH   |
+| `name_en`      | string(100)                              | false    | false  | —           | —       | Latin, see below         |
 | `code_type`    | enum [`RegionCodeType`](#regioncodetype) | false    | false  | —           | —       |                          |
+
+`name_en` is the Latin transliteration of `name` by the official Ukrainian rules (Resolution of the Cabinet of
+Ministers of Ukraine No. 55 of 27.01.2010): KATOTTH itself has no English names. The same applies to `cities`.
 
 ### `cities`
 
@@ -154,7 +157,7 @@ Filled only by `data/regions/load.py` (repository root), which a developer runs 
 | `region_id`    | bigint      | false    | false  | `regions.id` | —       |                          |
 | `katotth_code` | string(19)  | false    | true   | —            | —       | `UA` + 17 digits         |
 | `name`         | string(100) | false    | false  | —            | —       | Ukrainian, as in KATOTTH |
-| `name_en`      | string(100) | false    | false  | —            | —       | English, as in KATOTTH   |
+| `name_en`      | string(100) | false    | false  | —            | —       | Latin, see below         |
 
 Constraints:
 
