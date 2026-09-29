@@ -3,7 +3,7 @@ from typing import Annotated, Literal, Self
 
 from pydantic import StringConstraints, model_validator
 
-from ...core.schemas.base import BaseFilterSchema, BaseSchema
+from ...core.schemas.base import BaseFilterSchema, BaseSchema, SortOrder
 from ...user.schemas.user import UserPublicSchema
 from ..constants import MAX_MESSAGE_LENGTH
 from ..enums import ReactionAction
@@ -78,3 +78,18 @@ class ReactionFilterSchema(BaseFilterSchema):
 
 class MatchFilterSchema(BaseFilterSchema):
     order_by: Literal["matched_at"] = "matched_at"
+
+
+class LikerReadSchema(BaseSchema):
+    """Someone who liked the acting user: their public profile and whether it
+    was a superlike; never the message or Telegram data."""
+
+    user: UserPublicSchema
+    is_super: bool
+
+
+class LikerFilterSchema(BaseFilterSchema):
+    """The order is fixed: superlikes first, the newest first within each."""
+
+    order_by: Literal["created_at"] = "created_at"
+    order: Literal[SortOrder.DESC] = SortOrder.DESC

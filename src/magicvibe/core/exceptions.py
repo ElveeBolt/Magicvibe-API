@@ -130,6 +130,15 @@ class ForbiddenError(ServiceError):
     default_detail = "Forbidden"
 
 
+class TooManyRequestsError(ServiceError):
+    """
+    Raised when a quota of the user is used up (a daily limit).
+    """
+
+    default_code = ErrorCode.DAILY_LIMIT_REACHED
+    default_detail = "Too many requests"
+
+
 class UnauthorizedError(ServiceError):
     """
     Raised when the service token is missing or wrong.

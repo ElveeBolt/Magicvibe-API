@@ -1,11 +1,24 @@
-from typing import TYPE_CHECKING, Any
+from datetime import datetime, timedelta
+from typing import TYPE_CHECKING, Any, NamedTuple
 
-from sqlalchemy import ColumnElement, and_, case, func, or_, select
+from sqlalchemy import (
+    ColumnElement,
+    DateTime,
+    and_,
+    case,
+    exists,
+    func,
+    literal,
+    or_,
+    select,
+)
 from sqlalchemy.dialects.postgresql import insert
+from sqlalchemy.orm import aliased
 
 from ..core.database.alchemy.repository import AlchemyRepository
 from ..user.enums import UserStatus
 from ..user.models import User
+from .constants import LIMIT_TIME_ZONE
 from .enums import ReactionAction
 from .models import Match, Reaction
 
@@ -15,8 +28,92 @@ if TYPE_CHECKING:
     from sqlalchemy import Row
 
 
+class DayBounds(NamedTuple):
+    """The limit day around an instant: when it started and when it resets."""
+
+    at: datetime
+    day_start: datetime
+    next_reset: datetime
+
+
 class ReactionRepository(AlchemyRepository[Reaction, int]):
     model = Reaction
+
+    async def exists_pair(self, from_user_id: int, to_user_id: int) -> bool:
+        stmt = select(
+            exists().where(
+                Reaction.from_user_id == from_user_id,
+                Reaction.to_user_id == to_user_id,
+            )
+        )
+        result = await self._session.execute(stmt)
+        return bool(result.scalar())
+
+    async def day_bounds(self, at: datetime | None = None) -> DayBounds:
+        """Midnight before and after `at` (default: the database's `now()`) in
+        the limit time zone, computed by PostgreSQL, so days of 23 and 25 hours
+        around daylight saving time come out right."""
+        timestamptz = DateTime(timezone=True)
+        instant = func.now() if at is None else literal(at, timestamptz)
+        local_midnight = func.date_trunc("day", func.timezone(LIMIT_TIME_ZONE, instant))
+        stmt = select(
+            instant.label("at"),
+            func.timezone(LIMIT_TIME_ZONE, local_midnight, type_=timestamptz),
+            func.timezone(
+                LIMIT_TIME_ZONE, local_midnight + timedelta(days=1), type_=timestamptz
+            ),
+        )
+        at_, day_start, next_reset = (await self._session.execute(stmt)).one()
+        return DayBounds(at_, day_start, next_reset)
+
+    async def count_likes_since(
+        self, from_user_id: int, is_super: bool, since: datetime
+    ) -> int:
+        """Likes (or superlikes) given since `since`; uses the daily-limit
+        index."""
+        stmt = select(func.count()).where(
+            Reaction.from_user_id == from_user_id,
+            Reaction.action == ReactionAction.LIKE,
+            Reaction.is_super.is_(is_super),
+            Reaction.created_at >= since,
+        )
+        result = await self._session.execute(stmt)
+        return result.scalar_one()
+
+    async def get_likers(
+        self, user_id: int, limit: int, offset: int
+    ) -> Sequence[Row[tuple[User, Reaction]]]:
+        """Users who liked `user_id` and are still waiting for a reaction,
+        superlikes first, the newest first within each."""
+        stmt = (
+            self._likers(select(User, Reaction), user_id)
+            .order_by(Reaction.is_super.desc(), Reaction.created_at.desc())
+            .limit(limit)
+            .offset(offset)
+        )
+        result = await self._session.execute(stmt)
+        return result.unique().all()
+
+    async def count_likers(self, user_id: int) -> int:
+        stmt = self._likers(select(func.count(Reaction.id)), user_id)
+        result = await self._session.execute(stmt)
+        return result.scalar_one()
+
+    @staticmethod
+    def _likers[T: Any](stmt: T, user_id: int) -> T:
+        # An alias, so the subquery is not correlated with the outer `reactions`.
+        mine = aliased(Reaction)
+        answered = select(mine.to_user_id).where(mine.from_user_id == user_id)
+        return (
+            stmt.select_from(Reaction)
+            .join(User, User.id == Reaction.from_user_id)
+            .where(
+                Reaction.to_user_id == user_id,
+                Reaction.action == ReactionAction.LIKE,
+                Reaction.from_user_id.not_in(answered),
+                User.status == UserStatus.ACTIVE,
+            )
+        )
 
     async def create_if_not_exists(self, data: dict[str, Any]) -> Reaction | None:
         stmt = (

@@ -8,6 +8,7 @@ from magicvibe.core.exceptions import (
     ForbiddenError,
     NotFoundError,
     ServiceError,
+    TooManyRequestsError,
     UnauthorizedError,
 )
 
@@ -53,6 +54,7 @@ def test_every_code_has_its_documented_status() -> None:
         (ConflictError, ErrorCode.CONFLICT),
         (BadRequestError, ErrorCode.BAD_REQUEST),
         (UnauthorizedError, ErrorCode.INVALID_SERVICE_TOKEN),
+        (TooManyRequestsError, ErrorCode.DAILY_LIMIT_REACHED),
     ],
 )
 def test_error_class_default_code(
