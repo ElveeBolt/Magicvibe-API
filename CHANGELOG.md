@@ -2,6 +2,19 @@
 
 <!-- version list -->
 
+## v0.2.0 (2026-09-29)
+
+### Documentation
+
+- **user**: Propose complete-profile-fields
+  ([`8614ce9`](https://github.com/ElveeBolt/Magicvibe-API/commit/8614ce92bf27b644b0638806e5d1a6196d5ee271))
+
+### Features
+
+- **user**: Add city and dating goal to profiles and preferences
+  ([`3965a37`](https://github.com/ElveeBolt/Magicvibe-API/commit/3965a37089a69c09e746d42cc57bc3e50e087fa9))
+
+
 ## v0.1.1 (2026-09-29)
 
 ### Bug Fixes
