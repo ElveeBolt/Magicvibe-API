@@ -1,32 +1,20 @@
 schema: spec-driven
 
-# Project context (optional)
-# This is shown to AI when creating artifacts.
-# Add your tech stack, conventions, style guides, domain knowledge, etc.
-# Example:
-#   context: |
-#     Tech stack: TypeScript, React, Node.js
-#     We use conventional commits
-#     Domain: e-commerce platform
+context: |
+  Backend of a Telegram dating bot. The bot is the only client.
+  Stack: Python 3.14, FastAPI, SQLAlchemy 2 (async, asyncpg), PostgreSQL 18, Alembic,
+  Pydantic v2, uv. 
+  Code lives in src/magicvibe/<domain>/, tests in tests/<domain>/.
 
-# Per-artifact rules (optional)
-# Add custom rules for specific artifacts.
-# Example:
-#   rules:
-#     proposal:
-#       - Keep proposals under 500 words
-#       - Always include a "Non-goals" section
-#     tasks:
-#       - Break tasks into chunks of max 2 hours
+  The docs in docs/ are the source of truth. Start with docs/README.md: it lists every
+  document and what it holds. Read the ones that matter for the change, and use the terms
+  from docs/glossary.md.
 
-# Per-operation guidance (optional)
-# Add advisory guidance for how apply and archive work should be conducted.
-# This is separate from artifact rules above.
-# Example:
-#   operations:
-#     apply:
-#       guidance:
-#         - Keep test summaries concise
-#     archive:
-#       guidance:
-#         - Summarize the archive outcome before finishing
+rules:
+  specs:
+    - Capability names are kebab-case, for example api-errors, accounts, profile, profile-images, preferences, discovery, reactions, plans, reports, bans.
+    - Specs describe API behavior (endpoints, statuses, error codes), not business reasons; the reasons stay in the PRD.
+  tasks:
+    - If a business rule changes, add a task to update docs/prd.md or docs/plans.md.
+    - If the data model changes, add a task to update docs/architecture/models.md.
+    - If an error code is added, add a task to update docs/architecture/errors.md.
