@@ -2,6 +2,19 @@
 
 <!-- version list -->
 
+## v0.0.2 (2026-09-29)
+
+### Bug Fixes
+
+- **core**: Return documented error codes and statuses
+  ([`7b33eb4`](https://github.com/ElveeBolt/Magicvibe-API/commit/7b33eb493b4fbfee8f06f66b1ee5d2e4b819f54f))
+
+### Documentation
+
+- **core**: Propose add-error-codes
+  ([`ddbb89b`](https://github.com/ElveeBolt/Magicvibe-API/commit/ddbb89b2118e69ba8c86452f02017cf388277e6b))
+
+
 ## v0.0.1 (2026-09-29)
 
 ### Bug Fixes
