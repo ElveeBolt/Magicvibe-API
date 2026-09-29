@@ -6,13 +6,15 @@ from ..core.schemas.base import PaginatedResponse
 from ..user.dependencies import CurrentUserDep
 from .dependencies import ReactionServiceDep
 from .schemas.reaction import (
+    LikerFilterSchema,
+    LikerReadSchema,
     MatchFilterSchema,
     MatchReadSchema,
     ReactionCreateSchema,
     ReactionResultReadSchema,
 )
 
-# No prefix: the domain serves two resources, `/reactions` and `/matches`.
+# No prefix: the domain serves `/reactions`, `/matches` and `/likers`.
 router = APIRouter()
 
 
@@ -39,3 +41,15 @@ async def get_matches(
     filters: Annotated[MatchFilterSchema, Query()],
 ):
     return await service.get_matches(user_id=current_user.id, filters=filters)
+
+
+@router.get(
+    "/likers", response_model=PaginatedResponse[LikerReadSchema], tags=["likers"]
+)
+async def get_likers(
+    service: ReactionServiceDep,
+    current_user: CurrentUserDep,
+    filters: Annotated[LikerFilterSchema, Query()],
+):
+    """The "Who liked me" list of the acting user."""
+    return await service.get_likers(user_id=current_user.id, filters=filters)

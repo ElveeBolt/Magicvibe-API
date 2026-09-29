@@ -118,6 +118,8 @@ tests/
 ```
 
 - One folder per domain, with the same name as the domain package (`user`, `reaction`, `report`, …).
+- A rule with many time-dependent cases may get its own file next to them, named after the rule (for example
+  `tests/reaction/test_limits.py` for the daily limits).
 - Shared code from `core` is tested in `tests/core/`. Tests there that need no database (schemas, pure functions) use
   no database fixtures.
 - App-level code outside `core` and the domains (the exception handlers in `exceptions.py`) is tested in

@@ -13,6 +13,7 @@ from tests.factories import (
     create_match,
     create_profile,
     create_reaction,
+    create_subscription,
     create_user,
 )
 
@@ -66,6 +67,7 @@ async def test_like_with_a_message(
 
 async def test_superlike(client: httpx.AsyncClient, session: AsyncSession) -> None:
     user, target = await create_user(session), await create_user(session)
+    await create_subscription(session, user)
 
     response = await react(client, user, target.id, is_super=True)
 
@@ -278,3 +280,109 @@ async def test_partner_deleted(
     assert (await client.delete(f"/users/{partner.id}")).status_code == 204
 
     assert (await matches_of(client, me))["total"] == 0
+
+
+# Who liked me
+
+
+async def likers_of(client: httpx.AsyncClient, user: User) -> httpx.Response:
+    return await client.get("/likers", headers=headers(user))
+
+
+async def test_who_liked_me_on_the_free_plan(
+    client: httpx.AsyncClient, session: AsyncSession
+) -> None:
+    me = await create_user(session)
+
+    response = await likers_of(client, me)
+
+    assert response.status_code == 403
+    assert response.json()["code"] == "PREMIUM_REQUIRED"
+
+
+async def test_who_liked_me_order(
+    client: httpx.AsyncClient, session: AsyncSession
+) -> None:
+    me = await create_user(session)
+    await create_subscription(session, me)
+    ages = {"old like": 4, "new like": 1, "old superlike": 3, "new superlike": 2}
+    ids = {}
+    for name, days_ago in ages.items():
+        liker = await user_with_profile(session)
+        like = await create_reaction(session, liker, me, is_super="superlike" in name)
+        await session.execute(
+            update(Reaction)
+            .where(Reaction.id == like.id)
+            .values(created_at=func.now() - timedelta(days=days_ago))
+        )
+        ids[liker.id] = name
+    await session.commit()
+
+    items = (await likers_of(client, me)).json()["items"]
+
+    assert [ids[item["user"]["id"]] for item in items] == [
+        "new superlike",
+        "old superlike",
+        "new like",
+        "old like",
+    ]
+
+
+async def test_reacted_likers_leave_the_list(
+    client: httpx.AsyncClient, session: AsyncSession
+) -> None:
+    me = await create_user(session)
+    await create_subscription(session, me)
+    liker = await user_with_profile(session)
+    await create_reaction(session, liker, me)
+
+    await react(client, me, liker.id, action="dislike")
+
+    assert (await likers_of(client, me)).json()["items"] == []
+
+
+async def test_banned_and_hidden_likers(
+    client: httpx.AsyncClient, session: AsyncSession
+) -> None:
+    me = await create_user(session)
+    await create_subscription(session, me)
+    banned = await user_with_profile(session)
+    hidden = await create_user(session)
+    await create_profile(session, hidden, is_visible=False)
+    for liker in (banned, hidden):
+        await create_reaction(session, liker, me)
+    await create_ban(session, banned)
+
+    body = (await likers_of(client, me)).json()
+
+    assert [item["user"]["id"] for item in body["items"]] == [hidden.id]
+    assert body["total"] == 1
+
+
+async def test_likers_show_no_message_and_no_contact(
+    client: httpx.AsyncClient, session: AsyncSession
+) -> None:
+    me = await create_user(session)
+    await create_subscription(session, me)
+    liker = await user_with_profile(session, username="secret_handle")
+    await create_reaction(session, liker, me, message="Secret words")
+
+    response = await likers_of(client, me)
+
+    [item] = response.json()["items"]
+    assert set(item) == {"user", "is_super"}
+    assert "Secret words" not in response.text
+    assert "secret_handle" not in response.text
+
+
+async def test_like_back_from_the_list(
+    client: httpx.AsyncClient, session: AsyncSession
+) -> None:
+    me = await user_with_profile(session)
+    await create_subscription(session, me)
+    liker = await user_with_profile(session)
+    await create_reaction(session, liker, me)
+
+    response = await react(client, me, liker.id)
+
+    assert response.json()["match"]["user"]["id"] == liker.id

@@ -1,16 +1,23 @@
+import math
+from datetime import UTC
 from typing import TYPE_CHECKING
 
 from ..core.exceptions import (
     BadRequestError,
     ConflictError,
     ErrorCode,
+    ForbiddenError,
     NotFoundError,
+    TooManyRequestsError,
 )
 from ..core.schemas.base import PaginatedResponse
+from ..subscription.services import SubscriptionService
 from ..user.enums import UserStatus
 from ..user.schemas.user import UserPublicSchema
 from .enums import ReactionAction
 from .schemas.reaction import (
+    LikerFilterSchema,
+    LikerReadSchema,
     MatchContactSchema,
     MatchFilterSchema,
     MatchReadSchema,
@@ -50,6 +57,16 @@ class ReactionService:
             if statuses.get(data.to_user_id, UserStatus.BANNED) is UserStatus.BANNED:
                 raise NotFoundError("Target user not found")
 
+            # A repeat is reported as such, even when a limit is used up too.
+            if await self.uow.reaction.exists_pair(user_id, data.to_user_id):
+                raise ConflictError(
+                    "User already reacted to this profile",
+                    code=ErrorCode.ALREADY_REACTED,
+                )
+
+            if data.action is ReactionAction.LIKE:
+                await self._check_daily_limit(user_id, is_super=data.is_super)
+
             reaction = await self.uow.reaction.create_if_not_exists(
                 {**data.model_dump(), "from_user_id": user_id}
             )
@@ -71,6 +88,65 @@ class ReactionService:
 
             return ReactionResultReadSchema(
                 reaction=ReactionReadSchema.model_validate(reaction), match=match
+            )
+
+    async def get_likers(
+        self, user_id: int, filters: LikerFilterSchema
+    ) -> PaginatedResponse[LikerReadSchema]:
+        """The "Who liked me" list, for plans that include it."""
+        async with self.uow:
+            plan, _ = await SubscriptionService(self.uow).get_effective_plan(user_id)
+
+            if not plan.can_see_likers:
+                raise ForbiddenError(
+                    "Who liked me is not on your plan",
+                    code=ErrorCode.PREMIUM_REQUIRED,
+                )
+
+            total = await self.uow.reaction.count_likers(user_id)
+            rows = await self.uow.reaction.get_likers(
+                user_id, limit=filters.page_size, offset=filters.offset
+            )
+            return PaginatedResponse.build(
+                items=[
+                    LikerReadSchema(
+                        user=UserPublicSchema.model_validate(liker),
+                        is_super=like.is_super,
+                    )
+                    for liker, like in rows
+                ],
+                total=total,
+                filters=filters,
+            )
+
+    async def _check_daily_limit(self, user_id: int, is_super: bool) -> None:
+        """Checks the plan that applies now against the likes (or superlikes)
+        given since the last midnight in the limit time zone. The caller holds
+        the lock on the user's row, so parallel likes are counted one by one."""
+        plan, _ = await SubscriptionService(self.uow).get_effective_plan(user_id)
+        limit = plan.daily_superlike_limit if is_super else plan.daily_like_limit
+
+        # No superlikes at all is a plan feature, not a used-up quota.
+        if is_super and limit == 0:
+            raise ForbiddenError(
+                "Superlikes are not on your plan", code=ErrorCode.PREMIUM_REQUIRED
+            )
+
+        bounds = await self.uow.reaction.day_bounds()
+        used = await self.uow.reaction.count_likes_since(
+            user_id, is_super=is_super, since=bounds.day_start
+        )
+
+        if used >= limit:
+            limit_type = "superlike" if is_super else "like"
+            seconds = math.ceil((bounds.next_reset - bounds.at).total_seconds())
+            raise TooManyRequestsError(
+                f"Daily {limit_type} limit reached",
+                extra={
+                    "limit_type": limit_type,
+                    "resets_at": bounds.next_reset.astimezone(UTC).isoformat(),
+                },
+                headers={"Retry-After": str(seconds)},
             )
 
     async def get_matches(
