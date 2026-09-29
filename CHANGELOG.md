@@ -2,6 +2,19 @@
 
 <!-- version list -->
 
+## v0.4.0 (2026-09-29)
+
+### Documentation
+
+- **subscription**: Propose add-subscriptions
+  ([`ebf4670`](https://github.com/ElveeBolt/Magicvibe-API/commit/ebf46700d5620721a9be425bd651bf0f07922a43))
+
+### Features
+
+- **subscription**: Grant and end premium, read the effective plan
+  ([`33929ca`](https://github.com/ElveeBolt/Magicvibe-API/commit/33929ca2652d0f00b2803d70f62b11c2e3b674ed))
+
+
 ## v0.3.0 (2026-09-29)
 
 ### Documentation
