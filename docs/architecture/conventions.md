@@ -29,7 +29,7 @@ src/<package>/
 │   ├── database/
 │   │   └── alchemy/     # SQLAlchemy implementations: Base, mixins, enum_type, repository, service, UoW, setup
 │   ├── schemas/         # BaseSchema, BaseFilterSchema, PaginatedResponse, shared validators
-│   └── exceptions.py    # service exceptions and the ErrorCode enum (see Errors)
+│   └── exceptions.py    # ServiceError, category classes (NotFoundError, ConflictError, …), general codes
 └── <domain>/            # see Domain structure
 ```
 
@@ -49,6 +49,7 @@ src/<package>/<domain>/
 ├── repositories.py            # data access
 ├── constants.py               # business constants
 ├── enums.py                   # enums shared by models and schemas
+├── exceptions.py              # exceptions for the codes this domain owns (see Errors)
 ├── models/
 │   ├── __init__.py
 │   ├── <entity>.py            # one SQLAlchemy aggregate per file
@@ -111,8 +112,13 @@ it instead of writing new helpers.
 
 ### Errors
 
-- Services raise the exceptions from `core/exceptions.py`, each with an error code; `exceptions.py` turns them into
-  responses. Routers never build error responses themselves.
+- `core/exceptions.py` holds the mechanism: `ServiceError`, one category class per status (`BadRequestError`,
+  `ForbiddenError`, `NotFoundError`, `ConflictError`, …) and the general codes. It knows nothing about the domains.
+- A code owned by a domain is an exception class in `<domain>/exceptions.py` that subclasses a category class and sets
+  the code, for example `class AlreadyReactedError(ConflictError)` with `ALREADY_REACTED`. Other domains import it
+  from the owning domain.
+- Services raise exception classes, never a category class with a domain code passed in. `exceptions.py` turns them
+  into responses. Routers never build error responses themselves.
 - The response body, the list of codes and their statuses: [Errors](./errors.md).
 
 ### Pagination

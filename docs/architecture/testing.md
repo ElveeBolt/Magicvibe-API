@@ -105,7 +105,7 @@ tests/
 ├── factories.py           # helpers that create users, profiles, reactions, bans … in the database
 ├── core/                  # shared code from src/<package>/core/
 │   ├── __init__.py
-│   ├── test_exceptions.py # error codes and their statuses, no database
+│   ├── test_exceptions.py # every exception class's code and status match errors.md, codes are unique; no database
 │   └── test_schemas.py    # shared schemas (filters, pagination), no database
 ├── test_exceptions.py     # app-level error handlers: error body, validation, framework and unexpected errors
 └── <domain>/              # same names as src/<package>/<domain>/
