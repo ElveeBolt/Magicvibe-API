@@ -2,6 +2,34 @@
 
 <!-- version list -->
 
+## v0.5.1 (2026-10-01)
+
+### Bug Fixes
+
+- Edit conversions docs
+  ([`b4d3cce`](https://github.com/ElveeBolt/Magicvibe-API/commit/b4d3ccee063dadfe2a5731e1957c32c637e79cb2))
+
+- Remove assumption
+  ([`6f4b58e`](https://github.com/ElveeBolt/Magicvibe-API/commit/6f4b58ed689446ecbf024dded6d0f3b6a7eff08e))
+
+- Remove magic vibe from plans docs
+  ([`d098173`](https://github.com/ElveeBolt/Magicvibe-API/commit/d0981733dd5aa6882a6ebdcddaf3ff33b5da88f0))
+
+- Remove magic vibe from Readme docs
+  ([`c83eca2`](https://github.com/ElveeBolt/Magicvibe-API/commit/c83eca2d65d03616c8f0dcbbd7e81403081c8a1b))
+
+- Remove magic vibe from versioning docs
+  ([`2354862`](https://github.com/ElveeBolt/Magicvibe-API/commit/23548627e553b521f9a9a51d7cea5bd575ee8ba6))
+
+### Documentation
+
+- Place domain error codes in their owning domain
+  ([`4dd3c37`](https://github.com/ElveeBolt/Magicvibe-API/commit/4dd3c37ae0c4e546cf94b84d0e6be6d2d73213d8))
+
+- Refactor docs
+  ([`444897f`](https://github.com/ElveeBolt/Magicvibe-API/commit/444897f00d20706f72765a9fc158445cb4e7c740))
+
+
 ## v0.5.0 (2026-09-29)
 
 ### Documentation
