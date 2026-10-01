@@ -60,7 +60,7 @@ and data for the period before metrics are implemented will not be available.
 
 - Sign-up with a Telegram account only.
 - Profile with required and optional fields.
-- Profile images: up to 3 photos, managed separately from the profile.
+- Profile images.
 - City selection in two steps (region → city) from the official Ukrainian list.
 - Discovery preferences ("who I am looking for"), set separately from the profile.
 - Hiding the profile and deleting the account.
@@ -68,17 +68,17 @@ and data for the period before metrics are implemented will not be available.
 - Like, superlike (both optionally with a message) and dislike. Mutual likes create a match.
 - Two plans, **free** and **premium**, with different daily limits and features.
 - "Who liked me" list for premium users.
-- Premium granted manually by an administrator; the user pays outside MagicVibe.
+- Premium granted manually by an administrator.
 - Match notifications with the other person's Telegram contact.
 - Reports (complaints) against users.
-- Moderation: reviewing reports, bans with a reason (no end date; only an administrator can lift a ban).
+- Moderation: reviewing reports, bans with a reason.
 
 ### 4.2 Out of scope
 
 Product:
 
 - In-app chat or message relay between users.
-- Payments inside MagicVibe of any kind. Premium is paid outside the product.
+- Payments inside MagicVibe of any kind.
 - Interests, education, smoking, drinking — as profile fields or filters.
 - Anything based on location coordinates: sharing location, nearest city, distance search.
 - Villages, settlements and city districts in the city list; searching cities by text; alternative city names.
@@ -173,7 +173,7 @@ rejected with an error.
 ### 6.5 Discovery preferences
 
 - Gender: one gender or any.
-- Age range: from 18 to 100, inclusive.
+- Age range: any range within the ages allowed in 6.2.
 - City: one city or any.
 - Dating goal: one goal or any.
 - Discovery preferences must be set before the user can browse.
@@ -189,8 +189,7 @@ rejected with an error.
   person's discovery preferences.
 - A user who has not set discovery preferences yet is not shown to others: the fit in their direction cannot be
   checked. They appear as soon as they set preferences.
-- A profile the user has already reacted to is not shown again while the reaction exists. Reactions are deleted when
-  either account is deleted (see 6.1).
+- A profile the user has already reacted to is not shown again while the reaction exists.
 - To browse, the user needs a profile with all required fields filled in and discovery preferences. Hidden users can
   still browse.
 - A report does not hide anyone. A reported user stays visible to everyone, including the reporter, until an
@@ -244,7 +243,3 @@ Plans, daily limits and how premium is granted are defined only in [Plans](./pla
 
 - All administrative actions (reports, bans, premium) are done through the backend. There is no admin interface in the
   MVP.
-
-## 7. Assumptions and open questions
-
-- Assumptions are marked *(assumption)* in the text above. If one turns out wrong, change it here.

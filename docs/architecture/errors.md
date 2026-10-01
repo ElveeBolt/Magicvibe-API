@@ -22,6 +22,9 @@ framework itself use the same body: an unknown path returns `NOT_FOUND`, a wrong
 
 ## Codes
 
+General codes belong to no domain and are defined in `core`. Every other code is defined by the domain that owns the
+rule (the **Domain** column); other domains import it from there.
+
 ### General
 
 | Code                    | Status | When                                                                      | Extra fields |
@@ -36,30 +39,30 @@ framework itself use the same body: an unknown path returns `NOT_FOUND`, a wrong
 
 ### Accounts
 
-| Code             | Status | When                                                                                    | Extra fields               |
-|------------------|--------|-----------------------------------------------------------------------------------------|----------------------------|
-| `USER_NOT_FOUND` | 404    | The acting user (`X-Telegram-User-Id`) is not registered. The bot registers them first. | —                          |
-| `USER_BANNED`    | 403    | The acting user is banned. Returned for every request they make.                        | `ban`: `reason`, `comment` |
+| Code             | Status | Domain | When                                                                                    | Extra fields               |
+|------------------|--------|--------|-----------------------------------------------------------------------------------------|----------------------------|
+| `USER_NOT_FOUND` | 404    | `user` | The acting user (`X-Telegram-User-Id`) is not registered. The bot registers them first. | —                          |
+| `USER_BANNED`    | 403    | `ban`  | The acting user is banned. Returned for every request they make.                        | `ban`: `reason`, `comment` |
 
 ### Profile, discovery and reactions
 
-| Code                   | Status | When                                                                                               | Extra fields              |
-|------------------------|--------|----------------------------------------------------------------------------------------------------|---------------------------|
-| `PROFILE_REQUIRED`     | 409    | The action needs a complete profile, and the user has none                                         | —                         |
-| `PREFERENCES_REQUIRED` | 409    | Discovery needs preferences, and the user has none                                                 | —                         |
-| `PHOTO_LIMIT_REACHED`  | 409    | The profile already has the maximum number of photos                                               | `max_photos`              |
-| `SELF_ACTION`          | 400    | The user reacts to or reports themselves                                                           | —                         |
-| `ALREADY_REACTED`      | 409    | The user has already reacted to this person                                                        | —                         |
-| `DAILY_LIMIT_REACHED`  | 429    | The daily like or superlike limit is used up (see [Daily limit](#daily-limit))                     | `limit_type`, `resets_at` |
-| `PREMIUM_REQUIRED`     | 403    | The feature is not on the user's plan: "Who liked me", or a superlike on a plan with no superlikes | —                         |
+| Code                   | Status | Domain         | When                                                                                               | Extra fields              |
+|------------------------|--------|----------------|----------------------------------------------------------------------------------------------------|---------------------------|
+| `PROFILE_REQUIRED`     | 409    | `user`         | The action needs a complete profile, and the user has none                                         | —                         |
+| `PREFERENCES_REQUIRED` | 409    | `user`         | Discovery needs preferences, and the user has none                                                 | —                         |
+| `PHOTO_LIMIT_REACHED`  | 409    | `user`         | The profile already has the maximum number of photos                                               | `max_photos`              |
+| `SELF_ACTION`          | 400    | `user`         | The user reacts to or reports themselves                                                           | —                         |
+| `ALREADY_REACTED`      | 409    | `reaction`     | The user has already reacted to this person                                                        | —                         |
+| `DAILY_LIMIT_REACHED`  | 429    | `reaction`     | The daily like or superlike limit is used up (see [Daily limit](#daily-limit))                     | `limit_type`, `resets_at` |
+| `PREMIUM_REQUIRED`     | 403    | `subscription` | The feature is not on the user's plan: "Who liked me", or a superlike on a plan with no superlikes | —                         |
 
 ### Administration
 
-| Code                     | Status | When                                                          | Extra fields |
-|--------------------------|--------|---------------------------------------------------------------|--------------|
-| `PREMIUM_ALREADY_ACTIVE` | 409    | Premium is granted while the user already has current premium | —            |
-| `TARGET_USER_BANNED`     | 409    | Premium is granted to a banned user                           | —            |
-| `BAN_ALREADY_ACTIVE`     | 409    | A ban is set while the user already has an active ban         | —            |
+| Code                     | Status | Domain         | When                                                          | Extra fields |
+|--------------------------|--------|----------------|---------------------------------------------------------------|--------------|
+| `PREMIUM_ALREADY_ACTIVE` | 409    | `subscription` | Premium is granted while the user already has current premium | —            |
+| `TARGET_USER_BANNED`     | 409    | `subscription` | Premium is granted to a banned user                           | —            |
+| `BAN_ALREADY_ACTIVE`     | 409    | `ban`          | A ban is set while the user already has an active ban         | —            |
 
 Reports have no codes of their own: apart from reporting oneself (`SELF_ACTION`), a report always succeeds for the
 reporter (see [PRD → Reports](../prd.md#69-reports)).
@@ -114,8 +117,11 @@ constraint gives `CONFLICT`. The raw database message is logged and never return
   ([Versioning](../process/versioning.md#compatibility-with-the-bot)).
 - Adding a code is not breaking: the bot handles an unknown code by its HTTP status.
 - A new code is added only when the bot must act differently from the general code with the same status.
-- Codes are an `ErrorCode` `StrEnum` in `core/exceptions.py`; every service exception carries one. This document is
-  the list of codes; the enum follows it.
+- Every code is one exception class. It sets the code and inherits the status from its category class in
+  `core/exceptions.py` (`ConflictError` → 409, `ForbiddenError` → 403, …), so a code is never sent with another status.
+  General codes live in `core/exceptions.py`, the rest in `<domain>/exceptions.py` of the owning domain.
+- This document is the list of codes; the code follows it. A test checks that every exception class that sets a code
+  uses one from this list with its status, and that no two classes share a code.
 - An empty result is not an error: when there are no more profiles, `GET /discovery/next` returns 200 with `null`,
   not a 404.
 - API tests check the status and the `code` (and extra fields), never the `detail` text

@@ -49,7 +49,9 @@ describe procedure; the facts come from here:
 - If the code disagrees with the docs, change the code. If the rule itself must
   change, update the doc first. Never resolve a conflict silently.
 - Known drift — the code must be brought to the docs: no `MAX_PROFILE_IMAGES`;
-  no `data/regions/load.py` yet (the owner writes it).
+  no `data/regions/load.py` yet (the owner writes it); domain error codes are
+  still in the `ErrorCode` enum in `core/exceptions.py`, not in
+  `<domain>/exceptions.py`.
 
 ## How a request flows
 
@@ -59,9 +61,10 @@ describe procedure; the facts come from here:
   (`user/dependencies.py`). The user must already exist via `POST /users`.
 - router → `<Domain>ServiceDep` → service opens `async with self.uow:` →
   `self.uow.<repo>` → SQLAlchemy.
-- Services signal failures with the exceptions in `core/exceptions.py`, each
-  carrying an `ErrorCode`; `exceptions.py` turns them into responses. Body, codes
-  and statuses: `docs/architecture/errors.md`.
+- Services raise exception classes: general ones from `core/exceptions.py`,
+  domain ones from `<domain>/exceptions.py` (each subclasses a category class
+  and sets its code); `exceptions.py` turns them into responses. Body, codes,
+  statuses and owning domains: `docs/architecture/errors.md`.
 - Shared bases: `core/schemas/base.py` (`BaseSchema`, `BaseFilterSchema`,
   `PaginatedResponse`), `core/database/alchemy/` (`Base` with BigInteger `id`,
   `TimestampMixin`, `AlchemyRepository`, UoW).
