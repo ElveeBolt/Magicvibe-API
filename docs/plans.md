@@ -30,8 +30,8 @@ This document describes the plans, their daily like limits, available features, 
 
 ## Granting premium
 
-- There is no payment inside product. A user asks support in Telegram and pays outside the product; then an
-  administrator grants premium. Product stores only the granted premium, not the payment.
+- There is no payment inside the product. A user asks support in Telegram and pays outside the product; then an
+  administrator grants premium. The product stores only the granted premium, not the payment.
 - Premium lasts for the duration in the plan table and starts at the moment it is granted. It cannot be
   granted for a future date.
 - Premium cannot be granted to a banned user.

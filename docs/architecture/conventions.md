@@ -6,10 +6,10 @@ Rules for code in this repository. They apply to every domain.
 
 Only the folders whose purpose is not obvious from the name:
 
-| Folder  | Holds                                                                       |
-|---------|-----------------------------------------------------------------------------|
-| `data/` | Reference data and the scripts that load it (see [Migrations](#migrations)) |
-| `docs/` | Product and architecture documentation                                      |
+| Folder  | Holds                                                                                |
+|---------|--------------------------------------------------------------------------------------|
+| `data/` | Reference data and the scripts that load it (see [Regions data](./region_data.md))   |
+| `docs/` | Product and architecture documentation                                               |
 
 ## Package structure
 
@@ -94,8 +94,7 @@ it instead of writing new helpers.
       ascending `id` order), so concurrent requests cannot both pass or both miss the check.
 - Database defaults via `server_default`.
 - Timestamps from `TimestampMixin` (`created_at`, `updated_at`) or `CreatedAtMixin` (`created_at`).
-- All foreign keys to `users.id` and `user_profiles.id` use `ON DELETE CASCADE`.
-- Timestamps are `timestamptz` in UTC.
+- Tables, columns, foreign keys and constraints follow the [Data model](./models.md).
 
 ## Schemas
 
@@ -152,8 +151,6 @@ A `page_size` above 100 is rejected with `VALIDATION_ERROR` ([Errors](./errors.m
   the newly generated, not yet merged migration: only `op.create_check_constraint` in `upgrade` and `op.drop_constraint`
   in `downgrade`, with the model's name and expression. A test expects the constraint by name.
 - Migrations change the schema only. They never load data and never call scripts.
-- Regions and cities are loaded by `data/regions/load.py` from `data/regions/katotth_<YYYY-MM-DD>.json`, which a
-  developer runs manually (see [Regions data](./region_data.md)).
 - Migrations never import ORM models or services.
 - A merged migration is never edited; fix mistakes with a new migration.
 

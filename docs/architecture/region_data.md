@@ -10,7 +10,7 @@ Two tables (see [Data model](./models.md#region-domain)):
 - `regions` — oblasts, the Autonomous Republic of Crimea, Kyiv and Sevastopol;
 - `cities` — all cities, each linked to its region. Kyiv and Sevastopol are also stored as a city of their own region.
 
-Villages, settlements and city districts are not stored. Names are in Ukrainian, as in KATOTTH.
+Villages, settlements and city districts are not stored.
 
 ## Files
 
